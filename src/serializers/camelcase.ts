@@ -1,5 +1,5 @@
 import camelCaseKeys from 'camelcase-keys';
-import { defineSerializers } from '../main.ts';
+import { defineSerializers } from '../xtream.ts';
 
 /**
  * CamelCase serializers for the Xtream API

@@ -1,5 +1,6 @@
 import camelCaseKeys from 'camelcase-keys';
-import { defineSerializers, XtreamCategory } from '../main.ts';
+import { defineSerializers } from '../xtream.ts';
+import type { XtreamCategory, Prettify } from '../types.ts';
 
 /**
  * Standardized serializers for the Xtream API
@@ -114,7 +115,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     });
   },
 
-  TVShows: (input): StandardXtreamTVShow[] => {
+  TVShows: (input): Prettify<Omit<StandardXtreamTVShow, 'seasons'>>[] => {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((show) => {
@@ -486,9 +487,7 @@ export type StandardXtreamTVShow = {
   /** All category IDs the TV show belongs to */
   categoryIds?: string[];
   /** Array of seasons in the TV show */
-  seasons?: StandardXtreamSeason[];
-  /** If no seasons exists episodes will be on this property */
-  episodes?: StandardXtreamEpisode[];
+  seasons: StandardXtreamSeason[];
 };
 
 /**

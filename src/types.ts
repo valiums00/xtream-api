@@ -601,6 +601,6 @@ export type XtreamFullEPGListing = Prettify<
   }
 >;
 
-type Prettify<T> = {
+export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
