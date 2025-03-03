@@ -10,7 +10,6 @@
     "tvArchive": false,
     "logo": "https://example-iptv.com/images/news24.png",
     "epgId": "C679.262.ersatztv.org",
-    "isAdult": false,
     "createdAt": "2025-01-03T06:02:33.000Z",
     "categoryIds": [
       "1"
@@ -27,7 +26,6 @@
     "tvArchive": false,
     "logo": "https://example-iptv.com/images/sports-hd.png",
     "epgId": "C679.263.ersatztv.org",
-    "isAdult": false,
     "createdAt": "2025-01-03T06:02:33.000Z",
     "categoryIds": [
       "1"
@@ -44,7 +42,6 @@
     "tvArchive": false,
     "logo": "https://example-iptv.com/images/entertainment.png",
     "epgId": "C679.264.ersatztv.org",
-    "isAdult": false,
     "createdAt": "2025-01-03T06:02:33.000Z",
     "categoryIds": [
       "1"
@@ -61,7 +58,6 @@
     "tvArchive": false,
     "logo": "https://example-iptv.com/images/documentaries.png",
     "epgId": "C679.265.ersatztv.org",
-    "isAdult": false,
     "createdAt": "2025-01-03T06:02:33.000Z",
     "categoryIds": [
       "2"

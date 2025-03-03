@@ -4,11 +4,10 @@
   "title": "Small Town Stories",
   "year": "2025",
   "plot": "A heartwarming drama that follows the interconnected lives of residents in a close-knit small town as they navigate life's joys and challenges together. Each episode brings new revelations about the town's history and its inhabitants.",
-  "youtubeTrailer": "",
-  "rating": 0,
+  "voteAverage": 0,
   "poster": "https://example-iptv.com/images/small-town-main.jpg",
   "cover": "https://example-iptv.com/images/small-town-backdrop.jpg",
-  "episodeRunTime": 37,
+  "duration": 2220,
   "cast": [
     "Elizabeth Parker",
     "Michael Reynolds",
@@ -23,6 +22,7 @@
     "Drama",
     "Family"
   ],
+  "youtubeId": "abcdefghijk",
   "releaseDate": "2025-02-24T00:00:00.000Z",
   "updatedAt": "2025-02-26T17:35:20.000Z",
   "categoryIds": [
@@ -32,8 +32,9 @@
     {
       "id": "1",
       "name": "Season 1",
-      "episodeCount": "2",
+      "episodeCount": 2,
       "overview": "",
+      "voteAverage": 10,
       "releaseDate": "2025-02-24T00:00:00.000Z",
       "number": 1,
       "cover": "https://example-iptv.com/images/small-town-s01e01.jpg",

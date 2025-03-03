@@ -7,9 +7,7 @@
         "name": "Summer Adventure (2024)",
         "title": "Summer Adventure",
         "year": "2024",
-        "rating": 5.5,
         "plot": "Four friends embark on an unforgettable journey across the coast during their last summer together before college.",
-        "youtubeTrailer": "k2qgYK1CrkQ",
         "containerExtension": "mp4",
         "customSid": "",
         "directSource": "",
@@ -28,8 +26,9 @@
           "Robert Wilson"
         ],
         "poster": "https://example-iptv.com/images/summer-adventure.jpg",
-        "isAdult": false,
-        "runtime": 109,
+        "voteAverage": 5.5,
+        "duration": 6540,
+        "youtubeId": "k2qgYK1CrkQ",
         "releaseDate": "2024-06-15T00:00:00.000Z",
         "createdAt": "2025-02-26T09:35:32.000Z"
       },
@@ -51,9 +50,7 @@
         "name": "The Last Stand (2023)",
         "title": "The Last Stand",
         "year": "2023",
-        "rating": 7.5,
         "plot": "A retired sheriff and his team must protect their town from a ruthless cartel leader and his gang.",
-        "youtubeTrailer": "k2qgYK1CrkQ",
         "containerExtension": "mp4",
         "customSid": "",
         "directSource": "",
@@ -72,8 +69,9 @@
           "James Wilson"
         ],
         "poster": "https://example-iptv.com/images/the-last-stand.jpg",
-        "isAdult": false,
-        "runtime": 118,
+        "voteAverage": 7.5,
+        "duration": 7080,
+        "youtubeId": "k2qgYK1CrkQ",
         "releaseDate": "2023-08-22T00:00:00.000Z",
         "createdAt": "2025-02-26T09:35:32.000Z"
       },

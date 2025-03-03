@@ -1,8 +1,19 @@
 import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
 import fullEpg from './epg-response.ts';
+import type {
+  XtreamCategory,
+  XtreamChannel,
+  XtreamMovie,
+  XtreamMoviesListing,
+  XtreamServerInfo,
+  XtreamShortEPG,
+  XtreamTVShow,
+  XtreamTVShowListing,
+  XtreamUserProfile,
+} from '../src/types.ts';
 
-const profile = {
+const profile: XtreamUserProfile = {
   username: 'testuser',
   password: 'testpass',
   message: 'Welcome to IPTV Service',
@@ -16,7 +27,7 @@ const profile = {
   allowed_output_formats: ['m3u8', 'ts', 'rtmp'],
 };
 
-const serverInfo = {
+const serverInfo: XtreamServerInfo = {
   xui: true,
   version: '1.5.13',
   revision: null,
@@ -30,7 +41,7 @@ const serverInfo = {
   timezone: 'UTC',
 };
 
-const channels = [
+const channels: XtreamChannel[] = [
   {
     num: 1,
     name: 'News 24/7',
@@ -97,7 +108,7 @@ const channels = [
   },
 ];
 
-const categories = [
+const categories: XtreamCategory[] = [
   { category_id: '1', category_name: 'Sports', parent_id: 0 },
   { category_id: '2', category_name: 'News', parent_id: 0 },
   { category_id: '3', category_name: 'Entertainment', parent_id: 0 },
@@ -105,7 +116,7 @@ const categories = [
   { category_id: '5', category_name: 'Football', parent_id: 1 },
 ];
 
-const movies = [
+const movies: XtreamMoviesListing[] = [
   {
     num: 1,
     name: 'Summer Adventure (2024)',
@@ -156,7 +167,51 @@ const movies = [
   },
 ];
 
-const tvShows = [
+const movie: XtreamMovie = {
+  info: {
+    kinopoisk_url: 'https://www.example.com/movie/123456',
+    tmdb_id: 123456,
+    name: 'Movie Title',
+    o_name: 'Original Movie Title',
+    cover_big: 'https://example.com/images/cover_big.jpg',
+    movie_image: 'https://example.com/images/movie_image.jpg',
+    release_date: '2023-05-15',
+    episode_run_time: 120,
+    youtube_trailer: 'abcdefghijk',
+    director: 'Director Name',
+    actors: 'Actor One, Actor Two, Actor Three, Actor Four, Actor Five',
+    cast: 'Actor One, Actor Two, Actor Three, Actor Four, Actor Five',
+    description:
+      'A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.',
+    plot: 'A more detailed description of the movie plot that explains the main storyline and characters.',
+    age: 'PG-13',
+    mpaa_rating: 'PG-13',
+    rating_count_kinopoisk: 1500,
+    country: 'United States',
+    genre: 'Action, Drama, Sci-Fi',
+    backdrop_path: ['https://example.com/images/backdrop1.jpg'],
+    duration_secs: 7200,
+    duration: '02:00:00',
+    bitrate: 3500,
+    rating: 7.8,
+    releasedate: '2023-05-15',
+    subtitles: ['English', 'Spanish', 'French'],
+  },
+  movie_data: {
+    stream_id: 100000,
+    name: 'Movie Title (2023)',
+    title: 'Movie Title',
+    year: '2023',
+    added: '1683000000',
+    category_id: '100',
+    category_ids: [100],
+    container_extension: 'mp4',
+    custom_sid: 'abc123',
+    direct_source: 'https://example.com/streaming/movie.mp4',
+  },
+};
+
+const tvShows: XtreamTVShowListing[] = [
   {
     num: 1,
     name: 'Medical Heroes (2022)',
@@ -175,7 +230,7 @@ const tvShows = [
     rating: '7',
     rating_5based: 3.5,
     backdrop_path: ['https://example-iptv.com/images/medical-heroes-backdrop.jpg'],
-    youtube_trailer: '',
+    youtube_trailer: 'abcdefghijk',
     episode_run_time: '88',
     category_id: '1',
     category_ids: [1],
@@ -198,14 +253,14 @@ const tvShows = [
     rating: '0',
     rating_5based: 0,
     backdrop_path: ['https://example-iptv.com/images/small-town-backdrop.jpg'],
-    youtube_trailer: '',
+    youtube_trailer: 'abcdefghijk',
     episode_run_time: '37',
     category_id: '2',
     category_ids: [2],
   },
 ];
 
-const tvShow = {
+const tvShow: XtreamTVShow = {
   seasons: [
     {
       air_date: '2025-02-17',
@@ -245,7 +300,7 @@ const tvShow = {
     rating: '0',
     rating_5based: 0,
     backdrop_path: ['https://example-iptv.com/images/small-town-backdrop.jpg'],
-    youtube_trailer: '',
+    youtube_trailer: 'abcdefghijk',
     episode_run_time: '37',
     category_id: '2',
     category_ids: [2],
@@ -303,7 +358,7 @@ const tvShow = {
   },
 };
 
-const tvShowNoSeasons = {
+const tvShowNoSeasons: XtreamTVShow = {
   seasons: [],
   info: {
     name: 'Small Town Stories (2025)',
@@ -320,7 +375,7 @@ const tvShowNoSeasons = {
     rating: '0',
     rating_5based: 0,
     backdrop_path: ['https://example-iptv.com/images/small-town-backdrop.jpg'],
-    youtube_trailer: '',
+    youtube_trailer: 'abcdefghijk',
     episode_run_time: '37',
     category_id: '2',
     category_ids: [2],
@@ -402,7 +457,7 @@ const seriesNotFound = {
   },
 };
 
-const shortEpg = {
+const shortEpg: XtreamShortEPG = {
   epg_listings: [
     {
       id: '17528639',
@@ -469,6 +524,7 @@ export const restHandlers = [
     const seriesId = params.get('series_id');
     const limit = params.get('limit');
     const streamId = params.get('stream_id');
+    const vodId = params.get('vod_id');
 
     if (username === 'error') {
       return new HttpResponse(null, { status: 404 });
@@ -497,6 +553,11 @@ export const restHandlers = [
           return movie.category_ids.some((id) => id === Number(categoryId));
         });
         return HttpResponse.json(filteredMovies);
+      case 'get_vod_info':
+        if (vodId === '1000') {
+          return HttpResponse.json({ info: [] });
+        }
+        return HttpResponse.json(movie);
       case 'get_series':
         const filteredSeries = tvShows.filter((show) => {
           if (!categoryId) {

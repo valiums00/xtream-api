@@ -1,0 +1,50 @@
+{
+  "info": {
+    "kinopoiskUrl": "https://www.example.com/movie/123456",
+    "tmdbId": 123456,
+    "name": "Movie Title",
+    "oName": "Original Movie Title",
+    "coverBig": "https://example.com/images/cover_big.jpg",
+    "movieImage": "https://example.com/images/movie_image.jpg",
+    "releaseDate": "2023-05-15",
+    "episodeRunTime": 120,
+    "youtubeTrailer": "abcdefghijk",
+    "director": "Director Name",
+    "actors": "Actor One, Actor Two, Actor Three, Actor Four, Actor Five",
+    "cast": "Actor One, Actor Two, Actor Three, Actor Four, Actor Five",
+    "description": "A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.",
+    "plot": "A more detailed description of the movie plot that explains the main storyline and characters.",
+    "age": "PG-13",
+    "mpaaRating": "PG-13",
+    "ratingCountKinopoisk": 1500,
+    "country": "United States",
+    "genre": "Action, Drama, Sci-Fi",
+    "backdropPath": [
+      "https://example.com/images/backdrop1.jpg"
+    ],
+    "durationSecs": 7200,
+    "duration": "02:00:00",
+    "bitrate": 3500,
+    "rating": 7.8,
+    "releasedate": "2023-05-15",
+    "subtitles": [
+      "English",
+      "Spanish",
+      "French"
+    ]
+  },
+  "movieData": {
+    "streamId": 100000,
+    "name": "Movie Title (2023)",
+    "title": "Movie Title",
+    "year": "2023",
+    "added": "1683000000",
+    "categoryId": "100",
+    "categoryIds": [
+      100
+    ],
+    "containerExtension": "mp4",
+    "customSid": "abc123",
+    "directSource": "https://example.com/streaming/movie.mp4"
+  }
+}

@@ -54,7 +54,6 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         num,
         streamId,
         streamType,
-        isAdult,
         categoryId,
         categoryIds,
         streamIcon,
@@ -70,14 +69,13 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         tvArchive: tvArchive === 1,
         logo: streamIcon,
         epgId: epgChannelId,
-        isAdult: isAdult === 1,
         createdAt: new Date(Number(added) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
       };
     });
   },
 
-  movies: (input): StandardXtreamMovie[] => {
+  movies: (input): StandardXtreamMovieListing[] => {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((movie) => {
@@ -86,8 +84,8 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         streamType,
         streamIcon,
         streamId,
-        isAdult,
         releaseDate,
+        rating,
         rating5Based,
         added,
         categoryIds,
@@ -96,6 +94,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         genre,
         cast,
         director,
+        youtubeTrailer,
         ...cced
       } = movie;
 
@@ -106,13 +105,68 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
         poster: streamIcon,
-        isAdult: isAdult === 1,
-        runtime: Number(episodeRunTime),
+        duration: Number(episodeRunTime) * 60,
+        voteAverage: Number(rating),
         releaseDate: new Date(releaseDate),
+        youtubeId: youtubeTrailer,
         createdAt: new Date(Number(added) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
       };
     });
+  },
+
+  movie: (input): StandardXtreamMovie => {
+    const camelInput = camelCaseKeys(input, { deep: true });
+
+    const {
+      director,
+      actors,
+      genre,
+      cast,
+      oName,
+      releaseDate,
+      releasedate,
+      mpaaRating,
+      age,
+      rating,
+      duration,
+      durationSecs,
+      coverBig,
+      movieImage,
+      backdropPath,
+      ratingCountKinopoisk,
+      episodeRunTime,
+      youtubeTrailer,
+      tmdbId,
+      ...restInfo
+    } = camelInput.info;
+    const { categoryId, categoryIds, streamId, added, ...restData } = camelInput.movieData;
+
+    return {
+      id: streamId.toString(),
+      informationUrl: restInfo.kinopoiskUrl,
+      originalName: oName,
+      cover: coverBig,
+      poster: movieImage,
+      duration: durationSecs,
+      durationFormatted: duration,
+      voteAverage: rating,
+      director: director.split(',').map((x) => x.trim()),
+      actors: actors.split(',').map((x) => x.trim()),
+      cast: cast.split(',').map((x) => x.trim()),
+      genre: genre.split(',').map((x) => x.trim()),
+      categoryIds: categoryIds.map((id) => id.toString()),
+      tmdbId: tmdbId.toString(),
+      youtubeId: youtubeTrailer,
+      releaseDate: new Date(releaseDate),
+      createdAt: new Date(Number(added) * 1000),
+      rating: {
+        mpaa: mpaaRating,
+        age: Number(age),
+      },
+      ...restData,
+      ...restInfo,
+    };
   },
 
   TVShows: (input): Prettify<Omit<StandardXtreamTVShow, 'seasons'>>[] => {
@@ -126,7 +180,6 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         rating5Based,
         seriesId,
         cover,
-        releasedate,
         categoryId,
         categoryIds,
         backdropPath,
@@ -136,6 +189,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         cast,
         director,
         genre,
+        youtubeTrailer,
         ...restShow
       } = show;
 
@@ -145,13 +199,14 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
         genre: genre.split(',').map((x) => x.trim()),
-        rating: Number(rating),
+        voteAverage: Number(rating),
         poster: cover,
         cover: backdropPath[0],
-        episodeRunTime: Number(episodeRunTime),
-        releaseDate: new Date(releasedate || releaseDate),
+        duration: Number(episodeRunTime) * 60,
+        releaseDate: new Date(releaseDate),
         updatedAt: new Date(Number(lastModified) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
+        youtubeId: youtubeTrailer,
       };
     });
   },
@@ -162,13 +217,10 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     });
 
     const {
-      num,
-      streamType,
       rating,
       rating5Based,
       seriesId,
       cover,
-      releasedate,
       categoryId,
       categoryIds,
       backdropPath,
@@ -178,7 +230,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       cast,
       director,
       genre,
-
+      youtubeTrailer,
       ...restTVShowInfo
     } = info;
 
@@ -217,12 +269,12 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         return {
           id: Number(seasonNumber),
           name: `Season ${seasonNumber}`,
-          episodeCount: episodes[season].length.toString(),
+          episodeCount: episodes[season].length,
           overview: '',
           airDate: firstEpisode.info.releaseDate,
           cover: firstEpisode.info.movieImage,
-          coverTmdb: firstEpisode.info.movieImage,
           seasonNumber: Number(seasonNumber),
+          voteAverage: Number(firstEpisode.info.rating),
           coverBig: firstEpisode.info.movieImage,
           releaseDate: firstEpisode.info.releaseDate,
         };
@@ -230,14 +282,14 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     }
 
     const mappedSeasons: StandardXtreamSeason[] = seasonsToMap.map((season) => {
-      const { id, seasonNumber, cover, coverBig, coverTmdb, airDate, ...restSeason } = season;
+      const { id, seasonNumber, cover, coverBig, airDate, ...restSeason } = season;
 
       return {
         id: id.toString(),
         ...restSeason,
         releaseDate: new Date(airDate),
         number: seasonNumber,
-        cover: coverBig || coverTmdb,
+        cover: coverBig,
         tvShowId: seriesId.toString(),
         episodes: mappedEpisodes.filter((episode) => episode.seasonId === id.toString()),
       };
@@ -246,14 +298,15 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     return {
       id: info.seriesId.toString(),
       ...restTVShowInfo,
-      rating: Number(rating),
+      voteAverage: Number(rating),
       poster: cover,
       cover: backdropPath[0],
-      episodeRunTime: Number(episodeRunTime),
+      duration: Number(episodeRunTime) * 60,
       cast: cast.split(',').map((x) => x.trim()),
       director: director.split(',').map((x) => x.trim()),
       genre: genre.split(',').map((x) => x.trim()),
-      releaseDate: new Date(releasedate || releaseDate),
+      youtubeId: youtubeTrailer,
+      releaseDate: new Date(releaseDate),
       updatedAt: new Date(Number(lastModified) * 1000),
       categoryIds: categoryIds.map((id) => id.toString()),
       seasons: mappedSeasons,
@@ -370,8 +423,6 @@ export type StandardXtreamServerInfo = {
   timezone: string;
   /** The current server time as a Date object */
   timeNow: Date;
-  /** Server process status */
-  process: boolean;
 };
 
 /**
@@ -414,8 +465,6 @@ export type StandardXtreamChannel = {
   thumbnail: string;
   /** The URL for the channel's logo */
   logo: string;
-  /** Flag indicating if the content is for adults */
-  isAdult: boolean;
   /** The date when the channel was added to the system */
   createdAt: Date;
   /** All category IDs the channel belongs to */
@@ -423,11 +472,11 @@ export type StandardXtreamChannel = {
 };
 
 /**
- * Standardized Xtream movie information
+ * Standardized Xtream movie listing
  *
  * This type represents a movie in the Xtream system in a standardized format
  */
-export type StandardXtreamMovie = {
+export type StandardXtreamMovieListing = {
   /** The unique identifier for the movie */
   id: string;
   /** The title of the movie */
@@ -435,13 +484,13 @@ export type StandardXtreamMovie = {
   /** The synopsis/description of the movie */
   plot: string;
   /** The movie's rating */
-  rating: number;
+  voteAverage: number;
   /** The URL for the movie's poster */
   poster: string;
   /** The release date of the movie */
   releaseDate: Date;
-  /** The runtime of the movie in minutes */
-  runtime: number;
+  /** The runtime of the movie in seconds */
+  duration: number;
   /** The cast of the movie as an array */
   cast: string[];
   /** The director(s) of the movie as an array */
@@ -452,6 +501,69 @@ export type StandardXtreamMovie = {
   createdAt: Date;
   /** All category IDs the movie belongs to */
   categoryIds?: string[];
+};
+
+/**
+ * Standardized Xtream TV movie information
+ */
+export type StandardXtreamMovie = {
+  /** The unique identifier for the stream */
+  id: string;
+  /** The URL to the movie's Kinopoisk page */
+  informationUrl: string;
+  /** The ID of the movie in The Movie Database (TMDB) */
+  tmdbId: string;
+  /** The title of the movie */
+  name: string;
+  /** The original title of the movie */
+  originalName: string;
+  /** The URL for the movie's cover image */
+  cover: string;
+  /** The URL for the movie's image */
+  poster: string;
+  /** The release date of the movie */
+  releaseDate: Date;
+  /** The YouTube ID or URL for the trailer */
+  youtubeId: string;
+  /** The director(s) of the movie */
+  director: string[];
+  /** The actors in the movie */
+  actors: string[];
+  /** The cast of the movie */
+  cast: string[];
+  /** The synopsis/description of the movie */
+  description: string;
+  /** The plot of the movie */
+  plot: string;
+  /** The age abd MPAA rating of the movie */
+  rating: {
+    age: number;
+    mpaa: string;
+  };
+  /** The country of origin for the movie */
+  country: string;
+  /** The genre(s) of the movie */
+  genre: string[];
+  /** The duration of the movie in seconds */
+  duration: number;
+  /** The formatted duration of the movie */
+  durationFormatted: string;
+  /** The bitrate of the movie */
+  bitrate: number;
+  /** Array of available subtitles */
+  subtitles: string[];
+  /** The rating of the movie */
+  voteAverage: number;
+  /** The date when the movie was added to the system */
+  createdAt: Date;
+  /** All category IDs the movie belongs to */
+  categoryIds: string[];
+  /** The file format extension */
+  containerExtension: string;
+  /** Custom stream identifier */
+  customSid: string;
+  /** The direct URL to the movie's source */
+  directSource: string;
 };
 
 /**
@@ -467,15 +579,17 @@ export type StandardXtreamTVShow = {
   /** The synopsis/description of the TV show */
   plot: string;
   /** The TV show's rating */
-  rating: number;
+  voteAverage: number;
   /** The URL for the TV show's poster image */
   poster: string;
   /** The URL for the TV show's cover image */
   cover: string;
   /** The release date of the TV show */
   releaseDate: Date;
-  /** The average runtime of episodes in minutes */
-  episodeRunTime: number;
+  /** The average runtime of episodes in seconds */
+  duration: number;
+  /** Youtube ID of trailer */
+  youtubeId: string;
   /** The cast members of the TV show as an array */
   cast: string[];
   /** The director(s) of the TV show as an array */

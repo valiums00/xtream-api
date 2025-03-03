@@ -1,4 +1,6 @@
-export default {
+import { XtreamFullEPG } from '../src/types';
+
+const epgResponse: XtreamFullEPG = {
   epg_listings: [
     {
       id: '16364796',
@@ -142,3 +144,5 @@ export default {
     },
   ],
 };
+
+export default epgResponse;

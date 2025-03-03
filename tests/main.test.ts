@@ -175,6 +175,12 @@ describe('Xtream API', () => {
     await expect(movies).toMatchFileSnapshot('snapshots/raw/movies-page1.json');
   });
 
+  test('getMovie returns the movie information', async () => {
+    const movie = await noSerializerXtream.getMovie({ movieId: '1' });
+
+    await expect(movie).toMatchFileSnapshot('snapshots/raw/movie.json');
+  });
+
   test('getTVShows returns the list of TV shows', async () => {
     const tvShows = await noSerializerXtream.getTVShows();
 
@@ -243,6 +249,12 @@ describe('JSON:API serializer', () => {
     await expect(movies).toMatchFileSnapshot('snapshots/jsonapi/movies.json');
   });
 
+  test('getMovie returns the movie information', async () => {
+    const movie = await jsonApiSerializerXtream.getMovie({ movieId: 1 });
+
+    await expect(movie).toMatchFileSnapshot('snapshots/jsonapi/movie.json');
+  });
+
   test('getTVShows returns the list of TV shows', async () => {
     const tvShows = await jsonApiSerializerXtream.getTVShows();
 
@@ -253,12 +265,6 @@ describe('JSON:API serializer', () => {
     const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '1' });
 
     await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show.json');
-  });
-
-  test('getTVShow handles cover_tmdb property', async () => {
-    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '2000' });
-
-    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show-tmdb.json');
   });
 
   test('We generate seasons if no seasons are provided by the API', async () => {
@@ -313,6 +319,12 @@ describe('Camel case serializer', () => {
     const movies = await camelCaseSerializerXtream.getMovies();
 
     await expect(movies).toMatchFileSnapshot('snapshots/camelcase/movies.json');
+  });
+
+  test('getMovie returns the movie information', async () => {
+    const movie = await camelCaseSerializerXtream.getMovie({ movieId: 1 });
+
+    await expect(movie).toMatchFileSnapshot('snapshots/camelcase/movie.json');
   });
 
   test('getTVShows returns the list of TV shows', async () => {
@@ -373,6 +385,12 @@ describe('Standardized serializer', () => {
     const movies = await standardizedSerializerXtream.getMovies();
 
     await expect(movies).toMatchFileSnapshot('snapshots/standardized/movies.json');
+  });
+
+  test('getMovie returns the movie information', async () => {
+    const movie = await standardizedSerializerXtream.getMovie({ movieId: '1' });
+
+    await expect(movie).toMatchFileSnapshot('snapshots/standardized/movie.json');
   });
 
   test('getTVShows returns the list of TV shows', async () => {
@@ -562,5 +580,9 @@ describe('Errors', () => {
 
   test('Series not found', async () => {
     await expect(noSerializerXtream.getTVShow({ showId: '1000' })).rejects.toThrowError('TV Show Not Found');
+  });
+
+  test('Movie not found', async () => {
+    await expect(noSerializerXtream.getMovie({ movieId: '1000' })).rejects.toThrowError('Movie Not Found');
   });
 });

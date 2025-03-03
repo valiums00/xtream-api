@@ -40,7 +40,7 @@
     "backdrop_path": [
       "https://example-iptv.com/images/small-town-backdrop.jpg"
     ],
-    "youtube_trailer": "",
+    "youtube_trailer": "abcdefghijk",
     "episode_run_time": "37",
     "category_id": "2",
     "category_ids": [

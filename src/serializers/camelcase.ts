@@ -29,6 +29,9 @@ export const camelCaseSerializer = defineSerializers('Camel Case', {
   movies: (input) => {
     return camelCaseKeys(input);
   },
+  movie: (input) => {
+    return camelCaseKeys(input, { deep: true });
+  },
   TVShows: (input) => {
     return camelCaseKeys(input);
   },
