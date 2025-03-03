@@ -8,7 +8,7 @@ A TypeScript library for interacting with an Xtream compatible player API.
 
 [![npm](https://img.shields.io/npm/v/@iptv/xtream-api?style=flat-square)](https://www.npmjs.com/package/@iptv/playlist)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ektotv/xtream-api/ci.yml?branch=main&style=flat-square)](https://github.com/ektotv/xtream-api/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/evoactivity/7c8deb6342792baafac8834185e96476/raw/iptv_playlist_coverage.json&style=flat-square)](https://github.com/ektotv/xtream-api/tree/main/tests)
+[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/evoactivity/89b5ed71e9091bdaf59adf1aa29083c7/raw/iptv_xtream-api_coverage.json&style=flat-square)](https://github.com/ektotv/xtream-api/tree/main/tests)
 [![GitHub](https://img.shields.io/github/license/ektotv/xtream-api?style=flat-square)](LICENSE.md)
 
 </div>
