@@ -1,0 +1,28 @@
+[
+  {
+    "num": 1,
+    "name": "Summer Adventure (2024)",
+    "title": "Summer Adventure",
+    "year": "2024",
+    "stream_type": "movie",
+    "stream_id": 935703,
+    "stream_icon": "https://example-iptv.com/images/summer-adventure.jpg",
+    "rating": 5.5,
+    "rating_5based": 2.8,
+    "added": "1740562532",
+    "plot": "Four friends embark on an unforgettable journey across the coast during their last summer together before college.",
+    "cast": "John Smith, Emily Johnson, Michael Brown, Sarah Davis",
+    "director": "Robert Wilson",
+    "genre": "Adventure, Comedy, Drama",
+    "release_date": "2024-06-15",
+    "youtube_trailer": "k2qgYK1CrkQ",
+    "episode_run_time": 109,
+    "category_id": "1",
+    "category_ids": [
+      1
+    ],
+    "container_extension": "mp4",
+    "custom_sid": "",
+    "direct_source": ""
+  }
+]

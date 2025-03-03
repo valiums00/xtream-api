@@ -1,0 +1,74 @@
+[
+  {
+    "num": 1,
+    "name": "News 24/7",
+    "streamType": "live",
+    "streamId": 1,
+    "streamIcon": "https://example-iptv.com/images/news24.png",
+    "epgChannelId": "C679.262.ersatztv.org",
+    "added": "1735884153",
+    "customSid": "",
+    "tvArchive": 0,
+    "directSource": "",
+    "tvArchiveDuration": 0,
+    "categoryId": "1",
+    "categoryIds": [
+      1
+    ],
+    "thumbnail": ""
+  },
+  {
+    "num": 2,
+    "name": "Sports HD",
+    "streamType": "live",
+    "streamId": 2,
+    "streamIcon": "https://example-iptv.com/images/sports-hd.png",
+    "epgChannelId": "C679.263.ersatztv.org",
+    "added": "1735884153",
+    "customSid": "",
+    "tvArchive": 0,
+    "directSource": "",
+    "tvArchiveDuration": 0,
+    "categoryId": "1",
+    "categoryIds": [
+      1
+    ],
+    "thumbnail": ""
+  },
+  {
+    "num": 3,
+    "name": "Entertainment",
+    "streamType": "live",
+    "streamId": 3,
+    "streamIcon": "https://example-iptv.com/images/entertainment.png",
+    "epgChannelId": "C679.264.ersatztv.org",
+    "added": "1735884153",
+    "customSid": "",
+    "tvArchive": 0,
+    "directSource": "",
+    "tvArchiveDuration": 0,
+    "categoryId": "1",
+    "categoryIds": [
+      1
+    ],
+    "thumbnail": ""
+  },
+  {
+    "num": 4,
+    "name": "Documentaries",
+    "streamType": "live",
+    "streamId": 4,
+    "streamIcon": "https://example-iptv.com/images/documentaries.png",
+    "epgChannelId": "C679.265.ersatztv.org",
+    "added": "1735884153",
+    "customSid": "",
+    "tvArchive": 0,
+    "directSource": "",
+    "tvArchiveDuration": 0,
+    "categoryId": "2",
+    "categoryIds": [
+      2
+    ],
+    "thumbnail": ""
+  }
+]

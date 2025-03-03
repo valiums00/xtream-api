@@ -1,0 +1,13 @@
+{
+  "xui": true,
+  "version": "1.5.13",
+  "revision": null,
+  "url": "api.example-iptv.com",
+  "port": "2052",
+  "httpsPort": "443",
+  "serverProtocol": "https",
+  "rtmpPort": "8880",
+  "timestampNow": 1740599153,
+  "timeNow": "2025-02-26 19:45:53",
+  "timezone": "UTC"
+}

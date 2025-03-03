@@ -1,0 +1,224 @@
+{
+  "data": [
+    {
+      "type": "epg-listing",
+      "id": "16364796",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T00:11:24.000Z",
+        "end": "2025-02-24T00:58:48.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364797",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T00:58:48.000Z",
+        "end": "2025-02-24T01:45:37.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364798",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T01:45:37.000Z",
+        "end": "2025-02-24T02:31:27.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364799",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T02:31:27.000Z",
+        "end": "2025-02-24T03:14:06.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364800",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T03:14:06.000Z",
+        "end": "2025-02-24T03:54:45.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364801",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T03:54:45.000Z",
+        "end": "2025-02-24T05:03:43.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364802",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T05:03:43.000Z",
+        "end": "2025-02-24T05:40:52.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364803",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T05:40:52.000Z",
+        "end": "2025-02-24T06:18:53.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364804",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T06:18:53.000Z",
+        "end": "2025-02-24T06:57:15.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "16364805",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-02-24T06:57:15.000Z",
+        "end": "2025-02-24T07:32:58.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": "",
+        "nowPlaying": false,
+        "hasArchive": false
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "some-channel-id"
+          }
+        }
+      }
+    }
+  ]
+}

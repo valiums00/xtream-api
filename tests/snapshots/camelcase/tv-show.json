@@ -1,0 +1,100 @@
+{
+  "seasons": [
+    {
+      "airDate": "2025-02-17",
+      "episodeCount": 5,
+      "id": 442962,
+      "name": "Specials",
+      "overview": "",
+      "seasonNumber": 0,
+      "voteAverage": 0,
+      "cover": "https://example-iptv.com/images/small-town-specials.jpg",
+      "coverBig": "https://example-iptv.com/images/small-town-specials-large.jpg"
+    },
+    {
+      "airDate": "2025-02-24",
+      "episodeCount": 15,
+      "id": 382546,
+      "name": "Season 1",
+      "overview": "",
+      "seasonNumber": 1,
+      "voteAverage": 10,
+      "cover": "https://example-iptv.com/images/small-town-s1.jpg",
+      "coverBig": "https://example-iptv.com/images/small-town-s1-large.jpg"
+    }
+  ],
+  "info": {
+    "name": "Small Town Stories (2025)",
+    "title": "Small Town Stories",
+    "year": "2025",
+    "cover": "https://example-iptv.com/images/small-town-main.jpg",
+    "plot": "A heartwarming drama that follows the interconnected lives of residents in a close-knit small town as they navigate life's joys and challenges together. Each episode brings new revelations about the town's history and its inhabitants.",
+    "cast": "Elizabeth Parker, Michael Reynolds, Susan Thompson, Robert Anderson, Laura Martinez",
+    "director": "",
+    "genre": "Drama, Family",
+    "releaseDate": "2025-02-24",
+    "lastModified": "1740591320",
+    "rating": "0",
+    "rating5Based": 0,
+    "backdropPath": [
+      "https://example-iptv.com/images/small-town-backdrop.jpg"
+    ],
+    "youtubeTrailer": "",
+    "episodeRunTime": "37",
+    "categoryId": "2",
+    "categoryIds": [
+      2
+    ],
+    "seriesId": 1
+  },
+  "episodes": {
+    "1": [
+      {
+        "id": "935666",
+        "episodeNum": "1",
+        "title": "Small Town Stories - S01E01 - Monday, February 24, 2025",
+        "containerExtension": "mp4",
+        "info": {
+          "tmdbId": 5197445,
+          "releaseDate": "2025-02-24",
+          "plot": "The series premiere introduces the picturesque town of Riverside and its colorful residents as they prepare for the annual Founders Day celebration.",
+          "durationSecs": 2214,
+          "duration": "00:36:54",
+          "movieImage": "https://example-iptv.com/images/small-town-s01e01.jpg",
+          "bitrate": 5244,
+          "rating": 10,
+          "season": 1,
+          "coverBig": "https://example-iptv.com/images/small-town-s01e01-large.jpg"
+        },
+        "subtitles": [],
+        "customSid": "",
+        "added": "1740503721",
+        "season": 1,
+        "directSource": ""
+      },
+      {
+        "id": "935727",
+        "episodeNum": "2",
+        "title": "Small Town Stories - S01E02 - Tuesday, February 25, 2025",
+        "containerExtension": "mp4",
+        "info": {
+          "tmdbId": 5750693,
+          "releaseDate": "2025-02-25",
+          "plot": "Long-buried family secrets come to light during the renovation of an old building in the town square, causing tension among several families.",
+          "durationSecs": 2209,
+          "duration": "00:36:49",
+          "movieImage": "https://example-iptv.com/images/small-town-s01e02.jpg",
+          "bitrate": 5245,
+          "rating": 10,
+          "season": 1,
+          "coverBig": "https://example-iptv.com/images/small-town-s01e02-large.jpg"
+        },
+        "subtitles": [],
+        "customSid": "",
+        "added": "1740591320",
+        "season": 1,
+        "directSource": ""
+      }
+    ]
+  }
+}

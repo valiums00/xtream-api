@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "type": "epg-listing",
+      "id": "17528639",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-03-03T13:57:02.000Z",
+        "end": "2025-03-03T14:33:13.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": ""
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "C679.262.ersatztv.org"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "17528640",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-03-03T14:33:13.000Z",
+        "end": "2025-03-03T15:05:59.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": ""
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "C679.262.ersatztv.org"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "17528641",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-03-03T15:05:59.000Z",
+        "end": "2025-03-03T16:21:09.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": ""
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "C679.262.ersatztv.org"
+          }
+        }
+      }
+    },
+    {
+      "type": "epg-listing",
+      "id": "17528642",
+      "attributes": {
+        "epgId": "63",
+        "start": "2025-03-03T16:21:09.000Z",
+        "end": "2025-03-03T16:59:32.000Z",
+        "title": "fake programme",
+        "description": "fake description",
+        "language": ""
+      },
+      "relationships": {
+        "channel": {
+          "data": {
+            "type": "channel",
+            "id": "C679.262.ersatztv.org"
+          }
+        }
+      }
+    }
+  ]
+}

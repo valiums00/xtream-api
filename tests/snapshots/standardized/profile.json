@@ -1,0 +1,17 @@
+{
+  "id": "testuser",
+  "username": "testuser",
+  "password": "testpass",
+  "message": "Welcome to IPTV Service",
+  "status": "Active",
+  "isTrial": false,
+  "allowedOutputFormats": [
+    "m3u8",
+    "ts",
+    "rtmp"
+  ],
+  "maxConnections": 5,
+  "activeConnections": 0,
+  "createdAt": "2024-12-25T00:00:00.000Z",
+  "expiresAt": "2026-01-04T16:00:00.000Z"
+}

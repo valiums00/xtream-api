@@ -1,0 +1,42 @@
+[
+  {
+    "id": "17528639",
+    "epgId": "63",
+    "channelId": "C679.262.ersatztv.org",
+    "start": "2025-03-03T13:57:02.000Z",
+    "end": "2025-03-03T14:33:13.000Z",
+    "title": "fake programme",
+    "description": "fake description",
+    "language": ""
+  },
+  {
+    "id": "17528640",
+    "epgId": "63",
+    "channelId": "C679.262.ersatztv.org",
+    "start": "2025-03-03T14:33:13.000Z",
+    "end": "2025-03-03T15:05:59.000Z",
+    "title": "fake programme",
+    "description": "fake description",
+    "language": ""
+  },
+  {
+    "id": "17528641",
+    "epgId": "63",
+    "channelId": "C679.262.ersatztv.org",
+    "start": "2025-03-03T15:05:59.000Z",
+    "end": "2025-03-03T16:21:09.000Z",
+    "title": "fake programme",
+    "description": "fake description",
+    "language": ""
+  },
+  {
+    "id": "17528642",
+    "epgId": "63",
+    "channelId": "C679.262.ersatztv.org",
+    "start": "2025-03-03T16:21:09.000Z",
+    "end": "2025-03-03T16:59:32.000Z",
+    "title": "fake programme",
+    "description": "fake description",
+    "language": ""
+  }
+]

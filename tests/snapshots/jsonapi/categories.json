@@ -1,0 +1,47 @@
+{
+  "data": [
+    {
+      "type": "channel-category",
+      "id": "1",
+      "attributes": {
+        "name": "Sports"
+      }
+    },
+    {
+      "type": "channel-category",
+      "id": "2",
+      "attributes": {
+        "name": "News"
+      }
+    },
+    {
+      "type": "channel-category",
+      "id": "3",
+      "attributes": {
+        "name": "Entertainment"
+      }
+    },
+    {
+      "type": "channel-category",
+      "id": "4",
+      "attributes": {
+        "name": "Documentaries"
+      }
+    },
+    {
+      "type": "channel-category",
+      "id": "5",
+      "attributes": {
+        "name": "Football"
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "channel-category",
+            "id": "1"
+          }
+        }
+      }
+    }
+  ]
+}

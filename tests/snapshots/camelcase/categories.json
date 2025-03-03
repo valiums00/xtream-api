@@ -1,0 +1,27 @@
+[
+  {
+    "categoryId": "1",
+    "categoryName": "Sports",
+    "parentId": 0
+  },
+  {
+    "categoryId": "2",
+    "categoryName": "News",
+    "parentId": 0
+  },
+  {
+    "categoryId": "3",
+    "categoryName": "Entertainment",
+    "parentId": 0
+  },
+  {
+    "categoryId": "4",
+    "categoryName": "Documentaries",
+    "parentId": 0
+  },
+  {
+    "categoryId": "5",
+    "categoryName": "Football",
+    "parentId": 1
+  }
+]

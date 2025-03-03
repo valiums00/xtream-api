@@ -1,0 +1,112 @@
+{
+  "data": [
+    {
+      "type": "channel",
+      "id": "1",
+      "attributes": {
+        "number": 1,
+        "name": "News 24/7",
+        "customSid": "",
+        "directSource": "",
+        "tvArchiveDuration": 0,
+        "thumbnail": "",
+        "tvArchive": false,
+        "logo": "https://example-iptv.com/images/news24.png",
+        "epgId": "C679.262.ersatztv.org",
+        "isAdult": false,
+        "createdAt": "2025-01-03T06:02:33.000Z"
+      },
+      "relationships": {
+        "categories": {
+          "data": [
+            {
+              "type": "channel-category",
+              "id": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "channel",
+      "id": "2",
+      "attributes": {
+        "number": 2,
+        "name": "Sports HD",
+        "customSid": "",
+        "directSource": "",
+        "tvArchiveDuration": 0,
+        "thumbnail": "",
+        "tvArchive": false,
+        "logo": "https://example-iptv.com/images/sports-hd.png",
+        "epgId": "C679.263.ersatztv.org",
+        "isAdult": false,
+        "createdAt": "2025-01-03T06:02:33.000Z"
+      },
+      "relationships": {
+        "categories": {
+          "data": [
+            {
+              "type": "channel-category",
+              "id": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "channel",
+      "id": "3",
+      "attributes": {
+        "number": 3,
+        "name": "Entertainment",
+        "customSid": "",
+        "directSource": "",
+        "tvArchiveDuration": 0,
+        "thumbnail": "",
+        "tvArchive": false,
+        "logo": "https://example-iptv.com/images/entertainment.png",
+        "epgId": "C679.264.ersatztv.org",
+        "isAdult": false,
+        "createdAt": "2025-01-03T06:02:33.000Z"
+      },
+      "relationships": {
+        "categories": {
+          "data": [
+            {
+              "type": "channel-category",
+              "id": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "channel",
+      "id": "4",
+      "attributes": {
+        "number": 4,
+        "name": "Documentaries",
+        "customSid": "",
+        "directSource": "",
+        "tvArchiveDuration": 0,
+        "thumbnail": "",
+        "tvArchive": false,
+        "logo": "https://example-iptv.com/images/documentaries.png",
+        "epgId": "C679.265.ersatztv.org",
+        "isAdult": false,
+        "createdAt": "2025-01-03T06:02:33.000Z"
+      },
+      "relationships": {
+        "categories": {
+          "data": [
+            {
+              "type": "channel-category",
+              "id": "2"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

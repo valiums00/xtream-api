@@ -1,0 +1,554 @@
+import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
+import { Xtream } from '../src/main.ts';
+import { camelCaseSerializer } from '../src/serializers/camelcase.ts';
+import { JSONAPISerializer } from '../src/serializers/jsonapi.ts';
+import { standardizedSerializer } from '../src/serializers/standardized.ts';
+import { server } from './msw.ts';
+
+// Setup MSW
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+afterAll(() => server.close());
+afterEach(() => server.resetHandlers());
+
+expect.addSnapshotSerializer({
+  serialize(val) {
+    return JSON.stringify(val, null, 2) + '\n';
+  },
+  test(val) {
+    return val && (typeof val === 'object' || Array.isArray(val));
+  },
+});
+
+// default Xtream instance
+const noSerializerXtream = new Xtream({
+  url: 'http://example.com',
+  username: 'test',
+  password: 'password',
+});
+
+// JSON:API serializer
+const jsonApiSerializerXtream = new Xtream({
+  url: 'http://example.com',
+  username: 'test',
+  password: 'password',
+  serializer: JSONAPISerializer,
+});
+
+// Camel case serializer
+const camelCaseSerializerXtream = new Xtream({
+  url: 'http://example.com',
+  username: 'test',
+  password: 'password',
+  serializer: camelCaseSerializer,
+});
+
+// Standardized serializer
+const standardizedSerializerXtream = new Xtream({
+  url: 'http://example.com',
+  username: 'test',
+  password: 'password',
+  serializer: standardizedSerializer,
+});
+
+describe('Xtream API', () => {
+  test('errors when no options are provided', () => {
+    expect(() => new Xtream({} as any)).toThrow('The Xtream URL is required');
+  });
+
+  test('errors when no auth details are provided', () => {
+    expect(() => new Xtream({ url: 'http://example.com' } as any)).toThrow(
+      'The authentication credentials are required',
+    );
+  });
+
+  test('errors when no only username is provided', () => {
+    expect(() => new Xtream({ url: 'http://example.com', username: 'test' } as any)).toThrow(
+      'The authentication credentials are required',
+    );
+  });
+
+  test('Class is initialized correctly', () => {
+    expect(noSerializerXtream).toBeDefined();
+    expect(noSerializerXtream).toBeInstanceOf(Xtream);
+  });
+
+  test('getProfile returns the user profile', async () => {
+    const profile = await noSerializerXtream.getProfile();
+
+    await expect(profile).toMatchFileSnapshot('snapshots/raw/profile.json');
+  });
+
+  test('can filter channels by category ID', async () => {
+    const channels = await noSerializerXtream.getChannels({
+      categoryId: '2',
+    });
+
+    expect(channels.length).toBe(1);
+  });
+
+  test('can filter movies by category ID', async () => {
+    const movies = await noSerializerXtream.getMovies({
+      categoryId: '2',
+    });
+
+    expect(movies.length).toBe(1);
+  });
+
+  test('can filter TV shows by category ID', async () => {
+    const tvShows = await noSerializerXtream.getTVShows({
+      categoryId: '2',
+    });
+
+    expect(tvShows.length).toBe(1);
+  });
+
+  test('filter can be number', async () => {
+    const [channels, movies, tvShows] = await Promise.all([
+      noSerializerXtream.getChannels({
+        categoryId: 2,
+      }),
+      noSerializerXtream.getMovies({
+        categoryId: 2,
+      }),
+      noSerializerXtream.getTVShows({
+        categoryId: 2,
+      }),
+    ]);
+
+    expect(channels.length).toBe(1);
+    expect(movies.length).toBe(1);
+    expect(tvShows.length).toBe(1);
+  });
+
+  test('getServerInfo returns the server information', async () => {
+    const serverInfo = await noSerializerXtream.getServerInfo();
+
+    await expect(serverInfo).toMatchFileSnapshot('snapshots/raw/server-info.json');
+  });
+
+  test('getChannels returns the list of channels', async () => {
+    const channels = await noSerializerXtream.getChannels();
+
+    await expect(channels).toMatchFileSnapshot('snapshots/raw/channels.json');
+  });
+
+  test('getChannels can be paged', async () => {
+    const channels = await noSerializerXtream.getChannels({ page: 1, limit: 1 });
+    const channels2 = await noSerializerXtream.getChannels({ page: 2, limit: 1 });
+
+    expect(channels.length).toBe(1);
+    expect(channels2.length).toBe(1);
+
+    await expect(channels).toMatchFileSnapshot('snapshots/raw/channels-page1.json');
+    await expect(channels2).toMatchFileSnapshot('snapshots/raw/channels-page2.json');
+  });
+
+  test('getChannelCategories returns the list of categories', async () => {
+    const categories = await noSerializerXtream.getChannelCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/raw/categories.json');
+  });
+
+  test('getMovieCategories returns the list of categories', async () => {
+    const categories = await noSerializerXtream.getMovieCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/raw/movie-categories.json');
+  });
+
+  test('getTVShowCategories returns the list of categories', async () => {
+    const categories = await noSerializerXtream.getTVShowCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/raw/tv-show-categories.json');
+  });
+
+  test('getMovies returns the list of movies', async () => {
+    const movies = await noSerializerXtream.getMovies();
+
+    await expect(movies).toMatchFileSnapshot('snapshots/raw/movies.json');
+  });
+
+  test('getMovies can be paged', async () => {
+    const movies = await noSerializerXtream.getMovies({ page: 1, limit: 1 });
+
+    expect(movies.length).toBe(1);
+
+    await expect(movies).toMatchFileSnapshot('snapshots/raw/movies-page1.json');
+  });
+
+  test('getTVShows returns the list of TV shows', async () => {
+    const tvShows = await noSerializerXtream.getTVShows();
+
+    await expect(tvShows).toMatchFileSnapshot('snapshots/raw/tv-shows.json');
+  });
+
+  test('getTVShows can be paged', async () => {
+    const tvShows = await noSerializerXtream.getTVShows({ page: 1, limit: 1 });
+
+    expect(tvShows.length).toBe(1);
+
+    await expect(tvShows).toMatchFileSnapshot('snapshots/raw/tv-shows-page1.json');
+  });
+
+  test('getTVShow returns the TV show details', async () => {
+    const tvShow = await noSerializerXtream.getTVShow({ showId: '1' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/raw/tv-show.json');
+  });
+});
+
+describe('JSON:API serializer', () => {
+  test('serializerType is "JSON:API"', () => {
+    expect(jsonApiSerializerXtream.serializerType).toBe('JSON:API');
+  });
+
+  test('getProfile returns the user profile', async () => {
+    const profile = await jsonApiSerializerXtream.getProfile();
+
+    await expect(profile).toMatchFileSnapshot('snapshots/jsonapi/profile.json');
+  });
+
+  test('getServerInfo returns the server information', async () => {
+    const serverInfo = await jsonApiSerializerXtream.getServerInfo();
+
+    await expect(serverInfo).toMatchFileSnapshot('snapshots/jsonapi/server-info.json');
+  });
+
+  test('getChannels returns the list of channels', async () => {
+    const channels = await jsonApiSerializerXtream.getChannels();
+
+    await expect(channels).toMatchFileSnapshot('snapshots/jsonapi/channels.json');
+  });
+
+  test('getChannelCategories returns the list of categories', async () => {
+    const categories = await jsonApiSerializerXtream.getChannelCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/categories.json');
+  });
+
+  test('getMovieCategories returns the list of categories', async () => {
+    const categories = await jsonApiSerializerXtream.getMovieCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/movie-categories.json');
+  });
+
+  test('getTVShowCategories returns the list of categories', async () => {
+    const categories = await jsonApiSerializerXtream.getTVShowCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/tv-show-categories.json');
+  });
+
+  test('getMovies returns the list of movies', async () => {
+    const movies = await jsonApiSerializerXtream.getMovies();
+
+    await expect(movies).toMatchFileSnapshot('snapshots/jsonapi/movies.json');
+  });
+
+  test('getTVShows returns the list of TV shows', async () => {
+    const tvShows = await jsonApiSerializerXtream.getTVShows();
+
+    await expect(tvShows).toMatchFileSnapshot('snapshots/jsonapi/tv-shows.json');
+  });
+
+  test('getTVShow returns the TV show details', async () => {
+    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '1' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show.json');
+  });
+
+  test('getTVShow handles cover_tmdb property', async () => {
+    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '2000' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show-tmdb.json');
+  });
+});
+
+describe('Camel case serializer', () => {
+  test('serializerType is "Camel Case"', () => {
+    expect(camelCaseSerializerXtream.serializerType).toBe('Camel Case');
+  });
+
+  test('getProfile returns the user profile', async () => {
+    const profile = await camelCaseSerializerXtream.getProfile();
+
+    await expect(profile).toMatchFileSnapshot('snapshots/camelcase/profile.json');
+  });
+
+  test('getServerInfo returns the server information', async () => {
+    const serverInfo = await camelCaseSerializerXtream.getServerInfo();
+
+    await expect(serverInfo).toMatchFileSnapshot('snapshots/camelcase/server-info.json');
+  });
+
+  test('getChannels returns the list of channels', async () => {
+    const channels = await camelCaseSerializerXtream.getChannels();
+
+    await expect(channels).toMatchFileSnapshot('snapshots/camelcase/channels.json');
+  });
+
+  test('getChannelCategories returns the list of categories', async () => {
+    const categories = await camelCaseSerializerXtream.getChannelCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/camelcase/categories.json');
+  });
+
+  test('getMovieCategories returns the list of categories', async () => {
+    const categories = await camelCaseSerializerXtream.getMovieCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/camelcase/movie-categories.json');
+  });
+
+  test('getTVShowCategories returns the list of categories', async () => {
+    const categories = await camelCaseSerializerXtream.getTVShowCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/camelcase/tv-show-categories.json');
+  });
+
+  test('getMovies returns the list of movies', async () => {
+    const movies = await camelCaseSerializerXtream.getMovies();
+
+    await expect(movies).toMatchFileSnapshot('snapshots/camelcase/movies.json');
+  });
+
+  test('getTVShows returns the list of TV shows', async () => {
+    const tvShows = await camelCaseSerializerXtream.getTVShows();
+
+    await expect(tvShows).toMatchFileSnapshot('snapshots/camelcase/tv-shows.json');
+  });
+
+  test('getTVShow returns the TV show details', async () => {
+    const tvShow = await camelCaseSerializerXtream.getTVShow({ showId: '1' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/camelcase/tv-show.json');
+  });
+});
+
+describe('Standardized serializer', () => {
+  test('serializerType is "Standardized"', () => {
+    expect(standardizedSerializerXtream.serializerType).toBe('Standardized');
+  });
+
+  test('getProfile returns the user profile', async () => {
+    const profile = await standardizedSerializerXtream.getProfile();
+
+    await expect(profile).toMatchFileSnapshot('snapshots/standardized/profile.json');
+  });
+
+  test('getServerInfo returns the server information', async () => {
+    const serverInfo = await standardizedSerializerXtream.getServerInfo();
+
+    await expect(serverInfo).toMatchFileSnapshot('snapshots/standardized/server-info.json');
+  });
+
+  test('getChannels returns the list of channels', async () => {
+    const channels = await standardizedSerializerXtream.getChannels();
+
+    await expect(channels).toMatchFileSnapshot('snapshots/standardized/channels.json');
+  });
+
+  test('getChannelCategories returns the list of categories', async () => {
+    const categories = await standardizedSerializerXtream.getChannelCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/standardized/categories.json');
+  });
+
+  test('getMovieCategories returns the list of categories', async () => {
+    const categories = await standardizedSerializerXtream.getMovieCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/standardized/movie-categories.json');
+  });
+
+  test('getTVShowCategories returns the list of categories', async () => {
+    const categories = await standardizedSerializerXtream.getTVShowCategories();
+
+    await expect(categories).toMatchFileSnapshot('snapshots/standardized/tv-show-categories.json');
+  });
+
+  test('getMovies returns the list of movies', async () => {
+    const movies = await standardizedSerializerXtream.getMovies();
+
+    await expect(movies).toMatchFileSnapshot('snapshots/standardized/movies.json');
+  });
+
+  test('getTVShows returns the list of TV shows', async () => {
+    const tvShows = await standardizedSerializerXtream.getTVShows();
+
+    await expect(tvShows).toMatchFileSnapshot('snapshots/standardized/tv-shows.json');
+  });
+
+  test('getTVShow returns the TV show details', async () => {
+    const tvShow = await standardizedSerializerXtream.getTVShow({ showId: '1' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/standardized/tv-show.json');
+  });
+});
+
+describe('EPG', () => {
+  test('getShortEPG returns the EPG data', async () => {
+    const epg = await noSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg.epg_listings.length).toBe(4);
+  });
+
+  test('getShortEPG can be limited', async () => {
+    const epg = await noSerializerXtream.getShortEPG({
+      channelId: '1',
+      limit: 2,
+    });
+
+    expect(epg.epg_listings.length).toBe(2);
+  });
+
+  test('getFullEPG returns the full EPG data', async () => {
+    const epg = await noSerializerXtream.getFullEPG({
+      channelId: '1',
+    });
+
+    expect(epg.epg_listings.length).toBe(10);
+  });
+
+  test('JSON:API serializer shortEPG returns the EPG data', async () => {
+    const epg = await jsonApiSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg.data.length).toBe(4);
+  });
+
+  test('Camel case serializer shortEPG returns the EPG data', async () => {
+    const epg = await camelCaseSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg.epgListings.length).toBe(4);
+  });
+
+  test('Standardized serializer shortEPG returns the EPG data', async () => {
+    const epg = await standardizedSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg.length).toBe(4);
+  });
+
+  test('JSON:API serializer decodes base64 title and description', async () => {
+    const epg = await jsonApiSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg.data[0].attributes.title).toBe('fake programme');
+    expect(epg.data[0].attributes.description).toBe('fake description');
+  });
+
+  test('Standardized serializer decodes base64 title and description', async () => {
+    const epg = await standardizedSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    expect(epg[0].title).toBe('fake programme');
+    expect(epg[0].description).toBe('fake description');
+  });
+
+  test('raw serializer matches short snapshot', async () => {
+    const epg = await noSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/raw/short-epg.json');
+  });
+
+  test('JSON:API serializer matches short snapshot', async () => {
+    const epg = await jsonApiSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/jsonapi/short-epg.json');
+  });
+
+  test('Camel case serializer matches short snapshot', async () => {
+    const epg = await camelCaseSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/camelcase/short-epg.json');
+  });
+
+  test('Standardized serializer matches short snapshot', async () => {
+    const epg = await standardizedSerializerXtream.getShortEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/standardized/short-epg.json');
+  });
+
+  test('raw serializer matches full snapshot', async () => {
+    const epg = await noSerializerXtream.getFullEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/raw/full-epg.json');
+  });
+
+  test('JSON:API serializer matches full snapshot', async () => {
+    const epg = await jsonApiSerializerXtream.getFullEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/jsonapi/full-epg.json');
+  });
+
+  test('Camel case serializer matches full snapshot', async () => {
+    const epg = await camelCaseSerializerXtream.getFullEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/camelcase/full-epg.json');
+  });
+
+  test('Standardized serializer matches full snapshot', async () => {
+    const epg = await standardizedSerializerXtream.getFullEPG({
+      channelId: '1',
+    });
+
+    await expect(epg).toMatchFileSnapshot('snapshots/standardized/full-epg.json');
+  });
+
+  test('Handles empty EPG data', async () => {
+    const [epg, jsonApiEpg, camelCaseEpg, standardizedEpg] = await Promise.all([
+      noSerializerXtream.getShortEPG({
+        channelId: '1000',
+      }),
+      jsonApiSerializerXtream.getShortEPG({
+        channelId: '1000',
+      }),
+      camelCaseSerializerXtream.getShortEPG({
+        channelId: '1000',
+      }),
+      standardizedSerializerXtream.getShortEPG({
+        channelId: '1000',
+      }),
+    ]);
+
+    expect(epg.epg_listings.length).toBe(0);
+    expect(jsonApiEpg.data.length).toBe(0);
+    expect(camelCaseEpg.epgListings.length).toBe(0);
+    expect(standardizedEpg.length).toBe(0);
+  });
+});
+
+describe('Errors', () => {
+  test('404 on wrong credentials', async () => {
+    const xtream = new Xtream({
+      url: 'http://example.com',
+      username: 'error',
+      password: 'wrongpassword',
+    });
+
+    await expect(xtream.getProfile()).rejects.toThrowError('Not Found');
+  });
+
+  test('Series not found', async () => {
+    await expect(noSerializerXtream.getTVShow({ showId: '1000' })).rejects.toThrowError('TV Show Not Found');
+  });
+});

@@ -1,0 +1,29 @@
+[
+  {
+    "num": 1,
+    "name": "Medical Heroes (2022)",
+    "title": "Medical Heroes",
+    "year": "2022",
+    "stream_type": "series",
+    "series_id": 15120,
+    "cover": "https://example-iptv.com/images/medical-heroes-cover.jpg",
+    "plot": "Follow the lives of dedicated medical professionals as they face challenging cases and personal dilemmas in a busy metropolitan hospital.",
+    "cast": "Jennifer Adams, Richard Carter, Samantha Wright",
+    "director": "",
+    "genre": "Drama, Medical",
+    "release_date": "2022-03-15",
+    "releaseDate": "2022-03-15",
+    "last_modified": "1740596715",
+    "rating": "7",
+    "rating_5based": 3.5,
+    "backdrop_path": [
+      "https://example-iptv.com/images/medical-heroes-backdrop.jpg"
+    ],
+    "youtube_trailer": "",
+    "episode_run_time": "88",
+    "category_id": "1",
+    "category_ids": [
+      1
+    ]
+  }
+]

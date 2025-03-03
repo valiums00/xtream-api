@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "name": "Sports",
+    "parentId": "0"
+  },
+  {
+    "id": "2",
+    "name": "News",
+    "parentId": "0"
+  },
+  {
+    "id": "3",
+    "name": "Entertainment",
+    "parentId": "0"
+  },
+  {
+    "id": "4",
+    "name": "Documentaries",
+    "parentId": "0"
+  },
+  {
+    "id": "5",
+    "name": "Football",
+    "parentId": "1"
+  }
+]

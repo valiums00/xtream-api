@@ -1,0 +1,56 @@
+{
+  "epgListings": [
+    {
+      "id": "17528639",
+      "epgId": "63",
+      "title": "ZmFrZSBwcm9ncmFtbWU=",
+      "lang": "",
+      "start": "2025-03-03 13:57:02",
+      "end": "1741012393",
+      "description": "ZmFrZSBkZXNjcmlwdGlvbg==",
+      "channelId": "C679.262.ersatztv.org",
+      "startTimestamp": "1741010222",
+      "stopTimestamp": "1741012393",
+      "stop": "2025-03-03 14:33:13"
+    },
+    {
+      "id": "17528640",
+      "epgId": "63",
+      "title": "ZmFrZSBwcm9ncmFtbWU=",
+      "lang": "",
+      "start": "2025-03-03 14:33:13",
+      "end": "1741014359",
+      "description": "ZmFrZSBkZXNjcmlwdGlvbg==",
+      "channelId": "C679.262.ersatztv.org",
+      "startTimestamp": "1741012393",
+      "stopTimestamp": "1741014359",
+      "stop": "2025-03-03 15:05:59"
+    },
+    {
+      "id": "17528641",
+      "epgId": "63",
+      "title": "ZmFrZSBwcm9ncmFtbWU=",
+      "lang": "",
+      "start": "2025-03-03 15:05:59",
+      "end": "1741018869",
+      "description": "ZmFrZSBkZXNjcmlwdGlvbg==",
+      "channelId": "C679.262.ersatztv.org",
+      "startTimestamp": "1741014359",
+      "stopTimestamp": "1741018869",
+      "stop": "2025-03-03 16:21:09"
+    },
+    {
+      "id": "17528642",
+      "epgId": "63",
+      "title": "ZmFrZSBwcm9ncmFtbWU=",
+      "lang": "",
+      "start": "2025-03-03 16:21:09",
+      "end": "1741021172",
+      "description": "ZmFrZSBkZXNjcmlwdGlvbg==",
+      "channelId": "C679.262.ersatztv.org",
+      "startTimestamp": "1741018869",
+      "stopTimestamp": "1741021172",
+      "stop": "2025-03-03 16:59:32"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "data": [
+    {
+      "type": "movie-category",
+      "id": "1",
+      "attributes": {
+        "name": "Sports"
+      }
+    },
+    {
+      "type": "movie-category",
+      "id": "2",
+      "attributes": {
+        "name": "News"
+      }
+    },
+    {
+      "type": "movie-category",
+      "id": "3",
+      "attributes": {
+        "name": "Entertainment"
+      }
+    },
+    {
+      "type": "movie-category",
+      "id": "4",
+      "attributes": {
+        "name": "Documentaries"
+      }
+    },
+    {
+      "type": "movie-category",
+      "id": "5",
+      "attributes": {
+        "name": "Football"
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "movie-category",
+            "id": "1"
+          }
+        }
+      }
+    }
+  ]
+}

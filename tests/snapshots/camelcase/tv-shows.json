@@ -1,0 +1,54 @@
+[
+  {
+    "num": 1,
+    "name": "Medical Heroes (2022)",
+    "title": "Medical Heroes",
+    "year": "2022",
+    "streamType": "series",
+    "seriesId": 15120,
+    "cover": "https://example-iptv.com/images/medical-heroes-cover.jpg",
+    "plot": "Follow the lives of dedicated medical professionals as they face challenging cases and personal dilemmas in a busy metropolitan hospital.",
+    "cast": "Jennifer Adams, Richard Carter, Samantha Wright",
+    "director": "",
+    "genre": "Drama, Medical",
+    "releaseDate": "2022-03-15",
+    "lastModified": "1740596715",
+    "rating": "7",
+    "rating5Based": 3.5,
+    "backdropPath": [
+      "https://example-iptv.com/images/medical-heroes-backdrop.jpg"
+    ],
+    "youtubeTrailer": "",
+    "episodeRunTime": "88",
+    "categoryId": "1",
+    "categoryIds": [
+      1
+    ]
+  },
+  {
+    "num": 2,
+    "name": "Small Town Stories (2025)",
+    "title": "Small Town Stories",
+    "year": "2025",
+    "streamType": "series",
+    "seriesId": 16083,
+    "cover": "https://example-iptv.com/images/small-town-main.jpg",
+    "plot": "A heartwarming drama that follows the interconnected lives of residents in a close-knit small town as they navigate life's joys and challenges together. Each episode brings new revelations about the town's history and its inhabitants.",
+    "cast": "Elizabeth Parker, Michael Reynolds, Susan Thompson, Robert Anderson, Laura Martinez",
+    "director": "",
+    "genre": "Drama, Family",
+    "releaseDate": "2025-02-24",
+    "lastModified": "1740591320",
+    "rating": "0",
+    "rating5Based": 0,
+    "backdropPath": [
+      "https://example-iptv.com/images/small-town-backdrop.jpg"
+    ],
+    "youtubeTrailer": "",
+    "episodeRunTime": "37",
+    "categoryId": "2",
+    "categoryIds": [
+      2
+    ]
+  }
+]
