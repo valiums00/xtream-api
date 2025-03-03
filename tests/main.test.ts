@@ -260,6 +260,12 @@ describe('JSON:API serializer', () => {
 
     await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show-tmdb.json');
   });
+
+  test('We generate seasons if no seasons are provided by the API', async () => {
+    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '3000' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show-no-seasons.json');
+  });
 });
 
 describe('Camel case serializer', () => {
@@ -379,6 +385,12 @@ describe('Standardized serializer', () => {
     const tvShow = await standardizedSerializerXtream.getTVShow({ showId: '1' });
 
     await expect(tvShow).toMatchFileSnapshot('snapshots/standardized/tv-show.json');
+  });
+
+  test('We generate seasons if no seasons are provided by the API', async () => {
+    const tvShow = await standardizedSerializerXtream.getTVShow({ showId: '3000' });
+
+    await expect(tvShow).toMatchFileSnapshot('snapshots/standardized/tv-show-no-seasons.json');
   });
 });
 

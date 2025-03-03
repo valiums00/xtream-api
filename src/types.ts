@@ -272,7 +272,7 @@ export type XtreamSeason = {
   /** The release date of the season */
   releaseDate: string;
   /** The average duration of episodes in the season */
-  duration: string;
+  duration?: string;
 };
 
 /**

@@ -303,6 +303,81 @@ const tvShow = {
   },
 };
 
+const tvShowNoSeasons = {
+  seasons: [],
+  info: {
+    name: 'Small Town Stories (2025)',
+    title: 'Small Town Stories',
+    year: '2025',
+    cover: 'https://example-iptv.com/images/small-town-main.jpg',
+    plot: "A heartwarming drama that follows the interconnected lives of residents in a close-knit small town as they navigate life's joys and challenges together. Each episode brings new revelations about the town's history and its inhabitants.",
+    cast: 'Elizabeth Parker, Michael Reynolds, Susan Thompson, Robert Anderson, Laura Martinez',
+    director: '',
+    genre: 'Drama, Family',
+    release_date: '2025-02-24',
+    releaseDate: '2025-02-24',
+    last_modified: '1740591320',
+    rating: '0',
+    rating_5based: 0,
+    backdrop_path: ['https://example-iptv.com/images/small-town-backdrop.jpg'],
+    youtube_trailer: '',
+    episode_run_time: '37',
+    category_id: '2',
+    category_ids: [2],
+    series_id: 16083,
+  },
+  episodes: {
+    '1': [
+      {
+        id: '935666',
+        episode_num: '1',
+        title: 'Small Town Stories - S01E01 - Monday, February 24, 2025',
+        container_extension: 'mp4',
+        info: {
+          tmdb_id: 5197445,
+          release_date: '2025-02-24',
+          plot: 'The series premiere introduces the picturesque town of Riverside and its colorful residents as they prepare for the annual Founders Day celebration.',
+          duration_secs: 2214,
+          duration: '00:36:54',
+          movie_image: 'https://example-iptv.com/images/small-town-s01e01.jpg',
+          bitrate: 5244,
+          rating: 10,
+          season: 1,
+          cover_big: 'https://example-iptv.com/images/small-town-s01e01-large.jpg',
+        },
+        subtitles: [],
+        custom_sid: '',
+        added: '1740503721',
+        season: 1,
+        direct_source: '',
+      },
+      {
+        id: '935727',
+        episode_num: '2',
+        title: 'Small Town Stories - S01E02 - Tuesday, February 25, 2025',
+        container_extension: 'mp4',
+        info: {
+          tmdb_id: 5750693,
+          release_date: '2025-02-25',
+          plot: 'Long-buried family secrets come to light during the renovation of an old building in the town square, causing tension among several families.',
+          duration_secs: 2209,
+          duration: '00:36:49',
+          movie_image: 'https://example-iptv.com/images/small-town-s01e02.jpg',
+          bitrate: 5245,
+          rating: 10,
+          season: 1,
+          cover_big: 'https://example-iptv.com/images/small-town-s01e02-large.jpg',
+        },
+        subtitles: [],
+        custom_sid: '',
+        added: '1740591320',
+        season: 1,
+        direct_source: '',
+      },
+    ],
+  },
+};
+
 const seriesNotFound = {
   seasons: [],
   info: {
@@ -388,14 +463,18 @@ export const restHandlers = [
   http.get('http://example.com/player_api.php', ({ request }) => {
     const params = new URL(request.url).searchParams;
 
+    const action = params.get('action');
     const username = params.get('username');
     const categoryId = params.get('category_id');
+    const seriesId = params.get('series_id');
+    const limit = params.get('limit');
+    const streamId = params.get('stream_id');
 
     if (username === 'error') {
       return new HttpResponse(null, { status: 404 });
     }
 
-    switch (params.get('action')) {
+    switch (action) {
       case 'get_live_categories':
       case 'get_vod_categories':
       case 'get_series_categories':
@@ -428,11 +507,11 @@ export const restHandlers = [
         });
         return HttpResponse.json(filteredSeries);
       case 'get_series_info':
-        if (params.get('series_id') === '1000') {
+        if (seriesId === '1000') {
           return HttpResponse.json(seriesNotFound);
         }
 
-        if (params.get('series_id') === '2000') {
+        if (seriesId === '2000') {
           const modifiedTvShow = JSON.parse(JSON.stringify(tvShow));
 
           modifiedTvShow.seasons[0].cover_tmdb = modifiedTvShow.seasons[0].cover_big;
@@ -442,12 +521,13 @@ export const restHandlers = [
           return HttpResponse.json(modifiedTvShow);
         }
 
+        if (seriesId === '3000') {
+          return HttpResponse.json(tvShowNoSeasons);
+        }
+
         return HttpResponse.json(tvShow);
 
       case 'get_short_epg':
-        const limit = params.get('limit');
-        const streamId = params.get('stream_id');
-
         if (streamId === '1000') {
           return HttpResponse.json({ epg_listings: [] });
         }

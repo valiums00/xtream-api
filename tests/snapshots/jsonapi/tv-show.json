@@ -1,7 +1,7 @@
 {
   "data": {
     "type": "tv-show",
-    "id": "1",
+    "id": "16083",
     "attributes": {
       "name": "Small Town Stories (2025)",
       "title": "Small Town Stories",
@@ -81,8 +81,11 @@
         "tvShow": {
           "data": {
             "type": "tv-show",
-            "id": "1"
+            "id": "16083"
           }
+        },
+        "episodes": {
+          "data": []
         }
       }
     },
@@ -102,8 +105,20 @@
         "tvShow": {
           "data": {
             "type": "tv-show",
-            "id": "1"
+            "id": "16083"
           }
+        },
+        "episodes": {
+          "data": [
+            {
+              "type": "episode",
+              "id": "935666"
+            },
+            {
+              "type": "episode",
+              "id": "935727"
+            }
+          ]
         }
       }
     },
@@ -133,13 +148,13 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "442962"
+            "id": "382546"
           }
         },
         "tvShow": {
           "data": {
             "type": "tv-show",
-            "id": "1"
+            "id": "16083"
           }
         }
       }
@@ -170,13 +185,13 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "442962"
+            "id": "382546"
           }
         },
         "tvShow": {
           "data": {
             "type": "tv-show",
-            "id": "1"
+            "id": "16083"
           }
         }
       }
