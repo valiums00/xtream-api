@@ -8,7 +8,6 @@
         "title": "Medical Heroes",
         "year": "2022",
         "plot": "Follow the lives of dedicated medical professionals as they face challenging cases and personal dilemmas in a busy metropolitan hospital.",
-        "youtubeTrailer": "",
         "cast": [
           "Jennifer Adams",
           "Richard Carter",
@@ -21,10 +20,11 @@
           "Drama",
           "Medical"
         ],
-        "rating": 7,
+        "voteAverage": 7,
         "poster": "https://example-iptv.com/images/medical-heroes-cover.jpg",
         "cover": "https://example-iptv.com/images/medical-heroes-backdrop.jpg",
-        "episodeRunTime": 88,
+        "duration": 5280,
+        "youtubeId": "abcdefghijk",
         "releaseDate": "2022-03-15T00:00:00.000Z",
         "updatedAt": "2025-02-26T19:05:15.000Z"
       },
@@ -47,7 +47,6 @@
         "title": "Small Town Stories",
         "year": "2025",
         "plot": "A heartwarming drama that follows the interconnected lives of residents in a close-knit small town as they navigate life's joys and challenges together. Each episode brings new revelations about the town's history and its inhabitants.",
-        "youtubeTrailer": "",
         "cast": [
           "Elizabeth Parker",
           "Michael Reynolds",
@@ -62,10 +61,11 @@
           "Drama",
           "Family"
         ],
-        "rating": 0,
+        "voteAverage": 0,
         "poster": "https://example-iptv.com/images/small-town-main.jpg",
         "cover": "https://example-iptv.com/images/small-town-backdrop.jpg",
-        "episodeRunTime": 37,
+        "duration": 2220,
+        "youtubeId": "abcdefghijk",
         "releaseDate": "2025-02-24T00:00:00.000Z",
         "updatedAt": "2025-02-26T17:35:20.000Z"
       },

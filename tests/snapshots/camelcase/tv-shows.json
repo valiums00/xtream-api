@@ -18,7 +18,7 @@
     "backdropPath": [
       "https://example-iptv.com/images/medical-heroes-backdrop.jpg"
     ],
-    "youtubeTrailer": "",
+    "youtubeTrailer": "abcdefghijk",
     "episodeRunTime": "88",
     "categoryId": "1",
     "categoryIds": [
@@ -44,7 +44,7 @@
     "backdropPath": [
       "https://example-iptv.com/images/small-town-backdrop.jpg"
     ],
-    "youtubeTrailer": "",
+    "youtubeTrailer": "abcdefghijk",
     "episodeRunTime": "37",
     "categoryId": "2",
     "categoryIds": [

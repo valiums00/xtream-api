@@ -4,114 +4,6 @@
  */
 
 /**
- * Xtream category information
- *
- * This type represents a content category in the Xtream system
- */
-export type XtreamCategory = {
-  /** The unique identifier for the category */
-  category_id: string;
-  /** The display name of the category */
-  category_name: string;
-  /** The ID of the parent category, if applicable */
-  parent_id: string;
-};
-
-/**
- * Xtream movie information
- *
- * This type represents a movie in the Xtream system
- */
-export type XtreamMovies = {
-  /** The position/order number of the movie */
-  num: number;
-  /** The title of the movie */
-  name: string;
-  /** The type of stream (e.g., "movie") */
-  stream_type: string;
-  /** The unique identifier for the stream */
-  stream_id: number;
-  /** The URL for the movie's icon/poster */
-  stream_icon: string;
-  /** The movie's rating as a string */
-  rating: number;
-  /** The movie's rating on a 5-point scale */
-  rating_5based: number;
-  /** The movie's ID in The Movie Database (TMDB) */
-  tmdb?: number;
-  /** The URL to the movie's trailer */
-  trailer: string;
-  /** The genres of the movie */
-  genre: string;
-  /** The date when the movie was added to the system */
-  added: string;
-  /** Flag indicating if the content is for adults (0/1) */
-  is_adult: number;
-  /** The runtime of the movie in minutes */
-  episode_run_time: number;
-  /** The primary category ID of the movie */
-  category_id: string;
-  /** All category IDs the movie belongs to */
-  category_ids: number[];
-  /** The file format extension */
-  container_extension: string;
-  /** Custom stream identifier */
-  custom_sid: any;
-  /** The direct URL to the movie's source */
-  direct_source: string;
-  /** The release date of the movie */
-  release_date: string;
-  /** The cast of the movie */
-  cast: string;
-  /** The director(s) of the movie */
-  director: string;
-  /** The synopsis/description of the movie */
-  plot: string;
-  /** The URL to access the movie */
-  url: string;
-};
-
-/**
- * Xtream channel information
- *
- * This type represents a live TV channel in the Xtream system
- */
-export type XtreamChannel = {
-  /** The position/order number of the channel */
-  num: number;
-  /** The name of the channel */
-  name: string;
-  /** The type of stream (e.g., "live") */
-  stream_type: string;
-  /** The unique identifier for the stream */
-  stream_id: number;
-  /** The URL for the channel's logo */
-  stream_icon: string;
-  /** The URL for the channel's cover image */
-  thumbnail: string;
-  /** The Electronic Program Guide channel ID */
-  epg_channel_id: string;
-  /** The date when the channel was added to the system */
-  added: string;
-  /** Flag indicating if the content is for adults (0/1) */
-  is_adult: number;
-  /** The primary category ID of the channel */
-  category_id: string;
-  /** All category IDs the channel belongs to */
-  category_ids: number[];
-  /** Custom stream identifier */
-  custom_sid: string;
-  /** Flag indicating if TV archive is available (0/1) */
-  tv_archive: number;
-  /** The direct URL to the channel's source */
-  direct_source: string;
-  /** The duration of available archive in days */
-  tv_archive_duration: number;
-  /** The URL to access the channel */
-  url: string;
-};
-
-/**
  * Xtream profile information
  *
  * This type represents the complete profile information including user details and server information
@@ -144,7 +36,7 @@ export type XtreamUserProfile = {
   /** Flag indicating if the account is a trial */
   is_trial: string;
   /** Number of active connections currently used */
-  active_cons: string;
+  active_cons: number;
   /** The date when the account was created */
   created_at: string;
   /** Maximum allowed concurrent connections */
@@ -159,6 +51,12 @@ export type XtreamUserProfile = {
  * This type represents the server-specific part of the profile
  */
 export type XtreamServerInfo = {
+  /** Flag to indicate if it is a XUI instance */
+  xui: boolean;
+  /** Software version */
+  version: string;
+  /** Software revision */
+  revision: string | null;
   /** The base URL of the Xtream server */
   url: string;
   /** The HTTP port number */
@@ -175,20 +73,228 @@ export type XtreamServerInfo = {
   timestamp_now: number;
   /** The current server time as a formatted string */
   time_now: string;
-  /** Server process status */
-  process: boolean;
+};
+
+/**
+ * Xtream category information
+ *
+ * This type represents a content category in the Xtream system
+ */
+export type XtreamCategory = {
+  /** The unique identifier for the category */
+  category_id: string;
+  /** The display name of the category */
+  category_name: string;
+  /** The ID of the parent category, if applicable */
+  parent_id: number;
+};
+
+/**
+ * Xtream channel information
+ *
+ * This type represents a live TV channel in the Xtream system
+ */
+export type XtreamChannel = {
+  /** The position/order number of the channel */
+  num: number;
+  /** The name of the channel */
+  name: string;
+  /** The type of stream (e.g., "live") */
+  stream_type: string;
+  /** The unique identifier for the stream */
+  stream_id: number;
+  /** The URL for the channel's logo */
+  stream_icon: string;
+  /** The URL for the channel's cover image */
+  thumbnail: string;
+  /** The Electronic Program Guide channel ID */
+  epg_channel_id: string;
+  /** The date when the channel was added to the system */
+  added: string;
+  /** The primary category ID of the channel */
+  category_id: string;
+  /** All category IDs the channel belongs to */
+  category_ids: number[];
+  /** Custom stream identifier */
+  custom_sid: string;
+  /** Flag indicating if TV archive is available (0/1) */
+  tv_archive: number;
+  /** The direct URL to the channel's source */
+  direct_source: string;
+  /** The duration of available archive in days */
+  tv_archive_duration: number;
+  /** The URL to access the channel */
+  url?: string;
+};
+
+/**
+ * Xtream movie information
+ *
+ * This type represents a movie in the Xtream system
+ */
+export type XtreamMoviesListing = {
+  /** The position/order number of the movie */
+  num: number;
+  /** The title of the movie */
+  name: string;
+  /** Year released */
+  year: string;
+  /** The title of the movie */
+  title: string;
+  /** The type of stream (e.g., "movie") */
+  stream_type: string;
+  /** The unique identifier for the stream */
+  stream_id: number;
+  /** The URL for the movie's icon/poster */
+  stream_icon: string;
+  /** The movie's rating as a string */
+  rating: number;
+  /** The movie's rating on a 5-point scale */
+  rating_5based: number;
+  /** The genres of the movie */
+  genre: string;
+  /** The date when the movie was added to the system */
+  added: string;
+  /** The runtime of the movie in minutes */
+  episode_run_time: number;
+  /** The primary category ID of the movie */
+  category_id: string;
+  /** All category IDs the movie belongs to */
+  category_ids: number[];
+  /** The file format extension */
+  container_extension: string;
+  /** Custom stream identifier */
+  custom_sid: any;
+  /** The direct URL to the movie's source */
+  direct_source: string;
+  /** The release date of the movie */
+  release_date: string;
+  /** The cast of the movie */
+  cast: string;
+  /** The director(s) of the movie */
+  director: string;
+  /** The synopsis/description of the movie */
+  plot: string;
+  /** Youtube ID of the trailer */
+  youtube_trailer: string;
+  /** The URL to access the movie */
+  url?: string;
+};
+
+/**
+ * Xtream movie information
+ *
+ * This type represents the detailed information about a movie
+ */
+export type XtreamMovie = {
+  /** The information about the movie */
+  info: XtreamMovieInfo;
+  /** Extra details of the movie */
+  movie_data: XtreamMovieData;
+};
+
+/**
+ * Xtream movie data
+ *
+ * This type represents the extra details of a movie stream
+ */
+export type XtreamMovieData = {
+  /** The unique identifier for the stream */
+  stream_id: number;
+  /** The title of the movie */
+  name: string;
+  /** The title of the movie */
+  title: string;
+  /** The year the movie was released */
+  year: string;
+  /** The date when the movie was added to the system */
+  added: string;
+  /** The primary category ID of the movie */
+  category_id: string;
+  /** All category IDs the movie belongs to */
+  category_ids: number[];
+  /** The file format extension */
+  container_extension: string;
+  /** Custom stream identifier */
+  custom_sid: string;
+  /** The direct URL to the movie's source */
+  direct_source: string;
+};
+
+/**
+ * Xtream movie information
+ *
+ * This type represents the technical details of a movie stream
+ */
+export type XtreamMovieInfo = {
+  /** The URL to the movie's Kinopoisk page */
+  kinopoisk_url: string;
+  /** The ID of the movie in The Movie Database (TMDB) */
+  tmdb_id: number;
+  /** The title of the movie */
+  name: string;
+  /** The original title of the movie */
+  o_name: string;
+  /** The URL for the movie's cover image */
+  cover_big: string;
+  /** The URL for the movie's image */
+  movie_image: string;
+  /** The release date of the movie */
+  release_date: string;
+  /** The runtime of the movie in minutes */
+  episode_run_time: number;
+  /** The YouTube ID or URL for the trailer */
+  youtube_trailer: string;
+  /** The director(s) of the movie */
+  director: string;
+  /** The actors in the movie */
+  actors: string;
+  /** The cast of the movie */
+  cast: string;
+  /** The synopsis/description of the movie */
+  description: string;
+  /** The plot of the movie */
+  plot: string;
+  /** The age rating of the movie */
+  age: string;
+  /** The MPAA rating of the movie */
+  mpaa_rating: string;
+  /** The number of ratings on Kinopoisk */
+  rating_count_kinopoisk: number;
+  /** The country of origin for the movie */
+  country: string;
+  /** The genre(s) of the movie */
+  genre: string;
+  /** Array of backdrop image URLs */
+  backdrop_path: string[];
+  /** The duration of the movie in seconds */
+  duration_secs: number;
+  /** The formatted duration of the movie */
+  duration: string;
+  /** The bitrate of the movie */
+  bitrate: number;
+  /** The release date of the movie */
+  releasedate: string;
+  /** Array of available subtitles */
+  subtitles: string[];
+  /** The rating of the movie */
+  rating: number;
 };
 
 /**
  * Xtream TV show information
  *
- * This type represents a TV show in the Xtream system
+ * This type represents a TV show listing in the Xtream system
  */
-export type XtreamTVShow = {
+export type XtreamTVShowListing = {
   /** The position/order number of the TV show */
   num: number;
   /** The title of the TV show */
   name: string;
+  /** The title of the TV show */
+  title: string;
+  /** The year of release */
+  year: string;
   /** The unique identifier for the series */
   series_id: number;
   /** The type of stream (e.g., "series") */
@@ -204,7 +310,7 @@ export type XtreamTVShow = {
   /** The genre(s) of the TV show */
   genre: string;
   /** The release date of the TV show (alternate format) */
-  releasedate: string;
+  releaseDate: string;
   /** The release date of the TV show */
   release_date: string;
   /** The date when the TV show was last updated */
@@ -212,13 +318,11 @@ export type XtreamTVShow = {
   /** The TV show's rating as a string */
   rating: string;
   /** The TV show's rating on a 5-point scale as a string */
-  rating_5based: string;
+  rating_5based: number;
   /** Array of backdrop image URLs */
   backdrop_path: string[];
   /** The YouTube ID or URL for the trailer */
   youtube_trailer: string;
-  /** The TV show's ID in The Movie Database (TMDB) as a string */
-  tmdb: string;
   /** The average runtime of episodes as a string */
   episode_run_time: string;
   /** The primary category ID of the TV show */
@@ -226,7 +330,7 @@ export type XtreamTVShow = {
   /** All category IDs the TV show belongs to */
   category_ids: number[];
   /** The URL to access the TV show */
-  url: string;
+  url?: string;
 };
 
 /**
@@ -234,15 +338,58 @@ export type XtreamTVShow = {
  *
  * This type represents the complete information about a TV show including seasons and episodes
  */
-export type XtreamTVShowInfo = {
+export type XtreamTVShow = {
   /** Array of seasons in the TV show */
   seasons: XtreamSeason[];
   /** Basic information about the TV show */
-  info: XtreamTVShow;
+  info: XtreamTVShowInfo;
   /** Object containing episodes grouped by season number */
   episodes: {
     [key: string]: XtreamEpisode[];
   };
+};
+
+export type XtreamTVShowInfo = {
+  /** The title of the TV show */
+  name: string;
+  /** The title of the TV show */
+  title: string;
+  /** The year of release */
+  year: string;
+  /** The unique identifier for the series */
+  series_id: number;
+  /** The URL for the TV show's cover image */
+  cover: string;
+  /** The synopsis/description of the TV show */
+  plot: string;
+  /** The cast members of the TV show */
+  cast: string;
+  /** The director(s) of the TV show */
+  director: string;
+  /** The genre(s) of the TV show */
+  genre: string;
+  /** The release date of the TV show (alternate format) */
+  releaseDate: string;
+  /** The release date of the TV show */
+  release_date: string;
+  /** The date when the TV show was last updated */
+  last_modified: string;
+  /** The TV show's rating as a string */
+  rating: string;
+  /** The TV show's rating on a 5-point scale as a string */
+  rating_5based: number;
+  /** Array of backdrop image URLs */
+  backdrop_path: string[];
+  /** The YouTube ID or URL for the trailer */
+  youtube_trailer: string;
+  /** The average runtime of episodes as a string */
+  episode_run_time: string;
+  /** The primary category ID of the TV show */
+  category_id: string;
+  /** All category IDs the TV show belongs to */
+  category_ids: number[];
+  /** The URL to access the TV show */
+  url?: string;
 };
 
 /**
@@ -256,23 +403,21 @@ export type XtreamSeason = {
   /** The name of the season */
   name: string;
   /** The number of episodes in the season as a string */
-  episode_count: string;
+  episode_count: number;
   /** The synopsis/description of the season */
   overview: string;
   /** The date when the season first aired */
   air_date: string;
   /** The URL for the season's cover image */
   cover: string;
-  /** The TMDB URL for the season's cover image */
-  cover_tmdb: string;
   /** The season number */
   season_number: number;
   /** The URL for a larger version of the season's cover */
   cover_big: string;
-  /** The release date of the season */
-  releaseDate: string;
   /** The average duration of episodes in the season */
   duration?: string;
+  /** The average rating vote for the season */
+  vote_average: number;
 };
 
 /**
@@ -284,11 +429,9 @@ export type XtreamEpisode = {
   /** The unique identifier for the episode */
   id: string;
   /** The episode number within the season */
-  episode_num: number;
+  episode_num: string;
   /** The title of the episode */
   title: string;
-  /** The synopsis/description of the episode */
-  plot: string;
   /** The file format extension */
   container_extension: string;
   /** Detailed information about the episode */
@@ -301,8 +444,44 @@ export type XtreamEpisode = {
   season: number;
   /** The direct URL to the episode's source */
   direct_source: string;
+  /** URLs to subtitle files */
+  subtitles: string[];
   /** The URL to access the episode */
-  url: string;
+  url?: string;
+};
+
+/**
+ * Xtream episode information
+ *
+ * This type represents the information about an episode in a TV show
+ */
+export type XtreamEpisodeInfo = {
+  /** The air date of the episode */
+  air_date?: string;
+  /** The release date of the episode */
+  release_date: string;
+  /** The plot of the episdoe */
+  plot: string;
+  /** The rating of the episode */
+  rating: number;
+  /** The image of the episode */
+  movie_image: string;
+  /** The big cover of the episode */
+  cover_big: string;
+  /** The duration of the episode in seconds */
+  duration_secs: number;
+  /** The formatted duration of the episode */
+  duration: string;
+  /** The id of the episode in The Movie Database */
+  tmdb_id: number;
+  /** The video information of the episode */
+  video?: XtreamVideoInfo;
+  /** The audio information of the episode */
+  audio?: XtreamAudioInfo;
+  /** The bitrate of the episode */
+  bitrate: number;
+  /** The season number of the episode */
+  season: number;
 };
 
 /**
@@ -503,38 +682,6 @@ export type XtreamAudioInfo = {
   tags: {
     [key: string]: string;
   };
-};
-
-/**
- * Xtream episode information
- *
- * This type represents the information about an episode in a TV show
- */
-export type XtreamEpisodeInfo = {
-  /** The air date of the episode */
-  air_date?: string;
-  /** The release date of the episode */
-  release_date: string;
-  /** The crew of the episode */
-  crew: string;
-  /** The rating of the episode */
-  rating: string;
-  /** The image of the episode */
-  movie_image: string;
-  /** The big cover of the episode */
-  cover_big: string;
-  /** The duration of the episode in seconds */
-  duration_secs: number;
-  /** The formatted duration of the episode */
-  duration: string;
-  /** The id of the episode in The Movie Database */
-  tmdbId: number;
-  /** The video information of the episode */
-  video?: XtreamVideoInfo;
-  /** The audio information of the episode */
-  audio?: XtreamAudioInfo;
-  /** The bitrate of the episode */
-  bitrate: number;
 };
 
 /**
