@@ -269,8 +269,6 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
   }: TVShowOptions): Promise<T extends { TVShow: (input: XtreamTVShowInfo) => infer R } ? R : XtreamTVShowInfo> {
     const show = await this.#request<XtreamTVShowInfo>('get_series_info&series_id=' + showId);
 
-    show.info.series_id = Number(showId);
-
     if (show.info.name === null) {
       throw new Error('TV Show Not Found');
     }

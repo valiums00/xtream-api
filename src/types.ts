@@ -272,7 +272,7 @@ export type XtreamSeason = {
   /** The release date of the season */
   releaseDate: string;
   /** The average duration of episodes in the season */
-  duration: string;
+  duration?: string;
 };
 
 /**
@@ -601,6 +601,6 @@ export type XtreamFullEPGListing = Prettify<
   }
 >;
 
-type Prettify<T> = {
+export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};

@@ -1,5 +1,6 @@
 import camelCaseKeys from 'camelcase-keys';
-import { defineSerializers, XtreamCategory } from '../main.ts';
+import { defineSerializers } from '../xtream.ts';
+import type { XtreamCategory } from '../types.ts';
 
 /**
  * JSON API serializers for the Xtream API
@@ -245,6 +246,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
       const { releaseDate, movieImage, coverBig, durationSecs, duration, tmdbId, ...restEpisodeInfo } = info;
 
+      const seasonId = seasons.find((x) => x.seasonNumber === season)?.id.toString() || season.toString();
+
       return {
         type: 'episode',
         id,
@@ -262,8 +265,9 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         },
         relationships: {
           season: {
-            data: { type: 'season', id: seasons[season - 1].id.toString() },
+            data: { type: 'season', id: seasonId },
           },
+
           tvShow: {
             data: { type: 'tv-show', id: seriesId.toString() },
           },
@@ -271,7 +275,28 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       };
     });
 
-    const seasonsAsJSONAPI: JSONAPIXtreamSeason[] = seasons.map((season) => {
+    let seasonsToMap = seasons;
+    if (seasonsToMap.length === 0) {
+      // if xtream provides no seasons, we will use the episode keys to generate seasons
+      seasonsToMap = Object.keys(episodes).map((season) => {
+        const seasonNumber = season;
+        const firstEpisode = episodes[season][0];
+        return {
+          id: Number(seasonNumber),
+          name: `Season ${seasonNumber}`,
+          episodeCount: episodes[season].length.toString(),
+          overview: '',
+          airDate: firstEpisode.info.releaseDate,
+          cover: firstEpisode.info.movieImage,
+          coverTmdb: firstEpisode.info.movieImage,
+          seasonNumber: Number(seasonNumber),
+          coverBig: firstEpisode.info.movieImage,
+          releaseDate: firstEpisode.info.releaseDate,
+        };
+      });
+    }
+
+    const seasonsAsJSONAPI: JSONAPIXtreamSeason[] = seasonsToMap.map((season) => {
       const { id, seasonNumber, cover, coverBig, coverTmdb, airDate, ...restSeason } = season;
 
       return {
@@ -286,6 +311,14 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         relationships: {
           tvShow: {
             data: { type: 'tv-show', id: seriesId.toString() },
+          },
+          episodes: {
+            data: flatEpisodes
+              .filter((episode) => episode.season === seasonNumber)
+              .map((episode) => ({
+                type: 'episode',
+                id: episode.id.toString(),
+              })),
           },
         },
       };
@@ -315,7 +348,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             })),
           },
           seasons: {
-            data: seasons.map((season) => ({
+            data: seasonsToMap.map((season) => ({
               type: 'season',
               id: season.id.toString(),
             })),
@@ -743,7 +776,7 @@ export type JSONAPIXtreamEpisode = {
   /** The episode relationships */
   relationships: {
     /** The season relationship */
-    season: {
+    season?: {
       data: {
         /** The season type */
         type: 'season';

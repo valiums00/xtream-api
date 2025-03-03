@@ -1,5 +1,6 @@
 import camelCaseKeys from 'camelcase-keys';
-import { defineSerializers, XtreamCategory } from '../main.ts';
+import { defineSerializers } from '../xtream.ts';
+import type { XtreamCategory, Prettify } from '../types.ts';
 
 /**
  * Standardized serializers for the Xtream API
@@ -114,7 +115,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     });
   },
 
-  TVShows: (input): StandardXtreamTVShow[] => {
+  TVShows: (input): Prettify<Omit<StandardXtreamTVShow, 'seasons'>>[] => {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((show) => {
@@ -187,6 +188,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       const { id, season, episodeNum, added, info, ...restEpisode } = episode;
 
       const { releaseDate, movieImage, coverBig, durationSecs, duration, tmdbId, ...restEpisodeInfo } = info;
+      const seasonId = seasons.find((x) => x.seasonNumber === season)?.id.toString() || season.toString();
 
       return {
         id,
@@ -201,11 +203,33 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         releaseDate: new Date(releaseDate),
         createdAt: new Date(Number(added) * 1000),
         tvShowId: seriesId.toString(),
-        seasonId: seasons[season - 1].id.toString(),
+        seasonId: seasonId,
       };
     });
 
-    const mappedSeasons: StandardXtreamSeason[] = seasons.map((season) => {
+    let seasonsToMap = seasons;
+
+    if (seasonsToMap.length === 0) {
+      // if xtream provides no seasons, we will use the episode keys to generate seasons
+      seasonsToMap = Object.keys(episodes).map((season) => {
+        const seasonNumber = season;
+        const firstEpisode = episodes[season][0];
+        return {
+          id: Number(seasonNumber),
+          name: `Season ${seasonNumber}`,
+          episodeCount: episodes[season].length.toString(),
+          overview: '',
+          airDate: firstEpisode.info.releaseDate,
+          cover: firstEpisode.info.movieImage,
+          coverTmdb: firstEpisode.info.movieImage,
+          seasonNumber: Number(seasonNumber),
+          coverBig: firstEpisode.info.movieImage,
+          releaseDate: firstEpisode.info.releaseDate,
+        };
+      });
+    }
+
+    const mappedSeasons: StandardXtreamSeason[] = seasonsToMap.map((season) => {
       const { id, seasonNumber, cover, coverBig, coverTmdb, airDate, ...restSeason } = season;
 
       return {
@@ -463,7 +487,7 @@ export type StandardXtreamTVShow = {
   /** All category IDs the TV show belongs to */
   categoryIds?: string[];
   /** Array of seasons in the TV show */
-  seasons?: StandardXtreamSeason[];
+  seasons: StandardXtreamSeason[];
 };
 
 /**
@@ -495,7 +519,7 @@ export type StandardXtreamEpisode = {
   /** The date when the episode was added to the system */
   createdAt: Date;
   /** The ID of the season this episode belongs to */
-  seasonId: string;
+  seasonId?: string;
   /** The ID of the TV show this episode belongs to */
   tvShowId: string;
 };

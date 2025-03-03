@@ -42,11 +42,7 @@
         "data": [
           {
             "type": "season",
-            "id": "442962"
-          },
-          {
-            "type": "season",
-            "id": "382546"
+            "id": "1"
           }
         ]
       },
@@ -67,39 +63,14 @@
   "included": [
     {
       "type": "season",
-      "id": "442962",
+      "id": "1",
       "attributes": {
-        "episodeCount": 5,
-        "name": "Specials",
-        "overview": "",
-        "voteAverage": 0,
-        "releaseDate": "2025-02-17T00:00:00.000Z",
-        "number": 0,
-        "cover": "https://example-iptv.com/images/small-town-specials-large.jpg"
-      },
-      "relationships": {
-        "tvShow": {
-          "data": {
-            "type": "tv-show",
-            "id": "16083"
-          }
-        },
-        "episodes": {
-          "data": []
-        }
-      }
-    },
-    {
-      "type": "season",
-      "id": "382546",
-      "attributes": {
-        "episodeCount": 15,
         "name": "Season 1",
+        "episodeCount": "2",
         "overview": "",
-        "voteAverage": 10,
         "releaseDate": "2025-02-24T00:00:00.000Z",
         "number": 1,
-        "cover": "https://example-iptv.com/images/small-town-s1-large.jpg"
+        "cover": "https://example-iptv.com/images/small-town-s01e01.jpg"
       },
       "relationships": {
         "tvShow": {
@@ -148,7 +119,7 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "382546"
+            "id": "1"
           }
         },
         "tvShow": {
@@ -185,7 +156,7 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "382546"
+            "id": "1"
           }
         },
         "tvShow": {
