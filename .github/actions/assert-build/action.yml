@@ -22,12 +22,12 @@ runs:
             standardized.cjs
             types/index.d.ts
             types/index.d.cts
-            types/camelcase.ts
-            types/camelcase.cts
-            types/jsonapi.ts
-            types/jsonapi.cts
-            types/standardized.ts
-            types/standardized.cts
+            types/camelcase.d.ts
+            types/camelcase.d.cts
+            types/jsonapi.d.ts
+            types/jsonapi.d.cts
+            types/standardized.d.ts
+            types/standardized.d.cts
 
 
         ' >> assert-contents.config.yml
