@@ -20,7 +20,7 @@ export const camelCaseSerializer = defineSerializers('Camel Case', {
   movieCategories: (input) => {
     return camelCaseKeys(input);
   },
-  TVShowCategories: (input) => {
+  showCategories: (input) => {
     return camelCaseKeys(input);
   },
   channels: (input) => {
@@ -32,10 +32,10 @@ export const camelCaseSerializer = defineSerializers('Camel Case', {
   movie: (input) => {
     return camelCaseKeys(input, { deep: true });
   },
-  TVShows: (input) => {
+  shows: (input) => {
     return camelCaseKeys(input);
   },
-  TVShow: (input) => {
+  show: (input) => {
     return camelCaseKeys(input, { deep: true });
   },
   shortEPG: (input) => {

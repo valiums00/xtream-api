@@ -41,7 +41,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     return categoryMapper(input);
   },
 
-  TVShowCategories: (input): StandardXtreamCategory[] => {
+  showCategories: (input): StandardXtreamCategory[] => {
     return categoryMapper(input);
   },
 
@@ -169,7 +169,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     };
   },
 
-  TVShows: (input): Prettify<Omit<StandardXtreamTVShow, 'seasons'>>[] => {
+  shows: (input): Prettify<Omit<StandardXtreamShow, 'seasons'>>[] => {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((show) => {
@@ -211,7 +211,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     });
   },
 
-  TVShow: (input): StandardXtreamTVShow => {
+  show: (input): StandardXtreamShow => {
     const { seasons, info, episodes } = camelCaseKeys(input, {
       deep: true,
     });
@@ -231,7 +231,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       director,
       genre,
       youtubeTrailer,
-      ...restTVShowInfo
+      ...restShowInfo
     } = info;
 
     const flatEpisodes = Object.values(episodes).flat();
@@ -254,7 +254,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         durationFormatted: duration,
         releaseDate: new Date(releaseDate),
         createdAt: new Date(Number(added) * 1000),
-        tvShowId: seriesId.toString(),
+        showId: seriesId.toString(),
         seasonId: seasonId,
       };
     });
@@ -290,14 +290,14 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         releaseDate: new Date(airDate),
         number: seasonNumber,
         cover: coverBig,
-        tvShowId: seriesId.toString(),
+        showId: seriesId.toString(),
         episodes: mappedEpisodes.filter((episode) => episode.seasonId === id.toString()),
       };
     });
 
     return {
       id: info.seriesId.toString(),
-      ...restTVShowInfo,
+      ...restShowInfo,
       voteAverage: Number(rating),
       poster: cover,
       cover: backdropPath[0],
@@ -567,47 +567,47 @@ export type StandardXtreamMovie = {
 };
 
 /**
- * Standardized Xtream TV show information
+ * Standardized Xtream show information
  *
- * This type represents a TV show in the Xtream system in a standardized format
+ * This type represents a show in the Xtream system in a standardized format
  */
-export type StandardXtreamTVShow = {
-  /** The unique identifier for the TV show */
+export type StandardXtreamShow = {
+  /** The unique identifier for the show */
   id: string;
-  /** The title of the TV show */
+  /** The title of the show */
   name: string;
-  /** The synopsis/description of the TV show */
+  /** The synopsis/description of the show */
   plot: string;
-  /** The TV show's rating */
+  /** The show's rating */
   voteAverage: number;
-  /** The URL for the TV show's poster image */
+  /** The URL for the show's poster image */
   poster: string;
-  /** The URL for the TV show's cover image */
+  /** The URL for the show's cover image */
   cover: string;
-  /** The release date of the TV show */
+  /** The release date of the show */
   releaseDate: Date;
   /** The average runtime of episodes in seconds */
   duration: number;
   /** Youtube ID of trailer */
   youtubeId: string;
-  /** The cast members of the TV show as an array */
+  /** The cast members of the show as an array */
   cast: string[];
-  /** The director(s) of the TV show as an array */
+  /** The director(s) of the show as an array */
   director: string[];
-  /** The genre(s) of the TV show as an array */
+  /** The genre(s) of the show as an array */
   genre: string[];
-  /** The date when the TV show was last updated */
+  /** The date when the show was last updated */
   updatedAt: Date;
-  /** All category IDs the TV show belongs to */
+  /** All category IDs the show belongs to */
   categoryIds?: string[];
-  /** Array of seasons in the TV show */
+  /** Array of seasons in the show */
   seasons: StandardXtreamSeason[];
 };
 
 /**
  * Standardized Xtream episode information
  *
- * This type represents an episode in a TV show in the Xtream system in a standardized format
+ * This type represents an episode in a show in the Xtream system in a standardized format
  */
 export type StandardXtreamEpisode = {
   /** The unique identifier for the episode */
@@ -634,14 +634,14 @@ export type StandardXtreamEpisode = {
   createdAt: Date;
   /** The ID of the season this episode belongs to */
   seasonId?: string;
-  /** The ID of the TV show this episode belongs to */
-  tvShowId: string;
+  /** The ID of the show this episode belongs to */
+  showId: string;
 };
 
 /**
  * Standardized Xtream season information
  *
- * This type represents a season of a TV show in the Xtream system in a standardized format
+ * This type represents a season of a show in the Xtream system in a standardized format
  */
 export type StandardXtreamSeason = {
   /** The unique identifier for the season */
@@ -652,8 +652,8 @@ export type StandardXtreamSeason = {
   cover: string;
   /** The date when the season first aired */
   releaseDate: Date;
-  /** The ID of the TV show this season belongs to */
-  tvShowId: string;
+  /** The ID of the show this season belongs to */
+  showId: string;
   /** Episodes in this season */
   episodes?: StandardXtreamEpisode[];
 };

@@ -8,8 +8,8 @@ import type {
   XtreamShortEPG,
   XtreamFullEPG,
   XtreamMovie,
-  XtreamTVShowListing,
-  XtreamTVShow,
+  XtreamShowListing,
+  XtreamShow,
 } from './types.ts';
 
 type Serializers = {
@@ -17,12 +17,12 @@ type Serializers = {
   serverInfo: (input: XtreamServerInfo) => any;
   channelCategories: (input: XtreamCategory[]) => any;
   movieCategories: (input: XtreamCategory[]) => any;
-  TVShowCategories: (input: XtreamCategory[]) => any;
+  showCategories: (input: XtreamCategory[]) => any;
   channels: (input: XtreamChannel[]) => any;
   movies: (input: XtreamMoviesListing[]) => any;
   movie: (input: XtreamMovie) => any;
-  TVShows: (input: XtreamTVShowListing[]) => any;
-  TVShow: (input: XtreamTVShow) => any;
+  shows: (input: XtreamShowListing[]) => any;
+  show: (input: XtreamShow) => any;
   shortEPG: (input: XtreamShortEPG) => any;
   fullEPG: (input: XtreamFullEPG) => any;
 };
@@ -46,7 +46,7 @@ type EPGOptions = {
   limit?: number;
 };
 
-type TVShowOptions = {
+type ShowOptions = {
   showId: number | string;
 };
 
@@ -64,12 +64,12 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     serverInfo: (input) => input,
     channelCategories: (input) => input,
     movieCategories: (input) => input,
-    TVShowCategories: (input) => input,
+    showCategories: (input) => input,
     channels: (input) => input,
     movies: (input) => input,
     movie: (input) => input,
-    TVShows: (input) => input,
-    TVShow: (input) => input,
+    shows: (input) => input,
+    show: (input) => input,
     shortEPG: (input) => input,
     fullEPG: (input) => input,
   };
@@ -184,20 +184,20 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
   }
 
   /**
-   * Gets the list of all available TV show categories
+   * Gets the list of all available show categories
    *
-   * @returns A list of all available TV show categories
+   * @returns A list of all available show categories
    */
-  async getTVShowCategories(): Promise<
+  async getShowCategories(): Promise<
     T extends {
-      TVShowCategories: (input: XtreamCategory[]) => infer R;
+      showCategories: (input: XtreamCategory[]) => infer R;
     }
       ? R
       : XtreamCategory[]
   > {
     const categories = await this.#request<XtreamCategory[]>('get_series_categories');
 
-    return this.#serializers.TVShowCategories(categories);
+    return this.#serializers.showCategories(categories);
   }
 
   /**
@@ -263,42 +263,40 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
   }
 
   /**
-   * Gets the list of all available TV shows
+   * Gets the list of all available shows
    *
-   * @returns A list of all available TV shows
+   * @returns A list of all available shows
    */
-  async getTVShows({ categoryId, page, limit }: FilterableRequest = {}): Promise<
-    T extends { TVShows: (input: XtreamTVShowListing[]) => infer R } ? R : XtreamTVShowListing[]
+  async getShows({ categoryId, page, limit }: FilterableRequest = {}): Promise<
+    T extends { shows: (input: XtreamShowListing[]) => infer R } ? R : XtreamShowListing[]
   > {
     const action = 'get_series' + (categoryId ? `&category_id=${categoryId}` : '');
-    const tvShows = await this.#request<XtreamTVShowListing[]>(action);
+    const shows = await this.#request<XtreamShowListing[]>(action);
 
     if (page && limit) {
       const start = (page - 1) * limit;
       const end = start + limit;
 
-      return this.#serializers.TVShows(tvShows.slice(start, end));
+      return this.#serializers.shows(shows.slice(start, end));
     }
 
-    return this.#serializers.TVShows(tvShows);
+    return this.#serializers.shows(shows);
   }
 
   /**
-   * Gets the information about a specific TV show
+   * Gets the information about a specific show
    *
-   * @param TVShowOptions The options for the request
-   * @returns The information about the TV show
+   * @param ShowOptions The options for the request
+   * @returns The information about the show
    */
-  async getTVShow({
-    showId,
-  }: TVShowOptions): Promise<T extends { TVShow: (input: XtreamTVShow) => infer R } ? R : XtreamTVShow> {
-    const show = await this.#request<XtreamTVShow>('get_series_info&series_id=' + showId);
+  async getShow({ showId }: ShowOptions): Promise<T extends { show: (input: XtreamShow) => infer R } ? R : XtreamShow> {
+    const show = await this.#request<XtreamShow>('get_series_info&series_id=' + showId);
 
     if (show.info.name === null) {
-      throw new Error('TV Show Not Found');
+      throw new Error('show Not Found');
     }
 
-    return this.#serializers.TVShow(show);
+    return this.#serializers.show(show);
   }
 
   /**

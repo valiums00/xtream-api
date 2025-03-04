@@ -68,20 +68,20 @@ console.log(categories);
 
 ### 📚 API
 
-| Method                 | Options                       | Description                       | Serialized                                                                                                                         |
-| ---------------------- | ----------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `getProfile`           |                               | Get the user profile              | [Standardized](tests/snapshots/standardized/profile.json) / [JSON:API](tests/snapshots/jsonapi/profile.json)                       |
-| `getServerInfo`        |                               | Get the server information        | [Standardized](tests/snapshots/standardized/server-info.json) / [JSON:API](tests/snapshots/jsonapi/server-info.json)               |
-| `getChannelCategories` |                               | Get the channel categories        | [Standardized](tests/snapshots/standardized/categories.json) / [JSON:API](tests/snapshots/jsonapi/categories.json)                 |
-| `getMovieCategories`   |                               | Get the movie categories          | [Standardized](tests/snapshots/standardized/movie-categories.json) / [JSON:API](tests/snapshots/jsonapi/movie-categories.json)     |
-| `getTVShowCategories`  |                               | Get the TV show categories        | [Standardized](tests/snapshots/standardized/tv-Show-categories.json) / [JSON:API](tests/snapshots/jsonapi/tv-Show-categories.json) |
-| `getChannels`          | `{ categoryId, page, limit }` | Get the channels for a category   | [Standardized](tests/snapshots/standardized/channels.json) / [JSON:API](tests/snapshots/jsonapi/channels.json)                     |
-| `getMovies`            | `{ categoryId, page, limit }` | Get the movies for a category     | [Standardized](tests/snapshots/standardized/movies.json) / [JSON:API](tests/snapshots/jsonapi/movies.json)                         |
-| `getMovie`             | `{ movieId }`                 | Get the information for a movie   | [Standardized](tests/snapshots/standardized/movie.json) / [JSON:API](tests/snapshots/jsonapi/movie.json)                           |
-| `getTVShows`           | `{ categoryId, page, limit }` | Get the TV shows for a category   | [Standardized](tests/snapshots/standardized/tv-shows.json) / [JSON:API](tests/snapshots/jsonapi/tv-shows.json)                     |
-| `getTVShow`            | `{ TVShowId }`                | Get the information for a TV show | [Standardized](tests/snapshots/standardized/tv-show.json) / [JSON:API](tests/snapshots/jsonapi/tv-show.json)                       |
-| `getShortEPG`          | `{ channelId, limit }`        | Get the short EPG for a channel   | [Standardized](tests/snapshots/standardized/short-epg.json) / [JSON:API](tests/snapshots/jsonapi/short-epg.json)                   |
-| `getFullEPG`           | `{ channelId }`               | Get the full EPG for a channel    | [Standardized](tests/snapshots/standardized/full-epg.json) / [JSON:API](tests/snapshots/jsonapi/full-epg.json)                     |
+| Method                 | Options                       | Description                     | Serialized                                                                                                                     |
+| ---------------------- | ----------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `getProfile`           |                               | Get the user profile            | [Standardized](tests/snapshots/standardized/profile.json) / [JSON:API](tests/snapshots/jsonapi/profile.json)                   |
+| `getServerInfo`        |                               | Get the server information      | [Standardized](tests/snapshots/standardized/server-info.json) / [JSON:API](tests/snapshots/jsonapi/server-info.json)           |
+| `getChannelCategories` |                               | Get the channel categories      | [Standardized](tests/snapshots/standardized/categories.json) / [JSON:API](tests/snapshots/jsonapi/categories.json)             |
+| `getMovieCategories`   |                               | Get the movie categories        | [Standardized](tests/snapshots/standardized/movie-categories.json) / [JSON:API](tests/snapshots/jsonapi/movie-categories.json) |
+| `getShowCategories`    |                               | Get the show categories         | [Standardized](tests/snapshots/standardized/show-categories.json) / [JSON:API](tests/snapshots/jsonapi/show-categories.json)   |
+| `getChannels`          | `{ categoryId, page, limit }` | Get the channels for a category | [Standardized](tests/snapshots/standardized/channels.json) / [JSON:API](tests/snapshots/jsonapi/channels.json)                 |
+| `getMovies`            | `{ categoryId, page, limit }` | Get the movies for a category   | [Standardized](tests/snapshots/standardized/movies.json) / [JSON:API](tests/snapshots/jsonapi/movies.json)                     |
+| `getMovie`             | `{ movieId }`                 | Get the information for a movie | [Standardized](tests/snapshots/standardized/movie.json) / [JSON:API](tests/snapshots/jsonapi/movie.json)                       |
+| `getShows`             | `{ categoryId, page, limit }` | Get the shows for a category    | [Standardized](tests/snapshots/standardized/shows.json) / [JSON:API](tests/snapshots/jsonapi/shows.json)                       |
+| `getShow`              | `{ showId }`                  | Get the information for a show  | [Standardized](tests/snapshots/standardized/show.json) / [JSON:API](tests/snapshots/jsonapi/show.json)                         |
+| `getShortEPG`          | `{ channelId, limit }`        | Get the short EPG for a channel | [Standardized](tests/snapshots/standardized/short-epg.json) / [JSON:API](tests/snapshots/jsonapi/short-epg.json)               |
+| `getFullEPG`           | `{ channelId }`               | Get the full EPG for a channel  | [Standardized](tests/snapshots/standardized/full-epg.json) / [JSON:API](tests/snapshots/jsonapi/full-epg.json)                 |
 
 ## 🔄 Serializers
 
@@ -222,12 +222,12 @@ type Serializers = {
   serverInfo: (input: XtreamServerInfo) => any;
   channelCategories: (input: XtreamCategory[]) => any;
   movieCategories: (input: XtreamCategory[]) => any;
-  TVShowCategories: (input: XtreamCategory[]) => any;
+  showCategories: (input: XtreamCategory[]) => any;
   channels: (input: XtreamChannel[]) => any;
   movies: (input: XtreamMovies[]) => any;
   movie: (input: XtreamMovieInfo) => any;
-  TVShows: (input: XtreamTVShow[]) => any;
-  TVShow: (input: XtreamTVShowInfo) => any;
+  shows: (input: XtreamShow[]) => any;
+  show: (input: XtreamShowInfo) => any;
   shortEPG: (input: XtreamShortEPG) => any;
   fullEPG: (input: XtreamFullEPG) => any;
 };

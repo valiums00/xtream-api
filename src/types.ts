@@ -282,16 +282,16 @@ export type XtreamMovieInfo = {
 };
 
 /**
- * Xtream TV show information
+ * Xtream show information
  *
- * This type represents a TV show listing in the Xtream system
+ * This type represents a show listing in the Xtream system
  */
-export type XtreamTVShowListing = {
-  /** The position/order number of the TV show */
+export type XtreamShowListing = {
+  /** The position/order number of the show */
   num: number;
-  /** The title of the TV show */
+  /** The title of the show */
   name: string;
-  /** The title of the TV show */
+  /** The title of the show */
   title: string;
   /** The year of release */
   year: string;
@@ -299,25 +299,25 @@ export type XtreamTVShowListing = {
   series_id: number;
   /** The type of stream (e.g., "series") */
   stream_type: string;
-  /** The URL for the TV show's cover image */
+  /** The URL for the show's cover image */
   cover: string;
-  /** The synopsis/description of the TV show */
+  /** The synopsis/description of the show */
   plot: string;
-  /** The cast members of the TV show */
+  /** The cast members of the show */
   cast: string;
-  /** The director(s) of the TV show */
+  /** The director(s) of the show */
   director: string;
-  /** The genre(s) of the TV show */
+  /** The genre(s) of the show */
   genre: string;
-  /** The release date of the TV show (alternate format) */
+  /** The release date of the show (alternate format) */
   releaseDate: string;
-  /** The release date of the TV show */
+  /** The release date of the show */
   release_date: string;
-  /** The date when the TV show was last updated */
+  /** The date when the show was last updated */
   last_modified: string;
-  /** The TV show's rating as a string */
+  /** The show's rating as a string */
   rating: string;
-  /** The TV show's rating on a 5-point scale as a string */
+  /** The show's rating on a 5-point scale as a string */
   rating_5based: number;
   /** Array of backdrop image URLs */
   backdrop_path: string[];
@@ -325,58 +325,58 @@ export type XtreamTVShowListing = {
   youtube_trailer: string;
   /** The average runtime of episodes as a string */
   episode_run_time: string;
-  /** The primary category ID of the TV show */
+  /** The primary category ID of the show */
   category_id: string;
-  /** All category IDs the TV show belongs to */
+  /** All category IDs the show belongs to */
   category_ids: number[];
-  /** The URL to access the TV show */
+  /** The URL to access the show */
   url?: string;
 };
 
 /**
- * Xtream TV show detailed information
+ * Xtream show detailed information
  *
- * This type represents the complete information about a TV show including seasons and episodes
+ * This type represents the complete information about a show including seasons and episodes
  */
-export type XtreamTVShow = {
-  /** Array of seasons in the TV show */
+export type XtreamShow = {
+  /** Array of seasons in the show */
   seasons: XtreamSeason[];
-  /** Basic information about the TV show */
-  info: XtreamTVShowInfo;
+  /** Basic information about the show */
+  info: XtreamShowInfo;
   /** Object containing episodes grouped by season number */
   episodes: {
     [key: string]: XtreamEpisode[];
   };
 };
 
-export type XtreamTVShowInfo = {
-  /** The title of the TV show */
+export type XtreamShowInfo = {
+  /** The title of the show */
   name: string;
-  /** The title of the TV show */
+  /** The title of the show */
   title: string;
   /** The year of release */
   year: string;
   /** The unique identifier for the series */
   series_id: number;
-  /** The URL for the TV show's cover image */
+  /** The URL for the show's cover image */
   cover: string;
-  /** The synopsis/description of the TV show */
+  /** The synopsis/description of the show */
   plot: string;
-  /** The cast members of the TV show */
+  /** The cast members of the show */
   cast: string;
-  /** The director(s) of the TV show */
+  /** The director(s) of the show */
   director: string;
-  /** The genre(s) of the TV show */
+  /** The genre(s) of the show */
   genre: string;
-  /** The release date of the TV show (alternate format) */
+  /** The release date of the show (alternate format) */
   releaseDate: string;
-  /** The release date of the TV show */
+  /** The release date of the show */
   release_date: string;
-  /** The date when the TV show was last updated */
+  /** The date when the show was last updated */
   last_modified: string;
-  /** The TV show's rating as a string */
+  /** The show's rating as a string */
   rating: string;
-  /** The TV show's rating on a 5-point scale as a string */
+  /** The show's rating on a 5-point scale as a string */
   rating_5based: number;
   /** Array of backdrop image URLs */
   backdrop_path: string[];
@@ -384,18 +384,18 @@ export type XtreamTVShowInfo = {
   youtube_trailer: string;
   /** The average runtime of episodes as a string */
   episode_run_time: string;
-  /** The primary category ID of the TV show */
+  /** The primary category ID of the show */
   category_id: string;
-  /** All category IDs the TV show belongs to */
+  /** All category IDs the show belongs to */
   category_ids: number[];
-  /** The URL to access the TV show */
+  /** The URL to access the show */
   url?: string;
 };
 
 /**
  * Xtream season information
  *
- * This type represents a season of a TV show in the Xtream system
+ * This type represents a season of a show in the Xtream system
  */
 export type XtreamSeason = {
   /** The unique identifier for the season */
@@ -423,7 +423,7 @@ export type XtreamSeason = {
 /**
  * Xtream episode information
  *
- * This type represents an episode in a TV show in the Xtream system
+ * This type represents an episode in a show in the Xtream system
  */
 export type XtreamEpisode = {
   /** The unique identifier for the episode */
@@ -453,7 +453,7 @@ export type XtreamEpisode = {
 /**
  * Xtream episode information
  *
- * This type represents the information about an episode in a TV show
+ * This type represents the information about an episode in a show
  */
 export type XtreamEpisodeInfo = {
   /** The air date of the episode */
