@@ -2,6 +2,17 @@
 
 ## Release (2025-03-04)
 
+@iptv/xtream-api 1.1.1 (patch)
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#7](https://github.com/ektotv/xtream-api/pull/7) Add prepublish script to ensure library is built before publish ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
+## Release (2025-03-04)
+
 @iptv/xtream-api 1.1.0 (minor)
 
 #### :rocket: Enhancement
