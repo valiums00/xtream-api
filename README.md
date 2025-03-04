@@ -226,10 +226,10 @@ type Serializers = {
   movieCategories: (input: XtreamCategory[]) => any;
   showCategories: (input: XtreamCategory[]) => any;
   channels: (input: XtreamChannel[]) => any;
-  movies: (input: XtreamMovies[]) => any;
-  movie: (input: XtreamMovieInfo) => any;
-  shows: (input: XtreamShow[]) => any;
-  show: (input: XtreamShowInfo) => any;
+  movies: (input: XtreamMoviesListing[]) => any;
+  movie: (input: XtreamMovie) => any;
+  shows: (input: XtreamShowListing[]) => any;
+  show: (input: XtreamShow) => any;
   shortEPG: (input: XtreamShortEPG) => any;
   fullEPG: (input: XtreamFullEPG) => any;
 };
