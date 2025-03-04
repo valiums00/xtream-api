@@ -46,5 +46,6 @@
     "containerExtension": "mp4",
     "customSid": "abc123",
     "directSource": "https://example.com/streaming/movie.mp4"
-  }
+  },
+  "url": "http://example.com/movie/test/password/100000.mp4"
 }

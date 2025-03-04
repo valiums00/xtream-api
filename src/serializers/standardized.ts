@@ -166,6 +166,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       },
       ...restData,
       ...restInfo,
+      url: camelInput.url,
     };
   },
 
@@ -469,6 +470,8 @@ export type StandardXtreamChannel = {
   createdAt: Date;
   /** All category IDs the channel belongs to */
   categoryIds?: string[];
+  /** URL to access the stream */
+  url?: string;
 };
 
 /**
@@ -501,6 +504,8 @@ export type StandardXtreamMovieListing = {
   createdAt: Date;
   /** All category IDs the movie belongs to */
   categoryIds?: string[];
+  /** URL to access the stream */
+  url?: string;
 };
 
 /**
@@ -564,6 +569,8 @@ export type StandardXtreamMovie = {
   customSid: string;
   /** The direct URL to the movie's source */
   directSource: string;
+  /** URL to access the stream */
+  url?: string;
 };
 
 /**
@@ -636,6 +643,8 @@ export type StandardXtreamEpisode = {
   seasonId?: string;
   /** The ID of the show this episode belongs to */
   showId: string;
+  /** URL to access the stream */
+  url?: string;
 };
 
 /**

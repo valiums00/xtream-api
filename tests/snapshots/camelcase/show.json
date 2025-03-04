@@ -70,7 +70,8 @@
         "customSid": "",
         "added": "1740503721",
         "season": 1,
-        "directSource": ""
+        "directSource": "",
+        "url": "http://example.com/series/test/password/935666.mp4"
       },
       {
         "id": "935727",
@@ -93,7 +94,8 @@
         "customSid": "",
         "added": "1740591320",
         "season": 1,
-        "directSource": ""
+        "directSource": "",
+        "url": "http://example.com/series/test/password/935727.mp4"
       }
     ]
   }

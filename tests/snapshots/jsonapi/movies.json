@@ -11,6 +11,7 @@
         "containerExtension": "mp4",
         "customSid": "",
         "directSource": "",
+        "url": "http://example.com/movie/test/password/935703.mp4",
         "genre": [
           "Adventure",
           "Comedy",
@@ -54,6 +55,7 @@
         "containerExtension": "mp4",
         "customSid": "",
         "directSource": "",
+        "url": "http://example.com/movie/test/password/935704.mp4",
         "genre": [
           "Action",
           "Crime",
