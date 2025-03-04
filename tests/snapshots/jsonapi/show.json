@@ -1,6 +1,6 @@
 {
   "data": {
-    "type": "tv-show",
+    "type": "show",
     "id": "16083",
     "attributes": {
       "name": "Small Town Stories (2025)",
@@ -33,7 +33,7 @@
       "categories": {
         "data": [
           {
-            "type": "tv-show-category",
+            "type": "show-category",
             "id": "2"
           }
         ]
@@ -42,7 +42,11 @@
         "data": [
           {
             "type": "season",
-            "id": "1"
+            "id": "442962"
+          },
+          {
+            "type": "season",
+            "id": "382546"
           }
         ]
       },
@@ -63,20 +67,44 @@
   "included": [
     {
       "type": "season",
-      "id": "1",
+      "id": "442962",
       "attributes": {
+        "episodeCount": 5,
+        "name": "Specials",
+        "overview": "",
+        "voteAverage": 0,
+        "releaseDate": "2025-02-17T00:00:00.000Z",
+        "number": 0,
+        "cover": "https://example-iptv.com/images/small-town-specials-large.jpg"
+      },
+      "relationships": {
+        "show": {
+          "data": {
+            "type": "show",
+            "id": "16083"
+          }
+        },
+        "episodes": {
+          "data": []
+        }
+      }
+    },
+    {
+      "type": "season",
+      "id": "382546",
+      "attributes": {
+        "episodeCount": 15,
         "name": "Season 1",
-        "episodeCount": 2,
         "overview": "",
         "voteAverage": 10,
         "releaseDate": "2025-02-24T00:00:00.000Z",
         "number": 1,
-        "cover": "https://example-iptv.com/images/small-town-s01e01.jpg"
+        "cover": "https://example-iptv.com/images/small-town-s1-large.jpg"
       },
       "relationships": {
-        "tvShow": {
+        "show": {
           "data": {
-            "type": "tv-show",
+            "type": "show",
             "id": "16083"
           }
         },
@@ -120,12 +148,12 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "1"
+            "id": "382546"
           }
         },
-        "tvShow": {
+        "show": {
           "data": {
-            "type": "tv-show",
+            "type": "show",
             "id": "16083"
           }
         }
@@ -157,12 +185,12 @@
         "season": {
           "data": {
             "type": "season",
-            "id": "1"
+            "id": "382546"
           }
         },
-        "tvShow": {
+        "show": {
           "data": {
-            "type": "tv-show",
+            "type": "show",
             "id": "16083"
           }
         }

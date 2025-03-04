@@ -8,8 +8,8 @@ import type {
   XtreamMoviesListing,
   XtreamServerInfo,
   XtreamShortEPG,
-  XtreamTVShow,
-  XtreamTVShowListing,
+  XtreamShow,
+  XtreamShowListing,
   XtreamUserProfile,
 } from '../src/types.ts';
 
@@ -211,7 +211,7 @@ const movie: XtreamMovie = {
   },
 };
 
-const tvShows: XtreamTVShowListing[] = [
+const shows: XtreamShowListing[] = [
   {
     num: 1,
     name: 'Medical Heroes (2022)',
@@ -260,7 +260,7 @@ const tvShows: XtreamTVShowListing[] = [
   },
 ];
 
-const tvShow: XtreamTVShow = {
+const show: XtreamShow = {
   seasons: [
     {
       air_date: '2025-02-17',
@@ -358,7 +358,7 @@ const tvShow: XtreamTVShow = {
   },
 };
 
-const tvShowNoSeasons: XtreamTVShow = {
+const showNoSeasons: XtreamShow = {
   seasons: [],
   info: {
     name: 'Small Town Stories (2025)',
@@ -559,7 +559,7 @@ export const restHandlers = [
         }
         return HttpResponse.json(movie);
       case 'get_series':
-        const filteredSeries = tvShows.filter((show) => {
+        const filteredSeries = shows.filter((show) => {
           if (!categoryId) {
             return true;
           }
@@ -573,20 +573,20 @@ export const restHandlers = [
         }
 
         if (seriesId === '2000') {
-          const modifiedTvShow = JSON.parse(JSON.stringify(tvShow));
+          const modifiedShow = JSON.parse(JSON.stringify(show));
 
-          modifiedTvShow.seasons[0].cover_tmdb = modifiedTvShow.seasons[0].cover_big;
+          modifiedShow.seasons[0].cover_tmdb = modifiedShow.seasons[0].cover_big;
 
-          delete modifiedTvShow.seasons[0].cover_big;
+          delete modifiedShow.seasons[0].cover_big;
 
-          return HttpResponse.json(modifiedTvShow);
+          return HttpResponse.json(modifiedShow);
         }
 
         if (seriesId === '3000') {
-          return HttpResponse.json(tvShowNoSeasons);
+          return HttpResponse.json(showNoSeasons);
         }
 
-        return HttpResponse.json(tvShow);
+        return HttpResponse.json(show);
 
       case 'get_short_epg':
         if (streamId === '1000') {

@@ -51,8 +51,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     return categoryMapper(input, 'movie-category');
   },
 
-  TVShowCategories: (input): { data: JSONAPIXtreamCategory[] } => {
-    return categoryMapper(input, 'tv-show-category');
+  showCategories: (input): { data: JSONAPIXtreamCategory[] } => {
+    return categoryMapper(input, 'show-category');
   },
 
   channels: (input): { data: JSONAPIXtreamChannel[] } => {
@@ -221,7 +221,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     };
   },
 
-  TVShows: (input): { data: JSONAPIXtreamTVShow[] } => {
+  shows: (input): { data: JSONAPIXtreamShow[] } => {
     const camelInput = camelCaseKeys(input);
 
     return {
@@ -247,7 +247,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         } = show;
 
         return {
-          type: 'tv-show',
+          type: 'show',
           id: seriesId.toString(),
           attributes: {
             ...restShow,
@@ -266,7 +266,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             relationships: {
               categories: {
                 data: categoryIds.map((id) => ({
-                  type: 'tv-show-category',
+                  type: 'show-category',
                   id: id.toString(),
                 })),
               },
@@ -277,10 +277,10 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     };
   },
 
-  TVShow: (
+  show: (
     input,
   ): {
-    data: JSONAPIXtreamTVShow;
+    data: JSONAPIXtreamShow;
     included: (JSONAPIXtreamSeason | JSONAPIXtreamEpisode)[];
   } => {
     const { seasons, info, episodes } = camelCaseKeys(input, {
@@ -302,7 +302,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       director,
       genre,
       youtubeTrailer,
-      ...restTVShowInfo
+      ...restShowInfo
     } = info;
 
     const flatEpisodes = Object.values(episodes).flat();
@@ -335,8 +335,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             data: { type: 'season', id: seasonId },
           },
 
-          tvShow: {
-            data: { type: 'tv-show', id: seriesId.toString() },
+          show: {
+            data: { type: 'show', id: seriesId.toString() },
           },
         },
       };
@@ -376,8 +376,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           cover: coverBig,
         },
         relationships: {
-          tvShow: {
-            data: { type: 'tv-show', id: seriesId.toString() },
+          show: {
+            data: { type: 'show', id: seriesId.toString() },
           },
           episodes: {
             data: flatEpisodes
@@ -393,10 +393,10 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
     return {
       data: {
-        type: 'tv-show',
+        type: 'show',
         id: info.seriesId.toString(),
         attributes: {
-          ...restTVShowInfo,
+          ...restShowInfo,
           voteAverage: Number(rating),
           poster: cover,
           cover: backdropPath[0],
@@ -411,7 +411,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         relationships: {
           categories: {
             data: categoryIds.map((id) => ({
-              type: 'tv-show-category',
+              type: 'show-category',
               id: id.toString(),
             })),
           },
@@ -620,8 +620,8 @@ export type JSONAPIXtreamServerInfo = {
  * This type represents a content category in the Xtream system in JSON:API format
  */
 export type JSONAPIXtreamCategory = {
-  /** The resource type (channel-category, movie-category, or tv-show-category) */
-  type: 'channel-category' | 'movie-category' | 'tv-show-category';
+  /** The resource type (channel-category, movie-category, or show-category) */
+  type: 'channel-category' | 'movie-category' | 'show-category';
   /** The unique identifier for the category */
   id: string;
   /** The category attributes */
@@ -635,7 +635,7 @@ export type JSONAPIXtreamCategory = {
     parent?: {
       data: {
         /** The parent category type */
-        type: 'channel-category' | 'movie-category' | 'tv-show-category';
+        type: 'channel-category' | 'movie-category' | 'show-category';
         /** The ID of the parent category */
         id: string;
       };
@@ -816,49 +816,49 @@ export type JSONAPIXtreamMovie = {
 };
 
 /**
- * JSON:API Xtream TV show information
+ * JSON:API Xtream show information
  *
- * This type represents a TV show in the Xtream system in JSON:API format
+ * This type represents a show in the Xtream system in JSON:API format
  */
-export type JSONAPIXtreamTVShow = {
-  /** The resource type (tv-show) */
-  type: 'tv-show';
-  /** The unique identifier for the TV show */
+export type JSONAPIXtreamShow = {
+  /** The resource type (show) */
+  type: 'show';
+  /** The unique identifier for the show */
   id: string;
-  /** The TV show attributes */
+  /** The show attributes */
   attributes: {
-    /** The title of the TV show */
+    /** The title of the show */
     name: string;
-    /** The synopsis/description of the TV show */
+    /** The synopsis/description of the show */
     plot: string;
-    /** The TV show's rating */
+    /** The show's rating */
     voteAverage: number;
-    /** The URL for the TV show's poster image */
+    /** The URL for the show's poster image */
     poster: string;
-    /** The URL for the TV show's cover image */
+    /** The URL for the show's cover image */
     cover: string;
-    /** The release date of the TV show */
+    /** The release date of the show */
     releaseDate: Date;
     /** The average runtime of episodes in seconds */
     duration: number;
-    /** The cast members of the TV show as an array */
+    /** The cast members of the show as an array */
     cast: string[];
-    /** The director(s) of the TV show as an array */
+    /** The director(s) of the show as an array */
     director: string[];
-    /** The genre(s) of the TV show as an array */
+    /** The genre(s) of the show as an array */
     genre: string[];
     /** Youtube ID of trailer */
     youtubeId: string;
-    /** The date when the TV show was last updated */
+    /** The date when the show was last updated */
     updatedAt: Date;
   };
-  /** The TV show relationships */
+  /** The show relationships */
   relationships?: {
     /** The categories relationship if applicable */
     categories?: {
       data: {
         /** The category type */
-        type: 'tv-show-category';
+        type: 'show-category';
         /** The category ID */
         id: string;
       }[];
@@ -887,7 +887,7 @@ export type JSONAPIXtreamTVShow = {
 /**
  * JSON:API Xtream episode information
  *
- * This type represents an episode in a TV show in the Xtream system in JSON:API format
+ * This type represents an episode in a show in the Xtream system in JSON:API format
  */
 export type JSONAPIXtreamEpisode = {
   /** The resource type (episode) */
@@ -928,12 +928,12 @@ export type JSONAPIXtreamEpisode = {
         id: string;
       };
     };
-    /** The TV show relationship */
-    tvShow: {
+    /** The show relationship */
+    show: {
       data: {
-        /** The TV show type */
-        type: 'tv-show';
-        /** The TV show ID */
+        /** The show type */
+        type: 'show';
+        /** The show ID */
         id: string;
       };
     };
@@ -943,7 +943,7 @@ export type JSONAPIXtreamEpisode = {
 /**
  * JSON:API Xtream season information
  *
- * This type represents a season of a TV show in the Xtream system in JSON:API format
+ * This type represents a season of a show in the Xtream system in JSON:API format
  */
 export type JSONAPIXtreamSeason = {
   /** The resource type (season) */
@@ -961,12 +961,12 @@ export type JSONAPIXtreamSeason = {
   };
   /** The season relationships */
   relationships: {
-    /** The TV show relationship */
-    tvShow: {
+    /** The show relationship */
+    show: {
       data: {
-        /** The TV show type */
-        type: 'tv-show';
-        /** The TV show ID */
+        /** The show type */
+        type: 'show';
+        /** The show ID */
         id: string;
       };
     };

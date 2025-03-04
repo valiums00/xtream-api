@@ -94,30 +94,30 @@ describe('Xtream API', () => {
     expect(movies.length).toBe(1);
   });
 
-  test('can filter TV shows by category ID', async () => {
-    const tvShows = await noSerializerXtream.getTVShows({
+  test('can filter shows by category ID', async () => {
+    const shows = await noSerializerXtream.getShows({
       categoryId: '2',
     });
 
-    expect(tvShows.length).toBe(1);
+    expect(shows.length).toBe(1);
   });
 
   test('filter can be number', async () => {
-    const [channels, movies, tvShows] = await Promise.all([
+    const [channels, movies, shows] = await Promise.all([
       noSerializerXtream.getChannels({
         categoryId: 2,
       }),
       noSerializerXtream.getMovies({
         categoryId: 2,
       }),
-      noSerializerXtream.getTVShows({
+      noSerializerXtream.getShows({
         categoryId: 2,
       }),
     ]);
 
     expect(channels.length).toBe(1);
     expect(movies.length).toBe(1);
-    expect(tvShows.length).toBe(1);
+    expect(shows.length).toBe(1);
   });
 
   test('getServerInfo returns the server information', async () => {
@@ -155,10 +155,10 @@ describe('Xtream API', () => {
     await expect(categories).toMatchFileSnapshot('snapshots/raw/movie-categories.json');
   });
 
-  test('getTVShowCategories returns the list of categories', async () => {
-    const categories = await noSerializerXtream.getTVShowCategories();
+  test('getShowCategories returns the list of categories', async () => {
+    const categories = await noSerializerXtream.getShowCategories();
 
-    await expect(categories).toMatchFileSnapshot('snapshots/raw/tv-show-categories.json');
+    await expect(categories).toMatchFileSnapshot('snapshots/raw/show-categories.json');
   });
 
   test('getMovies returns the list of movies', async () => {
@@ -181,24 +181,24 @@ describe('Xtream API', () => {
     await expect(movie).toMatchFileSnapshot('snapshots/raw/movie.json');
   });
 
-  test('getTVShows returns the list of TV shows', async () => {
-    const tvShows = await noSerializerXtream.getTVShows();
+  test('getShows returns the list of shows', async () => {
+    const shows = await noSerializerXtream.getShows();
 
-    await expect(tvShows).toMatchFileSnapshot('snapshots/raw/tv-shows.json');
+    await expect(shows).toMatchFileSnapshot('snapshots/raw/shows.json');
   });
 
-  test('getTVShows can be paged', async () => {
-    const tvShows = await noSerializerXtream.getTVShows({ page: 1, limit: 1 });
+  test('getShows can be paged', async () => {
+    const shows = await noSerializerXtream.getShows({ page: 1, limit: 1 });
 
-    expect(tvShows.length).toBe(1);
+    expect(shows.length).toBe(1);
 
-    await expect(tvShows).toMatchFileSnapshot('snapshots/raw/tv-shows-page1.json');
+    await expect(shows).toMatchFileSnapshot('snapshots/raw/shows-page1.json');
   });
 
-  test('getTVShow returns the TV show details', async () => {
-    const tvShow = await noSerializerXtream.getTVShow({ showId: '1' });
+  test('getShow returns the show details', async () => {
+    const show = await noSerializerXtream.getShow({ showId: '1' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/raw/tv-show.json');
+    await expect(show).toMatchFileSnapshot('snapshots/raw/show.json');
   });
 });
 
@@ -237,10 +237,10 @@ describe('JSON:API serializer', () => {
     await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/movie-categories.json');
   });
 
-  test('getTVShowCategories returns the list of categories', async () => {
-    const categories = await jsonApiSerializerXtream.getTVShowCategories();
+  test('getShowCategories returns the list of categories', async () => {
+    const categories = await jsonApiSerializerXtream.getShowCategories();
 
-    await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/tv-show-categories.json');
+    await expect(categories).toMatchFileSnapshot('snapshots/jsonapi/show-categories.json');
   });
 
   test('getMovies returns the list of movies', async () => {
@@ -255,22 +255,22 @@ describe('JSON:API serializer', () => {
     await expect(movie).toMatchFileSnapshot('snapshots/jsonapi/movie.json');
   });
 
-  test('getTVShows returns the list of TV shows', async () => {
-    const tvShows = await jsonApiSerializerXtream.getTVShows();
+  test('getShows returns the list of shows', async () => {
+    const shows = await jsonApiSerializerXtream.getShows();
 
-    await expect(tvShows).toMatchFileSnapshot('snapshots/jsonapi/tv-shows.json');
+    await expect(shows).toMatchFileSnapshot('snapshots/jsonapi/shows.json');
   });
 
-  test('getTVShow returns the TV show details', async () => {
-    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '1' });
+  test('getShow returns the show details', async () => {
+    const show = await jsonApiSerializerXtream.getShow({ showId: '1' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show.json');
+    await expect(show).toMatchFileSnapshot('snapshots/jsonapi/show.json');
   });
 
   test('We generate seasons if no seasons are provided by the API', async () => {
-    const tvShow = await jsonApiSerializerXtream.getTVShow({ showId: '3000' });
+    const show = await jsonApiSerializerXtream.getShow({ showId: '3000' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/jsonapi/tv-show-no-seasons.json');
+    await expect(show).toMatchFileSnapshot('snapshots/jsonapi/show-no-seasons.json');
   });
 });
 
@@ -309,10 +309,10 @@ describe('Camel case serializer', () => {
     await expect(categories).toMatchFileSnapshot('snapshots/camelcase/movie-categories.json');
   });
 
-  test('getTVShowCategories returns the list of categories', async () => {
-    const categories = await camelCaseSerializerXtream.getTVShowCategories();
+  test('getShowCategories returns the list of categories', async () => {
+    const categories = await camelCaseSerializerXtream.getShowCategories();
 
-    await expect(categories).toMatchFileSnapshot('snapshots/camelcase/tv-show-categories.json');
+    await expect(categories).toMatchFileSnapshot('snapshots/camelcase/show-categories.json');
   });
 
   test('getMovies returns the list of movies', async () => {
@@ -327,16 +327,16 @@ describe('Camel case serializer', () => {
     await expect(movie).toMatchFileSnapshot('snapshots/camelcase/movie.json');
   });
 
-  test('getTVShows returns the list of TV shows', async () => {
-    const tvShows = await camelCaseSerializerXtream.getTVShows();
+  test('getShows returns the list of shows', async () => {
+    const shows = await camelCaseSerializerXtream.getShows();
 
-    await expect(tvShows).toMatchFileSnapshot('snapshots/camelcase/tv-shows.json');
+    await expect(shows).toMatchFileSnapshot('snapshots/camelcase/shows.json');
   });
 
-  test('getTVShow returns the TV show details', async () => {
-    const tvShow = await camelCaseSerializerXtream.getTVShow({ showId: '1' });
+  test('getShow returns the show details', async () => {
+    const show = await camelCaseSerializerXtream.getShow({ showId: '1' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/camelcase/tv-show.json');
+    await expect(show).toMatchFileSnapshot('snapshots/camelcase/show.json');
   });
 });
 
@@ -375,10 +375,10 @@ describe('Standardized serializer', () => {
     await expect(categories).toMatchFileSnapshot('snapshots/standardized/movie-categories.json');
   });
 
-  test('getTVShowCategories returns the list of categories', async () => {
-    const categories = await standardizedSerializerXtream.getTVShowCategories();
+  test('getShowCategories returns the list of categories', async () => {
+    const categories = await standardizedSerializerXtream.getShowCategories();
 
-    await expect(categories).toMatchFileSnapshot('snapshots/standardized/tv-show-categories.json');
+    await expect(categories).toMatchFileSnapshot('snapshots/standardized/show-categories.json');
   });
 
   test('getMovies returns the list of movies', async () => {
@@ -393,22 +393,22 @@ describe('Standardized serializer', () => {
     await expect(movie).toMatchFileSnapshot('snapshots/standardized/movie.json');
   });
 
-  test('getTVShows returns the list of TV shows', async () => {
-    const tvShows = await standardizedSerializerXtream.getTVShows();
+  test('getShows returns the list of shows', async () => {
+    const shows = await standardizedSerializerXtream.getShows();
 
-    await expect(tvShows).toMatchFileSnapshot('snapshots/standardized/tv-shows.json');
+    await expect(shows).toMatchFileSnapshot('snapshots/standardized/shows.json');
   });
 
-  test('getTVShow returns the TV show details', async () => {
-    const tvShow = await standardizedSerializerXtream.getTVShow({ showId: '1' });
+  test('getShow returns the show details', async () => {
+    const show = await standardizedSerializerXtream.getShow({ showId: '1' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/standardized/tv-show.json');
+    await expect(show).toMatchFileSnapshot('snapshots/standardized/show.json');
   });
 
   test('We generate seasons if no seasons are provided by the API', async () => {
-    const tvShow = await standardizedSerializerXtream.getTVShow({ showId: '3000' });
+    const show = await standardizedSerializerXtream.getShow({ showId: '3000' });
 
-    await expect(tvShow).toMatchFileSnapshot('snapshots/standardized/tv-show-no-seasons.json');
+    await expect(show).toMatchFileSnapshot('snapshots/standardized/show-no-seasons.json');
   });
 });
 
@@ -579,7 +579,7 @@ describe('Errors', () => {
   });
 
   test('Series not found', async () => {
-    await expect(noSerializerXtream.getTVShow({ showId: '1000' })).rejects.toThrowError('TV Show Not Found');
+    await expect(noSerializerXtream.getShow({ showId: '1000' })).rejects.toThrowError('show Not Found');
   });
 
   test('Movie not found', async () => {

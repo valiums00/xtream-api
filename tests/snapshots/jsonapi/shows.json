@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "tv-show",
+      "type": "show",
       "id": "15120",
       "attributes": {
         "name": "Medical Heroes (2022)",
@@ -32,7 +32,7 @@
         "categories": {
           "data": [
             {
-              "type": "tv-show-category",
+              "type": "show-category",
               "id": "1"
             }
           ]
@@ -40,7 +40,7 @@
       }
     },
     {
-      "type": "tv-show",
+      "type": "show",
       "id": "16083",
       "attributes": {
         "name": "Small Town Stories (2025)",
@@ -73,7 +73,7 @@
         "categories": {
           "data": [
             {
-              "type": "tv-show-category",
+              "type": "show-category",
               "id": "2"
             }
           ]
