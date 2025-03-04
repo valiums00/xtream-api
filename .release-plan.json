@@ -2,16 +2,16 @@
   "solution": {
     "@iptv/xtream-api": {
       "impact": "patch",
-      "oldVersion": "1.1.0",
-      "newVersion": "1.1.1",
+      "oldVersion": "1.1.1",
+      "newVersion": "1.1.2",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-03-04)\n\n@iptv/xtream-api 1.1.1 (patch)\n\n#### :bug: Bug Fix\n* `@iptv/xtream-api`\n  * [#7](https://github.com/ektotv/xtream-api/pull/7) Add prepublish script to ensure library is built before publish ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2025-03-04)\n\n@iptv/xtream-api 1.1.2 (patch)\n\n#### :memo: Documentation\n* `@iptv/xtream-api`\n  * [#9](https://github.com/ektotv/xtream-api/pull/9) update readme ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }

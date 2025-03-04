@@ -2,6 +2,17 @@
 
 ## Release (2025-03-04)
 
+@iptv/xtream-api 1.1.2 (patch)
+
+#### :memo: Documentation
+* `@iptv/xtream-api`
+  * [#9](https://github.com/ektotv/xtream-api/pull/9) update readme ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
+## Release (2025-03-04)
+
 @iptv/xtream-api 1.1.1 (patch)
 
 #### :bug: Bug Fix
