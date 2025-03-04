@@ -10,6 +10,7 @@ import type {
   XtreamMovie,
   XtreamShowListing,
   XtreamShow,
+  XtreamEpisode,
 } from './types.ts';
 
 type Serializers = {
@@ -33,6 +34,7 @@ type Options = {
   url: string;
   username: string;
   password: string;
+  preferredFormat?: string;
 };
 
 type FilterableRequest = {
@@ -54,9 +56,23 @@ type MovieOptions = {
   movieId: number | string;
 };
 
+type CanHaveURL = XtreamChannel | XtreamMovie | XtreamMoviesListing | XtreamEpisode;
+
 export class Xtream<T extends CustomSerializers = CustomSerializers> {
-  // The base URL of the Xtream API
+  // The base URL of the Xtream server
   #baseUrl: string;
+
+  // The URL of the Xtream API
+  #apiUrl: string;
+
+  // The username to authenticate with
+  #username: string;
+
+  // The password to authenticate with
+  #password: string;
+
+  // The preferred stream format
+  #format: string = 'ts';
 
   // The default serializers to use for transforming the API response
   #serializers: Serializers = {
@@ -76,6 +92,8 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
 
   serializerType = 'none';
 
+  userProfile?: XtreamUserProfile;
+
   /**
    * Creates a new instance of the Xtream service
    *
@@ -90,7 +108,7 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       serializer?: ReturnType<typeof defineSerializers<T>>;
     },
   ) {
-    const { url, username, password } = options;
+    const { url, username, password, preferredFormat } = options;
 
     if (!url) {
       throw new Error('The Xtream URL is required');
@@ -100,8 +118,12 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       throw new Error('The authentication credentials are required');
     }
 
-    this.#baseUrl =
-      url.replace(/\/$/, '') + `/player_api.php?username=${username.trim()}&password=${password.trim()}&action=`;
+    this.#username = username.trim();
+    this.#password = password.trim();
+    this.#baseUrl = url.replace(/\/$/, '');
+    this.#apiUrl = this.#baseUrl + `/player_api.php?username=${this.#username}&password=${this.#password}&action=`;
+
+    if (preferredFormat) this.#format = preferredFormat;
 
     if (options.serializer) {
       this.serializerType = options.serializer.type;
@@ -116,7 +138,14 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
    * Make a request to the Xtream API
    */
   async #request<R>(action: string): Promise<R> {
-    const response = await fetch(`${this.#baseUrl}${action}`, {
+    if (
+      ['get_live_streams', 'get_vod_streams', 'get_vod_info', 'get_series_info'].includes(action.split('&')[0]) &&
+      this.userProfile === undefined
+    ) {
+      this.userProfile = (await this.#request<XtreamProfile>('get_profile')).user_info;
+    }
+
+    const response = await fetch(`${this.#apiUrl}${action}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -127,6 +156,44 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     }
 
     return await response.json();
+  }
+
+  /**
+   * Generate a stream URL
+   */
+  generateStreamUrl(stream: CanHaveURL): string | undefined {
+    if (isChannel(stream)) {
+      let format = this.#format;
+
+      if (!this.userProfile!.allowed_output_formats.includes(format)) {
+        console.log('Invalid format, using default format');
+        format = this.userProfile!.allowed_output_formats[0];
+      }
+
+      if (format === 'rtmp') {
+        return `${this.#baseUrl}/live/${this.#username}/${this.#password}/${stream.stream_id}.ts`;
+      }
+
+      return `${this.#baseUrl}/live/${this.#username}/${this.#password}/${stream.stream_id}.${format}`;
+    }
+
+    if (isEpisode(stream)) {
+      return `${this.#baseUrl}/series/${this.#username}/${this.#password}/${stream.id}.${stream.container_extension}`;
+    }
+
+    if (isMovie(stream)) {
+      return `${this.#baseUrl}/movie/${this.#username}/${this.#password}/${stream.movie_data.stream_id}.${
+        stream.movie_data.container_extension
+      }`;
+    }
+
+    if (isMovieListing(stream)) {
+      return `${this.#baseUrl}/movie/${this.#username}/${this.#password}/${stream.stream_id}.${
+        stream.container_extension
+      }`;
+    }
+
+    return undefined;
   }
 
   /**
@@ -216,8 +283,17 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       const start = (page - 1) * limit;
       const end = start + limit;
 
-      return this.#serializers.channels(channels.slice(start, end));
+      const slicedChannels = channels.slice(start, end);
+      slicedChannels.forEach((channel) => {
+        channel.url = this.generateStreamUrl(channel);
+      });
+
+      return this.#serializers.channels(slicedChannels);
     }
+
+    channels.forEach((channel) => {
+      channel.url = this.generateStreamUrl(channel);
+    });
 
     return this.#serializers.channels(channels);
   }
@@ -238,8 +314,17 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       const start = (page - 1) * limit;
       const end = start + limit;
 
-      return this.#serializers.movies(movies.slice(start, end));
+      const slicedMovies = movies.slice(start, end);
+      slicedMovies.forEach((movie) => {
+        movie.url = this.generateStreamUrl(movie);
+      });
+
+      return this.#serializers.movies(slicedMovies);
     }
+
+    movies.forEach((movie) => {
+      movie.url = this.generateStreamUrl(movie);
+    });
 
     return this.#serializers.movies(movies);
   }
@@ -258,6 +343,8 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     if (Array.isArray(movie.info) && movie.info.length === 0) {
       throw new Error('Movie Not Found');
     }
+
+    movie.url = this.generateStreamUrl(movie);
 
     return this.#serializers.movie(movie);
   }
@@ -295,6 +382,12 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     if (show.info.name === null) {
       throw new Error('show Not Found');
     }
+
+    Object.keys(show.episodes).forEach((season) => {
+      show.episodes[season].forEach((episode) => {
+        episode.url = this.generateStreamUrl(episode);
+      });
+    });
 
     return this.#serializers.show(show);
   }
@@ -336,4 +429,25 @@ export function defineSerializers<T extends Partial<Serializers>>(
   serializers: T & Record<Exclude<keyof T, keyof Serializers>, never>,
 ): { type: string; serializers: T } {
   return { type, serializers };
+}
+
+function isChannel(input: CanHaveURL): input is XtreamChannel {
+  return (input as XtreamChannel).stream_id !== undefined && (input as XtreamChannel).stream_type === 'live';
+}
+
+function isMovie(input: CanHaveURL): input is XtreamMovie {
+  return (input as XtreamMovie).movie_data?.container_extension !== undefined;
+}
+
+function isMovieListing(input: CanHaveURL): input is XtreamMoviesListing {
+  return (
+    (input as XtreamMoviesListing).container_extension !== undefined &&
+    (input as XtreamMoviesListing).stream_type === 'movie'
+  );
+}
+
+function isEpisode(input: CanHaveURL): input is XtreamEpisode {
+  return (
+    (input as XtreamEpisode).container_extension !== undefined && (input as XtreamEpisode).episode_num !== undefined
+  );
 }

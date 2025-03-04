@@ -200,6 +200,70 @@ describe('Xtream API', () => {
 
     await expect(show).toMatchFileSnapshot('snapshots/raw/show.json');
   });
+
+  test('Can set preferred format for streams', async () => {
+    const formatXtream = new Xtream({
+      url: 'http://example.com',
+      username: 'test',
+      password: 'password',
+      preferredFormat: 'm3u8',
+    });
+
+    const stream = await formatXtream.getChannels({ page: 1, limit: 1 });
+
+    expect(stream[0].url).toBe('http://example.com/live/test/password/1.m3u8');
+  });
+
+  test('If preferred format is disallowed fallback to default in allowed list', async () => {
+    const formatXtream = new Xtream({
+      url: 'http://example.com',
+      username: 'test',
+      password: 'password',
+      preferredFormat: 'nono',
+    });
+
+    const stream = await formatXtream.getChannels({ page: 1, limit: 1 });
+
+    expect(stream[0].url).toBe('http://example.com/live/test/password/1.m3u8');
+  });
+
+  test('Preferred format rtmp returns mpeg-ts', async () => {
+    const formatXtream = new Xtream({
+      url: 'http://example.com',
+      username: 'test',
+      password: 'password',
+      preferredFormat: 'rtmp',
+    });
+
+    const stream = await formatXtream.getChannels({ page: 1, limit: 1 });
+
+    expect(stream[0].url).toBe('http://example.com/live/test/password/1.ts');
+  });
+
+  test('Movie listing gets correct url', async () => {
+    const formatXtream = new Xtream({
+      url: 'http://example.com',
+      username: 'test',
+      password: 'password',
+    });
+
+    const movies = await formatXtream.getMovies({ page: 1, limit: 1 });
+
+    expect(movies[0].url).toBe('http://example.com/movie/test/password/935703.mp4');
+  });
+
+  test('URL is undefined when input to generateStreamUrl is broken', async () => {
+    const formatXtream = new Xtream({
+      url: 'http://example.com',
+      username: 'test',
+      password: 'password',
+    });
+
+    // @ts-expect-error
+    const broken = await formatXtream.generateStreamUrl({ a: 'broken' });
+
+    expect(broken).toBeUndefined();
+  });
 });
 
 describe('JSON:API serializer', () => {

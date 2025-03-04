@@ -191,6 +191,7 @@ export type XtreamMovie = {
   info: XtreamMovieInfo;
   /** Extra details of the movie */
   movie_data: XtreamMovieData;
+  url?: string;
 };
 
 /**
@@ -329,8 +330,6 @@ export type XtreamShowListing = {
   category_id: string;
   /** All category IDs the show belongs to */
   category_ids: number[];
-  /** The URL to access the show */
-  url?: string;
 };
 
 /**
@@ -388,8 +387,6 @@ export type XtreamShowInfo = {
   category_id: string;
   /** All category IDs the show belongs to */
   category_ids: number[];
-  /** The URL to access the show */
-  url?: string;
 };
 
 /**

@@ -675,6 +675,8 @@ export type JSONAPIXtreamChannel = {
     logo: string;
     /** The date when the channel was added to the system */
     createdAt: Date;
+    /** URL to access the stream */
+    url?: string;
   };
   /** The channel relationships */
   relationships?: {
@@ -724,6 +726,8 @@ export type JSONAPIXtreamMovieListing = {
     genre: string[];
     /** The date when the movie was added to the system */
     createdAt: Date;
+    /** URL to access the stream */
+    url?: string;
   };
   /** The movie relationships */
   relationships?: {
@@ -800,6 +804,8 @@ export type JSONAPIXtreamMovie = {
     customSid: string;
     /** The direct URL to the movie's source */
     directSource: string;
+    /** URL to access the stream */
+    url?: string;
   };
   /** The movie relationships */
   relationships?: {
@@ -916,6 +922,8 @@ export type JSONAPIXtreamEpisode = {
     tmdbId: string;
     /** The date when the episode was added to the system */
     createdAt: Date;
+    /** URL to access the stream */
+    url?: string;
   };
   /** The episode relationships */
   relationships: {

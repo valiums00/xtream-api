@@ -15,7 +15,8 @@
     "category_ids": [
       1
     ],
-    "thumbnail": ""
+    "thumbnail": "",
+    "url": "http://example.com/live/test/password/1.ts"
   },
   {
     "num": 2,
@@ -33,7 +34,8 @@
     "category_ids": [
       1
     ],
-    "thumbnail": ""
+    "thumbnail": "",
+    "url": "http://example.com/live/test/password/2.ts"
   },
   {
     "num": 3,
@@ -51,7 +53,8 @@
     "category_ids": [
       1
     ],
-    "thumbnail": ""
+    "thumbnail": "",
+    "url": "http://example.com/live/test/password/3.ts"
   },
   {
     "num": 4,
@@ -69,6 +72,7 @@
     "category_ids": [
       2
     ],
-    "thumbnail": ""
+    "thumbnail": "",
+    "url": "http://example.com/live/test/password/4.ts"
   }
 ]

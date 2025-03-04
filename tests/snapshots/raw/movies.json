@@ -23,7 +23,8 @@
     ],
     "container_extension": "mp4",
     "custom_sid": "",
-    "direct_source": ""
+    "direct_source": "",
+    "url": "http://example.com/movie/test/password/935703.mp4"
   },
   {
     "num": 2,
@@ -49,6 +50,7 @@
     ],
     "container_extension": "mp4",
     "custom_sid": "",
-    "direct_source": ""
+    "direct_source": "",
+    "url": "http://example.com/movie/test/password/935704.mp4"
   }
 ]
