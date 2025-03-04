@@ -1,8 +1,21 @@
 {
   "solution": {
     "@iptv/xtream-api": {
-      "oldVersion": "1.0.0"
+      "impact": "minor",
+      "oldVersion": "1.0.0",
+      "newVersion": "1.1.0",
+      "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
     }
   },
-  "description": "\n\n\n\n"
+  "description": "## Release (2025-03-04)\n\n@iptv/xtream-api 1.1.0 (minor)\n\n#### :rocket: Enhancement\n* `@iptv/xtream-api`\n  * [#6](https://github.com/ektotv/xtream-api/pull/6) Generate stream URLs ([@evoactivity](https://github.com/evoactivity))\n  * [#5](https://github.com/ektotv/xtream-api/pull/5) Rename tv show to just show ([@evoactivity](https://github.com/evoactivity))\n  * [#4](https://github.com/ektotv/xtream-api/pull/4) Get movie information ([@evoactivity](https://github.com/evoactivity))\n  * [#2](https://github.com/ektotv/xtream-api/pull/2) Generate seasons if they don't exist ([@evoactivity](https://github.com/evoactivity))\n\n#### :house: Internal\n* `@iptv/xtream-api`\n  * [#1](https://github.com/ektotv/xtream-api/pull/1) Prepare Release vnull ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### Committers: 2\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@github-actions[bot]](https://github.com/apps/github-actions)\n"
 }
