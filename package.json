@@ -77,7 +77,8 @@
     "lint": "tsc",
     "prerelease": "pnpm run build && pnpm run test:ci",
     "test": "vitest",
-    "test:ci": "vitest --run --coverage.enabled --coverage.reporter='text-summary'"
+    "test:ci": "vitest --run --coverage.enabled --coverage.reporter='text-summary'",
+    "prepublish": "pnpm run build"
   },
   "dependencies": {
     "camelcase-keys": "^9.1.3"
