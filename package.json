@@ -78,7 +78,8 @@
     "prerelease": "pnpm run build && pnpm run test:ci",
     "test": "vitest",
     "test:ci": "vitest --run --coverage.enabled --coverage.reporter='text-summary'",
-    "prepublish": "pnpm run build"
+    "prepublish": "pnpm run build",
+    "typedoc": "typedoc"
   },
   "dependencies": {
     "camelcase-keys": "^9.1.3"

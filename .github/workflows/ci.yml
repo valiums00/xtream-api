@@ -11,7 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CI: true
   dist: dist
 
 jobs:
@@ -19,8 +18,8 @@ jobs:
     name: Install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: NullVoxPopuli/action-setup-pnpm@v2
+      - uses: actions/checkout@v4
+      - uses: wyvox/action-setup-pnpm@v3
 
   typecheck:
     name: '${{ matrix.typescript-scenario }}'
@@ -51,8 +50,8 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: NullVoxPopuli/action-setup-pnpm@v2
+      - uses: actions/checkout@v4
+      - uses: wyvox/action-setup-pnpm@v3
       - uses: ./.github/actions/assert-build
 
   tests:
@@ -61,8 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v3
-      - uses: NullVoxPopuli/action-setup-pnpm@v2
+      - uses: actions/checkout@v4
+      - uses: wyvox/action-setup-pnpm@v3
       - run: pnpm run test
       - name: Get Coverage for badge
         run: |

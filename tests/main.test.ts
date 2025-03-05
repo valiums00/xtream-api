@@ -241,28 +241,27 @@ describe('Xtream API', () => {
   });
 
   test('Movie listing gets correct url', async () => {
-    const formatXtream = new Xtream({
-      url: 'http://example.com',
-      username: 'test',
-      password: 'password',
-    });
-
-    const movies = await formatXtream.getMovies({ page: 1, limit: 1 });
+    const movies = await noSerializerXtream.getMovies({ page: 1, limit: 1 });
 
     expect(movies[0].url).toBe('http://example.com/movie/test/password/935703.mp4');
   });
 
-  test('URL is undefined when input to generateStreamUrl is broken', async () => {
-    const formatXtream = new Xtream({
-      url: 'http://example.com',
-      username: 'test',
-      password: 'password',
-    });
-
+  test('URL is undefined when input to generateStreamUrl is broken', () => {
     // @ts-expect-error
-    const broken = await formatXtream.generateStreamUrl({ a: 'broken' });
+    const broken = noSerializerXtream.generateStreamUrl({ a: 'broken' });
 
     expect(broken).toBeUndefined();
+  });
+
+  test('Can request timeshifted channel URL', () => {
+    const url = noSerializerXtream.generateStreamUrl({
+      type: 'channel',
+      streamId: '1',
+      extension: 'ts',
+      timeshift: { duration: 60, start: new Date('2021-01-01T00:00:00Z') },
+    });
+
+    expect(url).toBe('http://example.com/timeshift/test/password/60/2021-01-01:00-00/1.ts');
   });
 });
 
@@ -643,7 +642,7 @@ describe('Errors', () => {
   });
 
   test('Series not found', async () => {
-    await expect(noSerializerXtream.getShow({ showId: '1000' })).rejects.toThrowError('show Not Found');
+    await expect(noSerializerXtream.getShow({ showId: '1000' })).rejects.toThrowError('Show Not Found');
   });
 
   test('Movie not found', async () => {

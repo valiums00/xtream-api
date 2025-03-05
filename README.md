@@ -58,10 +58,12 @@ console.log(categories);
   {
     category_id: 1,
     category_name: 'Category 1',
+    parent_id: 0,
   },
   {
     category_id: 2,
     category_name: 'Category 2',
+    parent_id: 0,
   },
 ]
 */
@@ -69,31 +71,213 @@ console.log(categories);
 
 ### 📚 API
 
-| Method                 | Argument                                    | Description                     | Serialized                                                                                                                     |
-| ---------------------- | ------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `getProfile`           |                                             | Get the user profile            | [Standardized](tests/snapshots/standardized/profile.json) / [JSON:API](tests/snapshots/jsonapi/profile.json)                   |
-| `getServerInfo`        |                                             | Get the server information      | [Standardized](tests/snapshots/standardized/server-info.json) / [JSON:API](tests/snapshots/jsonapi/server-info.json)           |
-| `getChannelCategories` |                                             | Get the channel categories      | [Standardized](tests/snapshots/standardized/categories.json) / [JSON:API](tests/snapshots/jsonapi/categories.json)             |
-| `getMovieCategories`   |                                             | Get the movie categories        | [Standardized](tests/snapshots/standardized/movie-categories.json) / [JSON:API](tests/snapshots/jsonapi/movie-categories.json) |
-| `getShowCategories`    |                                             | Get the show categories         | [Standardized](tests/snapshots/standardized/show-categories.json) / [JSON:API](tests/snapshots/jsonapi/show-categories.json)   |
-| `getChannels`          | `{ categoryId, page, limit }`               | Get the channels for a category | [Standardized](tests/snapshots/standardized/channels.json) / [JSON:API](tests/snapshots/jsonapi/channels.json)                 |
-| `getMovies`            | `{ categoryId, page, limit }`               | Get the movies for a category   | [Standardized](tests/snapshots/standardized/movies.json) / [JSON:API](tests/snapshots/jsonapi/movies.json)                     |
-| `getMovie`             | `{ movieId }`                               | Get the information for a movie | [Standardized](tests/snapshots/standardized/movie.json) / [JSON:API](tests/snapshots/jsonapi/movie.json)                       |
-| `getShows`             | `{ categoryId, page, limit }`               | Get the shows for a category    | [Standardized](tests/snapshots/standardized/shows.json) / [JSON:API](tests/snapshots/jsonapi/shows.json)                       |
-| `getShow`              | `{ showId }`                                | Get the information for a show  | [Standardized](tests/snapshots/standardized/show.json) / [JSON:API](tests/snapshots/jsonapi/show.json)                         |
-| `getShortEPG`          | `{ channelId, limit }`                      | Get the short EPG for a channel | [Standardized](tests/snapshots/standardized/short-epg.json) / [JSON:API](tests/snapshots/jsonapi/short-epg.json)               |
-| `getFullEPG`           | `{ channelId }`                             | Get the full EPG for a channel  | [Standardized](tests/snapshots/standardized/full-epg.json) / [JSON:API](tests/snapshots/jsonapi/full-epg.json)                 |
-| `generateStreamUrl`    | `stream` Can be a channel, movie or episode | Generate a stream URL           |                                                                                                                                |
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Serialized Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+
+```ts
+getProfile();
+```
+
+</td>
+      <td valign="top"><a href="tests/snapshots/standardized/profile.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/profile.json">View JSON:API</a></td>
+    </tr>
+    <tr>
+      <td valign="top">
+
+```ts
+getServerInfo();
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/server-info.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/server-info.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getChannelCategories();
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/categories.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovieCategories();
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/movie-categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movie-categories.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShowCategories();
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/show-categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/show-categories.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+      
+```ts
+getChannels(options?: Options);
+
+type Options = {
+categoryId?: string | number;  
+ page?: number;
+limit?: number; // defaults to 10
+};
+
+````
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/channels.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/channels.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovies(options?: Options);
+
+type Options = {
+  categoryId?: string | number;
+  page?: number;
+  limit?: number; // defaults to 10
+};
+````
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/movies.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movies.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovie(options: Options);
+
+type Options = {
+  movieId: string | number;
+};
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/movie.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movie.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShows(options?: Options);
+
+type Options = {
+  categoryId?: string | number;
+  page?: number;
+  limit?: number; // defaults to 10
+};
+
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/shows.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/shows.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShow(options: Options);
+
+type Options = {
+  showId: string | number;
+};
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/show.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/show.json">View JSON:API</a></td>
+</tr>
+<tr>
+<td valign="top">
+
+```ts
+getShortEPG(options: Options);
+
+type Options = {
+  channelId: string | number;
+  limit?: number;
+};
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/short-epg.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/short-epg.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getFullEPG(options: Options);
+
+type Options = {
+  channelId: string | number;
+};
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/full-epg.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/full-epg.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+generateStreamUrl(options: Options);
+
+type Options = {
+  type: 'channel' | 'movie' | 'episode';
+  streamId: string | number;
+  extension: string;
+  timeshift: {
+    duration: number;
+    start: Date;
+  }
+};
+```
+
+</td>
+<td valign="top">N/A</td>
+</tr>
+</tbody>
+</table>
 
 ## 🔄 Serializers
 
-Xtream has an unpredictable API format, keys change between types, dates come as date strings and timestamp strings, things that should be arrays are sometimes objects with number keys, some data is base64 encoded.
+Xtream has an unpredictable API format, there are duplicate keys, keys change depending on what type of content is requested, dates come as date strings and timestamp strings with no reason, things that should be arrays are sometimes objects with numbered keys, some data is base64 encoded etc.
 
 For this reason, this library can use serializers to convert the API response to a more usable format. We provide a default set of serializers for the most common API responses.
 
-### Available Serializers
+---
 
-#### Camel Case
+### Camel Case
 
 The simplest serializer just converts the keys of the response object to camel case.
 
@@ -128,7 +312,9 @@ console.log(categories);
 */
 ```
 
-#### Standardized
+---
+
+### Standardized
 
 Converts the shape of the response object to a standardized format similar to Active Record, also decodes base64 strings.
 
@@ -163,7 +349,9 @@ console.log(categories);
 */
 ```
 
-#### JSON:API Serializer
+---
+
+### JSON:API Serializer
 
 Converts the response object to [JSON:API](https://jsonapi.org) format, also decodes base64 strings.
 
@@ -211,6 +399,8 @@ console.log(categories);
 }
 */
 ```
+
+---
 
 ### Custom Serializers
 

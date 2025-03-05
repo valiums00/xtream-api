@@ -724,7 +724,7 @@ export type XtreamEPGListing = {
 /**
  * Xtream EPG information
  *
- * This type represents the full EPG information for a channel
+ * This type represents all EPG information for a channel stored in the Xtream system
  */
 export type XtreamFullEPG = {
   /** The list of EPG listings */
