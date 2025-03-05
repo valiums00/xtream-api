@@ -1,4 +1,4 @@
-import { XtreamFullEPG } from '../src/types';
+import { XtreamFullEPG } from '../src/types.ts';
 
 const epgResponse: XtreamFullEPG = {
   epg_listings: [
