@@ -108,10 +108,10 @@ export type StreamURLRequest = {
 };
 
 /**
- * Xtream API client for interacting with Xtream-compatible IPTV services.
+ * Xtream API client for interacting with Xtream compatible IPTV services.
  *
  * This class provides methods to query and retrieve various types of content
- * from an Xtream-compatible API, including live channels, movies, TV shows,
+ * from an Xtream compatible API, including live channels, movies, TV shows,
  * and EPG data. It also supports custom serialization of API responses.
  *
  * @template T - Type of custom serializers being used
@@ -379,23 +379,14 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     T extends { channels: (input: XtreamChannel[]) => infer R } ? R : XtreamChannel[]
   > {
     const action = 'get_live_streams' + (categoryId ? `&category_id=${categoryId}` : '');
-    const channels = await this.#request<XtreamChannel[]>(action);
+    let channels = await this.#request<XtreamChannel[]>(action);
 
-    if (page && limit) {
+    if (page) {
+      if (!limit) limit = 10;
       const start = (page - 1) * limit;
       const end = start + limit;
 
-      const slicedChannels = channels.slice(start, end);
-
-      slicedChannels.forEach((channel) => {
-        channel.url = this.generateStreamUrl({
-          type: 'channel',
-          streamId: channel.stream_id,
-          extension: this.#format,
-        });
-      });
-
-      return this.#serializers.channels(slicedChannels);
+      channels = channels.slice(start, end);
     }
 
     channels.forEach((channel) => {
@@ -425,23 +416,14 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     T extends { movies: (input: XtreamMoviesListing[]) => infer R } ? R : XtreamMoviesListing[]
   > {
     const action = 'get_vod_streams' + (categoryId ? `&category_id=${categoryId}` : '');
-    const movies = await this.#request<XtreamMoviesListing[]>(action);
+    let movies = await this.#request<XtreamMoviesListing[]>(action);
 
-    if (page && limit) {
+    if (page) {
+      if (!limit) limit = 10;
       const start = (page - 1) * limit;
       const end = start + limit;
 
-      const slicedMovies = movies.slice(start, end);
-
-      slicedMovies.forEach((movie) => {
-        movie.url = this.generateStreamUrl({
-          type: 'movie',
-          streamId: movie.stream_id,
-          extension: movie.container_extension,
-        });
-      });
-
-      return this.#serializers.movies(slicedMovies);
+      movies = movies.slice(start, end);
     }
 
     movies.forEach((movie) => {
@@ -497,12 +479,13 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
     T extends { shows: (input: XtreamShowListing[]) => infer R } ? R : XtreamShowListing[]
   > {
     const action = 'get_series' + (categoryId ? `&category_id=${categoryId}` : '');
-    const shows = await this.#request<XtreamShowListing[]>(action);
+    let shows = await this.#request<XtreamShowListing[]>(action);
 
-    if (page && limit) {
+    if (page) {
+      if (!limit) limit = 10;
       const start = (page - 1) * limit;
       const end = start + limit;
-      return this.#serializers.shows(shows.slice(start, end));
+      shows = shows.slice(start, end);
     }
 
     return this.#serializers.shows(shows);

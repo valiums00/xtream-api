@@ -58,10 +58,12 @@ console.log(categories);
   {
     category_id: 1,
     category_name: 'Category 1',
+    parent_id: 0,
   },
   {
     category_id: 2,
     category_name: 'Category 2',
+    parent_id: 0,
   },
 ]
 */
@@ -73,7 +75,7 @@ console.log(categories);
 <thead>
 <tr>
 <th>Method</th>
-<th>Serialized</th>
+<th>Serialized Response</th>
 </tr>
 </thead>
 <tbody>
@@ -85,7 +87,7 @@ getProfile();
 ```
 
 </td>
-      <td valign="top">- <a href="tests/snapshots/standardized/profile.json">Standardized</a> <br> - <a href="tests/snapshots/jsonapi/profile.json">JSON:API</a></td>
+      <td valign="top"><a href="tests/snapshots/standardized/profile.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/profile.json">View JSON:API</a></td>
     </tr>
     <tr>
       <td valign="top">
@@ -95,7 +97,7 @@ getServerInfo();
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/server-info.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/server-info.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/server-info.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/server-info.json">View JSON:API</a></td>
 </tr>
 
 <tr>
@@ -106,7 +108,7 @@ getChannelCategories();
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/categories.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/categories.json">View JSON:API</a></td>
 </tr>
 
 <tr>
@@ -117,7 +119,7 @@ getMovieCategories();
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/movie-categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movie-categories.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/movie-categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movie-categories.json">View JSON:API</a></td>
 </tr>
 
 <tr>
@@ -128,111 +130,129 @@ getShowCategories();
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/show-categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/show-categories.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/show-categories.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/show-categories.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
       
 ```ts
-getChannels(options: { 
-  categoryId?: string | number, 
-  page: number, 
-  limit: number 
-});
-```
+getChannels(options?: Options);
+
+type Options = {
+categoryId?: string | number;  
+ page?: number;
+limit?: number; // defaults to 10
+};
+
+````
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/channels.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/channels.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/channels.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/channels.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
 
 ```ts
-getMovies(options: {
-  categoryId?: string | number,
-  page: number,
-  limit: number
-})
-```
+getMovies(options?: Options);
+
+type Options = {
+  categoryId?: string | number;
+  page?: number;
+  limit?: number; // defaults to 10
+};
+````
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/movies.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movies.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/movies.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movies.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
 
 ```ts
-getMovie(options: {
-  movieId: string | number
-})
+getMovie(options: Options);
+
+type Options = {
+  movieId: string | number;
+};
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/movie.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movie.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/movie.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/movie.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
 
 ```ts
-getShows(options: {
-  categoryId?: string | number,
-  page: number,
-  limit: number
-})
+getShows(options?: Options);
+
+type Options = {
+  categoryId?: string | number;
+  page?: number;
+  limit?: number; // defaults to 10
+};
+
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/shows.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/shows.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/shows.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/shows.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
 
 ```ts
-getShow(options: {
-  showId: string | number
-})
+getShow(options: Options);
+
+type Options = {
+  showId: string | number;
+};
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/show.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/show.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/show.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/show.json">View JSON:API</a></td>
 </tr>
 <tr>
 <td valign="top">
 
 ```ts
-getShortEPG(options: {
-  channelId: string | number,
-  limit: number
-})
+getShortEPG(options: Options);
+
+type Options = {
+  channelId: string | number;
+  limit?: number;
+};
 ```
 
 </td>
-<td valign="top">- <a href="tests/snapshots/standardized/short-epg.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/short-epg.json">JSON:API</a></td>
-</tr>
-
-<tr>
-<td valign="top">
-
-```ts
-getFullEPG(options: {
-  channelId: string | number
-})
-```
-
-</td>
-<td valign="top">- <a href="tests/snapshots/standardized/full-epg.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/full-epg.json">JSON:API</a></td>
+<td valign="top"><a href="tests/snapshots/standardized/short-epg.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/short-epg.json">View JSON:API</a></td>
 </tr>
 
 <tr>
 <td valign="top">
 
 ```ts
-generateStreamUrl(options: {
+getFullEPG(options: Options);
+
+type Options = {
+  channelId: string | number;
+};
+```
+
+</td>
+<td valign="top"><a href="tests/snapshots/standardized/full-epg.json">View Standardized</a> <br> <a href="tests/snapshots/jsonapi/full-epg.json">View JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+generateStreamUrl(options: Options);
+
+type Options = {
   type: 'channel' | 'movie' | 'episode';
   streamId: string | number;
   extension: string;
@@ -240,10 +260,8 @@ generateStreamUrl(options: {
     duration: number;
     start: Date;
   }
-})
+};
 ```
-
-This is used internally to generate the stream URLs. You can use this method to generate a timeshift URL or if you need to generate a URL manually for any reason.
 
 </td>
 <td valign="top">N/A</td>
@@ -253,13 +271,13 @@ This is used internally to generate the stream URLs. You can use this method to 
 
 ## 🔄 Serializers
 
-Xtream has an unpredictable API format, keys change between types, dates come as date strings and timestamp strings, things that should be arrays are sometimes objects with number keys, some data is base64 encoded.
+Xtream has an unpredictable API format, there are duplicate keys, keys change depending on what type of content is requested, dates come as date strings and timestamp strings with no reason, things that should be arrays are sometimes objects with numbered keys, some data is base64 encoded etc.
 
 For this reason, this library can use serializers to convert the API response to a more usable format. We provide a default set of serializers for the most common API responses.
 
-### Available Serializers
+---
 
-#### Camel Case
+### Camel Case
 
 The simplest serializer just converts the keys of the response object to camel case.
 
@@ -294,7 +312,9 @@ console.log(categories);
 */
 ```
 
-#### Standardized
+---
+
+### Standardized
 
 Converts the shape of the response object to a standardized format similar to Active Record, also decodes base64 strings.
 
@@ -329,7 +349,9 @@ console.log(categories);
 */
 ```
 
-#### JSON:API Serializer
+---
+
+### JSON:API Serializer
 
 Converts the response object to [JSON:API](https://jsonapi.org) format, also decodes base64 strings.
 
@@ -377,6 +399,8 @@ console.log(categories);
 }
 */
 ```
+
+---
 
 ### Custom Serializers
 
