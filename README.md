@@ -69,21 +69,187 @@ console.log(categories);
 
 ### 📚 API
 
-| Method                 | Argument                                    | Description                     | Serialized                                                                                                                     |
-| ---------------------- | ------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `getProfile`           |                                             | Get the user profile            | [Standardized](tests/snapshots/standardized/profile.json) / [JSON:API](tests/snapshots/jsonapi/profile.json)                   |
-| `getServerInfo`        |                                             | Get the server information      | [Standardized](tests/snapshots/standardized/server-info.json) / [JSON:API](tests/snapshots/jsonapi/server-info.json)           |
-| `getChannelCategories` |                                             | Get the channel categories      | [Standardized](tests/snapshots/standardized/categories.json) / [JSON:API](tests/snapshots/jsonapi/categories.json)             |
-| `getMovieCategories`   |                                             | Get the movie categories        | [Standardized](tests/snapshots/standardized/movie-categories.json) / [JSON:API](tests/snapshots/jsonapi/movie-categories.json) |
-| `getShowCategories`    |                                             | Get the show categories         | [Standardized](tests/snapshots/standardized/show-categories.json) / [JSON:API](tests/snapshots/jsonapi/show-categories.json)   |
-| `getChannels`          | `{ categoryId, page, limit }`               | Get the channels for a category | [Standardized](tests/snapshots/standardized/channels.json) / [JSON:API](tests/snapshots/jsonapi/channels.json)                 |
-| `getMovies`            | `{ categoryId, page, limit }`               | Get the movies for a category   | [Standardized](tests/snapshots/standardized/movies.json) / [JSON:API](tests/snapshots/jsonapi/movies.json)                     |
-| `getMovie`             | `{ movieId }`                               | Get the information for a movie | [Standardized](tests/snapshots/standardized/movie.json) / [JSON:API](tests/snapshots/jsonapi/movie.json)                       |
-| `getShows`             | `{ categoryId, page, limit }`               | Get the shows for a category    | [Standardized](tests/snapshots/standardized/shows.json) / [JSON:API](tests/snapshots/jsonapi/shows.json)                       |
-| `getShow`              | `{ showId }`                                | Get the information for a show  | [Standardized](tests/snapshots/standardized/show.json) / [JSON:API](tests/snapshots/jsonapi/show.json)                         |
-| `getShortEPG`          | `{ channelId, limit }`                      | Get the short EPG for a channel | [Standardized](tests/snapshots/standardized/short-epg.json) / [JSON:API](tests/snapshots/jsonapi/short-epg.json)               |
-| `getFullEPG`           | `{ channelId }`                             | Get the full EPG for a channel  | [Standardized](tests/snapshots/standardized/full-epg.json) / [JSON:API](tests/snapshots/jsonapi/full-epg.json)                 |
-| `generateStreamUrl`    | `stream` Can be a channel, movie or episode | Generate a stream URL           |                                                                                                                                |
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Serialized</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+
+```ts
+getProfile();
+```
+
+</td>
+      <td valign="top">- <a href="tests/snapshots/standardized/profile.json">Standardized</a> <br> - <a href="tests/snapshots/jsonapi/profile.json">JSON:API</a></td>
+    </tr>
+    <tr>
+      <td valign="top">
+
+```ts
+getServerInfo();
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/server-info.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/server-info.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getChannelCategories();
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/categories.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovieCategories();
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/movie-categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movie-categories.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShowCategories();
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/show-categories.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/show-categories.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+      
+```ts
+getChannels(options: { 
+  categoryId?: string | number, 
+  page: number, 
+  limit: number 
+});
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/channels.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/channels.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovies(options: {
+  categoryId?: string | number,
+  page: number,
+  limit: number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/movies.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movies.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getMovie(options: {
+  movieId: string | number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/movie.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/movie.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShows(options: {
+  categoryId?: string | number,
+  page: number,
+  limit: number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/shows.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/shows.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getShow(options: {
+  showId: string | number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/show.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/show.json">JSON:API</a></td>
+</tr>
+<tr>
+<td valign="top">
+
+```ts
+getShortEPG(options: {
+  channelId: string | number,
+  limit: number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/short-epg.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/short-epg.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+getFullEPG(options: {
+  channelId: string | number
+})
+```
+
+</td>
+<td valign="top">- <a href="tests/snapshots/standardized/full-epg.json">Standardized</a> <br>- <a href="tests/snapshots/jsonapi/full-epg.json">JSON:API</a></td>
+</tr>
+
+<tr>
+<td valign="top">
+
+```ts
+generateStreamUrl(options: {
+  type: 'channel' | 'movie' | 'episode';
+  streamId: string | number;
+  extension: string;
+  timeshift: {
+    duration: number;
+    start: Date;
+  }
+})
+```
+
+This is used internally to generate the stream URLs. You can use this method to generate a timeshift URL or if you need to generate a URL manually for any reason.
+
+</td>
+<td valign="top">N/A</td>
+</tr>
+</tbody>
+</table>
 
 ## 🔄 Serializers
 
