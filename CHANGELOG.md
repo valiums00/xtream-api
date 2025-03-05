@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-03-05)
+
+@iptv/xtream-api 1.2.0 (minor)
+
+#### :rocket: Enhancement
+* `@iptv/xtream-api`
+  * [#11](https://github.com/ektotv/xtream-api/pull/11) Add timeshift option to `generateStreamUrl` ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2025-03-04)
 
 @iptv/xtream-api 1.1.2 (patch)
