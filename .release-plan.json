@@ -1,17 +1,17 @@
 {
   "solution": {
     "@iptv/xtream-api": {
-      "impact": "minor",
-      "oldVersion": "1.1.2",
-      "newVersion": "1.2.0",
+      "impact": "patch",
+      "oldVersion": "1.2.0",
+      "newVersion": "1.2.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-03-05)\n\n@iptv/xtream-api 1.2.0 (minor)\n\n#### :rocket: Enhancement\n* `@iptv/xtream-api`\n  * [#11](https://github.com/ektotv/xtream-api/pull/11) Add timeshift option to `generateStreamUrl` ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2025-03-05)\n\n@iptv/xtream-api 1.2.1 (patch)\n\n#### :house: Internal\n* `@iptv/xtream-api`\n  * [#13](https://github.com/ektotv/xtream-api/pull/13) Optimize build output ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }

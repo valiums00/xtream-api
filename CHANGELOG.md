@@ -2,6 +2,17 @@
 
 ## Release (2025-03-05)
 
+@iptv/xtream-api 1.2.1 (patch)
+
+#### :house: Internal
+* `@iptv/xtream-api`
+  * [#13](https://github.com/ektotv/xtream-api/pull/13) Optimize build output ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
+## Release (2025-03-05)
+
 @iptv/xtream-api 1.2.0 (minor)
 
 #### :rocket: Enhancement
