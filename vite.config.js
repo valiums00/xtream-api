@@ -5,6 +5,7 @@ import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   build: {
+    target: 'esnext',
     lib: {
       entry: {
         index: resolve(__dirname, 'src/main.ts'),
@@ -16,6 +17,14 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['camelcase-keys'],
+      plugins: [
+        {
+          name: 'remove-comments',
+          renderChunk(code) {
+            return code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
+          },
+        },
+      ],
     },
   },
   plugins: [
