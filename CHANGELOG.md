@@ -2,6 +2,17 @@
 
 ## Release (2025-03-06)
 
+@iptv/xtream-api 1.2.3 (patch)
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#17](https://github.com/ektotv/xtream-api/pull/17) Remove title from shows and only use name ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
+## Release (2025-03-06)
+
 @iptv/xtream-api 1.2.2 (patch)
 
 #### :bug: Bug Fix
