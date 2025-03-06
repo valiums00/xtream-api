@@ -246,6 +246,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           director,
           genre,
           youtubeTrailer,
+          title,
           ...restShow
         } = show;
 
@@ -254,6 +255,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           id: seriesId.toString(),
           attributes: {
             ...restShow,
+            name: title,
             cast: cast.split(',').map((x) => x.trim()),
             director: director.split(',').map((x) => x.trim()),
             genre: genre.split(',').map((x) => x.trim()),
@@ -305,6 +307,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       director,
       genre,
       youtubeTrailer,
+      title,
       ...restShowInfo
     } = info;
 
@@ -404,6 +407,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         id: seriesId.toString(),
         attributes: {
           ...restShowInfo,
+          name: title,
           voteAverage: Number(rating),
           poster: cover,
           cover: backdropPath[0],

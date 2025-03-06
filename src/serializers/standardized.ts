@@ -194,12 +194,14 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         director,
         genre,
         youtubeTrailer,
+        title,
         ...restShow
       } = show;
 
       return {
         id: seriesId.toString(),
         ...restShow,
+        name: title,
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
         genre: genre.split(',').map((x) => x.trim()),
@@ -235,6 +237,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       director,
       genre,
       youtubeTrailer,
+      title,
       ...restShowInfo
     } = info;
 
@@ -306,6 +309,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     return {
       id: seriesId.toString(),
       ...restShowInfo,
+      name: title,
       voteAverage: Number(rating),
       poster: cover,
       cover: backdropPath[0],
