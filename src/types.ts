@@ -355,8 +355,8 @@ export type XtreamShowInfo = {
   title: string;
   /** The year of release */
   year: string;
-  /** The unique identifier for the series */
-  series_id: number;
+  /** The unique identifier for the series, added by this library */
+  series_id?: number;
   /** The URL for the show's cover image */
   cover: string;
   /** The synopsis/description of the show */

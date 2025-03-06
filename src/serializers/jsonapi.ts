@@ -120,6 +120,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           cast,
           director,
           youtubeTrailer,
+          title,
           ...cced
         } = movie;
 
@@ -128,6 +129,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           id: streamId.toString(),
           attributes: {
             ...cced,
+            name: title,
             genre: genre.split(',').map((x) => x.trim()),
             cast: cast.split(',').map((x) => x.trim()),
             director: director.split(',').map((x) => x.trim()),
@@ -173,12 +175,13 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       movieImage,
       backdropPath,
       ratingCountKinopoisk,
+      kinopoiskUrl,
       episodeRunTime,
       youtubeTrailer,
       tmdbId,
       ...restInfo
     } = camelInput.info;
-    const { categoryId, categoryIds, streamId, added, ...restData } = camelInput.movieData;
+    const { categoryId, categoryIds, streamId, added, title, ...restData } = camelInput.movieData;
 
     return {
       data: {
@@ -187,7 +190,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         attributes: {
           ...restData,
           ...restInfo,
-          informationUrl: restInfo.kinopoiskUrl,
+          informationUrl: kinopoiskUrl,
           originalName: oName,
           cover: coverBig,
           poster: movieImage,
@@ -305,6 +308,10 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       ...restShowInfo
     } = info;
 
+    if (typeof seriesId === 'undefined') {
+      throw new Error('seriesId is required');
+    }
+
     const flatEpisodes = Object.values(episodes).flat();
 
     const episodesAsJSONAPI: JSONAPIXtreamEpisode[] = flatEpisodes.map((episode) => {
@@ -394,7 +401,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     return {
       data: {
         type: 'show',
-        id: info.seriesId.toString(),
+        id: seriesId.toString(),
         attributes: {
           ...restShowInfo,
           voteAverage: Number(rating),

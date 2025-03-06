@@ -4,12 +4,10 @@
     "id": "100000",
     "attributes": {
       "name": "Movie Title",
-      "title": "Movie Title",
       "year": "2023",
       "containerExtension": "mp4",
       "customSid": "abc123",
       "directSource": "https://example.com/streaming/movie.mp4",
-      "kinopoiskUrl": "https://www.example.com/movie/123456",
       "description": "A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.",
       "plot": "A more detailed description of the movie plot that explains the main storyline and characters.",
       "country": "United States",

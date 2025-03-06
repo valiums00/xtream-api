@@ -509,6 +509,8 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       throw new Error('Show Not Found');
     }
 
+    show.info.series_id = Number(showId);
+
     Object.keys(show.episodes).forEach((season) => {
       show.episodes[season].forEach((episode) => {
         episode.url = this.generateStreamUrl({
