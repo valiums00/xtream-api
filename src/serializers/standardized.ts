@@ -95,12 +95,14 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         cast,
         director,
         youtubeTrailer,
+        title,
         ...cced
       } = movie;
 
       return {
         id: streamId.toString(),
         ...cced,
+        name: title,
         genre: genre.split(',').map((x) => x.trim()),
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
@@ -135,16 +137,17 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       movieImage,
       backdropPath,
       ratingCountKinopoisk,
+      kinopoiskUrl,
       episodeRunTime,
       youtubeTrailer,
       tmdbId,
       ...restInfo
     } = camelInput.info;
-    const { categoryId, categoryIds, streamId, added, ...restData } = camelInput.movieData;
+    const { categoryId, categoryIds, streamId, added, title, ...restData } = camelInput.movieData;
 
     return {
       id: streamId.toString(),
-      informationUrl: restInfo.kinopoiskUrl,
+      informationUrl: kinopoiskUrl,
       originalName: oName,
       cover: coverBig,
       poster: movieImage,
@@ -235,6 +238,10 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       ...restShowInfo
     } = info;
 
+    if (typeof seriesId === 'undefined') {
+      throw new Error('seriesId is required');
+    }
+
     const flatEpisodes = Object.values(episodes).flat();
 
     const mappedEpisodes: StandardXtreamEpisode[] = flatEpisodes.map((episode) => {
@@ -297,7 +304,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     });
 
     return {
-      id: info.seriesId.toString(),
+      id: seriesId.toString(),
       ...restShowInfo,
       voteAverage: Number(rating),
       poster: cover,

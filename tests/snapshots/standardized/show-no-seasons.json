@@ -1,5 +1,5 @@
 {
-  "id": "16083",
+  "id": "3000",
   "name": "Small Town Stories (2025)",
   "title": "Small Town Stories",
   "year": "2025",
@@ -38,7 +38,7 @@
       "releaseDate": "2025-02-24T00:00:00.000Z",
       "number": 1,
       "cover": "https://example-iptv.com/images/small-town-s01e01.jpg",
-      "showId": "16083",
+      "showId": "3000",
       "episodes": [
         {
           "id": "935666",
@@ -60,7 +60,7 @@
           "durationFormatted": "00:36:54",
           "releaseDate": "2025-02-24T00:00:00.000Z",
           "createdAt": "2025-02-25T17:15:21.000Z",
-          "showId": "16083",
+          "showId": "3000",
           "seasonId": "1"
         },
         {
@@ -83,7 +83,7 @@
           "durationFormatted": "00:36:49",
           "releaseDate": "2025-02-25T00:00:00.000Z",
           "createdAt": "2025-02-26T17:35:20.000Z",
-          "showId": "16083",
+          "showId": "3000",
           "seasonId": "1"
         }
       ]

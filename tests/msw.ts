@@ -304,7 +304,6 @@ const show: XtreamShow = {
     episode_run_time: '37',
     category_id: '2',
     category_ids: [2],
-    series_id: 16083,
   },
   episodes: {
     '1': [

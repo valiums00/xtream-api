@@ -1,7 +1,7 @@
 {
   "data": {
     "type": "show",
-    "id": "16083",
+    "id": "1",
     "attributes": {
       "name": "Small Town Stories (2025)",
       "title": "Small Town Stories",
@@ -81,7 +81,7 @@
         "show": {
           "data": {
             "type": "show",
-            "id": "16083"
+            "id": "1"
           }
         },
         "episodes": {
@@ -105,7 +105,7 @@
         "show": {
           "data": {
             "type": "show",
-            "id": "16083"
+            "id": "1"
           }
         },
         "episodes": {
@@ -155,7 +155,7 @@
         "show": {
           "data": {
             "type": "show",
-            "id": "16083"
+            "id": "1"
           }
         }
       }
@@ -193,7 +193,7 @@
         "show": {
           "data": {
             "type": "show",
-            "id": "16083"
+            "id": "1"
           }
         }
       }
