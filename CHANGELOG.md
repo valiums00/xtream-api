@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-03-06)
+
+@iptv/xtream-api 1.2.2 (patch)
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#15](https://github.com/ektotv/xtream-api/pull/15) Handle series_id not being returned by get_series_info & extra standardization ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2025-03-05)
 
 @iptv/xtream-api 1.2.1 (patch)
