@@ -35,38 +35,20 @@ export default defineConfig({
         // duplicate types with the correct extension supplied in the
         // package.json exports field.
         copyFileSync('dist/types/index.d.ts', 'dist/types/index.d.cts');
-        copyFileSync('dist/types/jsonapi.d.ts', 'dist/types/jsonapi.d.cts');
-        copyFileSync('dist/types/camelcase.d.ts', 'dist/types/camelcase.d.cts');
-        copyFileSync('dist/types/standardized.d.ts', 'dist/types/standardized.d.cts');
 
-        // setup folders for module: "node" users
-        mkdirSync('jsonapi', { recursive: true });
-        mkdirSync('camelcase', { recursive: true });
-        mkdirSync('standardized', { recursive: true });
+        ['jsonapi', 'camelcase', 'standardized'].forEach((module) => {
+          copyFileSync(`dist/types/${module}.d.ts`, `dist/types/${module}.d.cts`);
 
-        writeFileSync(
-          'jsonapi/package.json',
-          JSON.stringify({
-            main: '../dist/jsonapi.cjs',
-            types: '../dist/types/jsonapi.d.cts',
-          }),
-        );
-
-        writeFileSync(
-          'camelcase/package.json',
-          JSON.stringify({
-            main: '../dist/camelcase.cjs',
-            types: '../dist/types/camelcase.d.cts',
-          }),
-        );
-
-        writeFileSync(
-          'standardized/package.json',
-          JSON.stringify({
-            main: '../dist/standardized.cjs',
-            types: '../dist/types/standardized.d.cts',
-          }),
-        );
+          // setup folders for module: "node" users
+          mkdirSync(module, { recursive: true });
+          writeFileSync(
+            `${module}/package.json`,
+            JSON.stringify({
+              main: `../dist/${module}.cjs`,
+              types: `../dist/types/${module}.d.cts`,
+            }),
+          );
+        });
       },
       rollupTypes: true,
       outDir: 'dist/types',
