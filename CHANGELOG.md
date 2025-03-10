@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-03-10)
+
+@iptv/xtream-api 1.2.4 (patch)
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#19](https://github.com/ektotv/xtream-api/pull/19) Support node10 resolution ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2025-03-06)
 
 @iptv/xtream-api 1.2.3 (patch)

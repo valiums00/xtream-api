@@ -2,8 +2,8 @@
   "solution": {
     "@iptv/xtream-api": {
       "impact": "patch",
-      "oldVersion": "1.2.2",
-      "newVersion": "1.2.3",
+      "oldVersion": "1.2.3",
+      "newVersion": "1.2.4",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-03-06)\n\n@iptv/xtream-api 1.2.3 (patch)\n\n#### :bug: Bug Fix\n* `@iptv/xtream-api`\n  * [#17](https://github.com/ektotv/xtream-api/pull/17) Remove title from shows and only use name ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2025-03-10)\n\n@iptv/xtream-api 1.2.4 (patch)\n\n#### :bug: Bug Fix\n* `@iptv/xtream-api`\n  * [#19](https://github.com/ektotv/xtream-api/pull/19) Support node10 resolution ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }
