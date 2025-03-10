@@ -68,7 +68,10 @@
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "standardized",
+    "jsonapi",
+    "camelcase"
   ],
   "scripts": {
     "build": "vite build",

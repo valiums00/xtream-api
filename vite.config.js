@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
-import { copyFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
@@ -35,9 +35,20 @@ export default defineConfig({
         // duplicate types with the correct extension supplied in the
         // package.json exports field.
         copyFileSync('dist/types/index.d.ts', 'dist/types/index.d.cts');
-        copyFileSync('dist/types/jsonapi.d.ts', 'dist/types/jsonapi.d.cts');
-        copyFileSync('dist/types/camelcase.d.ts', 'dist/types/camelcase.d.cts');
-        copyFileSync('dist/types/standardized.d.ts', 'dist/types/standardized.d.cts');
+
+        ['jsonapi', 'camelcase', 'standardized'].forEach((module) => {
+          copyFileSync(`dist/types/${module}.d.ts`, `dist/types/${module}.d.cts`);
+
+          // setup folders for module: "node" users
+          mkdirSync(module, { recursive: true });
+          writeFileSync(
+            `${module}/package.json`,
+            JSON.stringify({
+              main: `../dist/${module}.cjs`,
+              types: `../dist/types/${module}.d.cts`,
+            }),
+          );
+        });
       },
       rollupTypes: true,
       outDir: 'dist/types',

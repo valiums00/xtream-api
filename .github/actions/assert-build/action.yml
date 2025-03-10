@@ -28,6 +28,9 @@ runs:
             types/jsonapi.d.cts
             types/standardized.d.ts
             types/standardized.d.cts
+            ../jsonapi/package.json
+            ../camelcase/package.json
+            ../standardized/package.json
 
 
         ' >> assert-contents.config.yml
