@@ -411,8 +411,6 @@ export type XtreamSeason = {
   season_number: number;
   /** The URL for a larger version of the season's cover */
   cover_big: string;
-  /** The average duration of episodes in the season */
-  duration?: string;
   /** The average rating vote for the season */
   vote_average: number;
 };

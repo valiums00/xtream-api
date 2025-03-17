@@ -1,6 +1,6 @@
 import camelCaseKeys, { CamelCaseKeys } from 'camelcase-keys';
 import { defineSerializers } from '../xtream.ts';
-import type { XtreamAudioInfo, XtreamCategory, XtreamVideoInfo } from '../types.ts';
+import type { XtreamAudioInfo, XtreamCategory, XtreamSeason, XtreamVideoInfo } from '../types.ts';
 
 /**
  * JSON API serializers for the Xtream API
@@ -140,7 +140,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           }),
-        };
+        } satisfies JSONAPIXtreamMovieListing;
       }),
     };
   },
@@ -268,7 +268,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           }),
-        };
+        } satisfies JSONAPIXtreamShow;
       }),
     };
   },
@@ -363,8 +363,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           seasonNumber: Number(seasonNumber),
           voteAverage: Number(firstEpisode.info.rating),
           coverBig: firstEpisode.info.movieImage,
-          releaseDate: firstEpisode.info.releaseDate,
-        };
+        } satisfies CamelCaseKeys<XtreamSeason>;
       });
     }
 
@@ -393,7 +392,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               })),
           },
         },
-      };
+      } satisfies JSONAPIXtreamSeason;
     });
 
     return {
@@ -465,7 +464,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           },
-        };
+        } satisfies JSONAPIXtreamShortEPGListing;
       }),
     };
   },
@@ -498,7 +497,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           },
-        };
+        } satisfies JSONAPIXtreamFullEPGListing;
       }),
     };
   },
@@ -530,7 +529,7 @@ function categoryMapper(
             },
           },
         }),
-      };
+      } satisfies JSONAPIXtreamCategory;
     }),
   };
 }
@@ -960,6 +959,15 @@ export type JSONAPIXtreamSeason = {
         /** The show ID */
         id: string;
       };
+    };
+    /** The episodes relationship */
+    episodes: {
+      data: {
+        /** The episode type */
+        type: 'episode';
+        /** The episode ID */
+        id: string;
+      }[];
     };
   };
 };

@@ -1,6 +1,6 @@
 import camelCaseKeys, { type CamelCaseKeys } from 'camelcase-keys';
 import { defineSerializers } from '../xtream.ts';
-import type { XtreamCategory, XtreamVideoInfo, XtreamAudioInfo } from '../types.ts';
+import type { XtreamCategory, XtreamVideoInfo, XtreamAudioInfo, XtreamSeason } from '../types.ts';
 
 /**
  * Standardized serializers for the Xtream API
@@ -202,7 +202,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         updatedAt: new Date(Number(lastModified) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
         youtubeId: youtubeTrailer,
-      };
+      } satisfies Omit<StandardXtreamShow, 'seasons'>;
     });
   },
 
@@ -281,27 +281,25 @@ export const standardizedSerializer = defineSerializers('Standardized', {
           seasonNumber: Number(seasonNumber),
           voteAverage: Number(firstEpisode.info.rating),
           coverBig: firstEpisode.info.movieImage,
-          releaseDate: firstEpisode.info.releaseDate,
-        };
+        } satisfies CamelCaseKeys<XtreamSeason>;
       });
     }
 
     const mappedSeasons: StandardXtreamSeason[] = seasonsToMap.map((season) => {
-      const { id, seasonNumber, coverBig, airDate, name, episodeCount, overview, duration, voteAverage } = season;
+      const { id, seasonNumber, coverBig, airDate, name, episodeCount, overview, voteAverage } = season;
 
       return {
         id: id.toString(),
         name,
         episodeCount,
         overview,
-        duration,
         voteAverage,
         releaseDate: airDate ? new Date(airDate) : null,
         number: seasonNumber,
         cover: coverBig,
         showId: seriesId.toString(),
         episodes: mappedEpisodes.filter((episode) => episode.seasonId === id.toString()),
-      };
+      } satisfies StandardXtreamSeason;
     });
 
     return {
@@ -338,7 +336,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         title: atob(title),
         description: atob(description),
         language: lang,
-      };
+      } satisfies StandardXtreamShortEPGListing;
     });
   },
 
@@ -359,7 +357,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         language: lang,
         nowPlaying: Boolean(nowPlaying),
         hasArchive: Boolean(hasArchive),
-      };
+      } satisfies StandardXtreamFullEPGListing;
     });
   },
 });
@@ -374,7 +372,7 @@ function categoryMapper(input: XtreamCategory[]): StandardXtreamCategory[] {
       id: categoryId.toString(),
       name: categoryName,
       parentId: parentId.toString(),
-    };
+    } satisfies StandardXtreamCategory;
   });
 }
 
@@ -491,15 +489,13 @@ export type StandardXtreamMovieListing = {
   /** The runtime of the movie in seconds */
   duration: number;
   /** Youtube ID of trailer */
-  youtubeId: string;
+  youtubeId: string | null;
   /** The cast of the movie as an array */
   cast: string[];
   /** The director(s) of the movie as an array */
   director: string[];
   /** The genres of the movie as an array */
   genre: string[];
-  /** The YouTube ID or URL for the trailer */
-  youtubeId: string | null;
   /** The date when the movie was added to the system */
   createdAt: Date;
   /** All category IDs the movie belongs to */
@@ -663,8 +659,16 @@ export type StandardXtreamEpisode = {
 export type StandardXtreamSeason = {
   /** The unique identifier for the season */
   id: string;
+  /** The name of the season */
+  name: string;
+  /** The number of episodes in the season */
+  episodeCount: number;
+  /** The overview/synopsis of the season */
+  overview: string;
   /** The season number */
   number: number;
+  /** The vote average of the season */
+  voteAverage: number;
   /** The URL for the season's cover image */
   cover: string;
   /** The date when the season first aired */
