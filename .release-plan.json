@@ -1,14 +1,10 @@
 {
   "solution": {
     "@iptv/xtream-api": {
-      "impact": "minor",
-      "oldVersion": "1.2.4",
-      "newVersion": "1.3.0",
+      "impact": "patch",
+      "oldVersion": "1.3.0",
+      "newVersion": "1.3.1",
       "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
@@ -17,5 +13,5 @@
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-03-17)\n\n@iptv/xtream-api 1.3.0 (minor)\n\n#### :rocket: Enhancement\n* `@iptv/xtream-api`\n  * [#23](https://github.com/ektotv/xtream-api/pull/23) More standardization and ensure serialized objects match type ([@evoactivity](https://github.com/evoactivity))\n\n#### :bug: Bug Fix\n* `@iptv/xtream-api`\n  * [#22](https://github.com/ektotv/xtream-api/pull/22) Handle when Xtream sends null for certain properties ([@evoactivity](https://github.com/evoactivity))\n  * [#21](https://github.com/ektotv/xtream-api/pull/21) Fix loading ESM only camelcase-keys in CJS loader. ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2025-03-17)\n\n@iptv/xtream-api 1.3.1 (patch)\n\n#### :bug: Bug Fix\n* `@iptv/xtream-api`\n  * [#25](https://github.com/ektotv/xtream-api/pull/25) Use backdrop path for movie cover ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }

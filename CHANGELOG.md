@@ -2,6 +2,17 @@
 
 ## Release (2025-03-17)
 
+@iptv/xtream-api 1.3.1 (patch)
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#25](https://github.com/ektotv/xtream-api/pull/25) Use backdrop path for movie cover ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
+## Release (2025-03-17)
+
 @iptv/xtream-api 1.3.0 (minor)
 
 #### :rocket: Enhancement
