@@ -2,12 +2,7 @@
   {
     "id": "935703",
     "name": "Summer Adventure",
-    "year": "2024",
     "plot": "Four friends embark on an unforgettable journey across the coast during their last summer together before college.",
-    "containerExtension": "mp4",
-    "customSid": "",
-    "directSource": "",
-    "url": "http://example.com/movie/test/password/935703.mp4",
     "genre": [
       "Adventure",
       "Comedy",
@@ -30,17 +25,13 @@
     "createdAt": "2025-02-26T09:35:32.000Z",
     "categoryIds": [
       "1"
-    ]
+    ],
+    "url": "http://example.com/movie/test/password/935703.mp4"
   },
   {
     "id": "935704",
     "name": "The Last Stand",
-    "year": "2023",
     "plot": "A retired sheriff and his team must protect their town from a ruthless cartel leader and his gang.",
-    "containerExtension": "mp4",
-    "customSid": "",
-    "directSource": "",
-    "url": "http://example.com/movie/test/password/935704.mp4",
     "genre": [
       "Action",
       "Crime",
@@ -63,6 +54,7 @@
     "createdAt": "2025-02-26T09:35:32.000Z",
     "categoryIds": [
       "2"
-    ]
+    ],
+    "url": "http://example.com/movie/test/password/935704.mp4"
   }
 ]

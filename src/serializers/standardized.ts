@@ -1,6 +1,6 @@
-import camelCaseKeys from 'camelcase-keys';
+import camelCaseKeys, { type CamelCaseKeys } from 'camelcase-keys';
 import { defineSerializers } from '../xtream.ts';
-import type { XtreamCategory, Prettify } from '../types.ts';
+import type { XtreamCategory, XtreamVideoInfo, XtreamAudioInfo } from '../types.ts';
 
 /**
  * Standardized serializers for the Xtream API
@@ -49,29 +49,21 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((channel) => {
-      const {
-        added,
-        num,
-        streamId,
-        streamType,
-        categoryId,
-        categoryIds,
-        streamIcon,
-        epgChannelId,
-        tvArchive,
-        ...cced
-      } = channel;
+      const { added, num, streamId, categoryIds, streamIcon, epgChannelId, tvArchive, url, name, tvArchiveDuration } =
+        channel;
 
       return {
         id: streamId.toString(),
+        name,
         number: num,
-        ...cced,
         tvArchive: tvArchive === 1,
+        tvArchiveDuration,
         logo: streamIcon,
         epgId: epgChannelId,
         createdAt: new Date(Number(added) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
-      };
+        url,
+      } satisfies StandardXtreamChannel;
     });
   },
 
@@ -80,29 +72,26 @@ export const standardizedSerializer = defineSerializers('Standardized', {
 
     return camelInput.map((movie) => {
       const {
-        num,
-        streamType,
         streamIcon,
         streamId,
         releaseDate,
         rating,
-        rating5Based,
         added,
         categoryIds,
-        categoryId,
         episodeRunTime,
         genre,
         cast,
         director,
         youtubeTrailer,
         title,
-        ...cced
+        plot,
+        url,
       } = movie;
 
       return {
         id: streamId.toString(),
-        ...cced,
         name: title,
+        plot,
         genre: genre.split(',').map((x) => x.trim()),
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
@@ -113,7 +102,8 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         youtubeId: youtubeTrailer,
         createdAt: new Date(Number(added) * 1000),
         categoryIds: categoryIds.map((id) => id.toString()),
-      };
+        url,
+      } satisfies StandardXtreamMovieListing;
     });
   },
 
@@ -127,7 +117,6 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       cast,
       oName,
       releaseDate,
-      releasedate,
       mpaaRating,
       age,
       rating,
@@ -135,18 +124,23 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       durationSecs,
       coverBig,
       movieImage,
-      backdropPath,
-      ratingCountKinopoisk,
       kinopoiskUrl,
-      episodeRunTime,
       youtubeTrailer,
       tmdbId,
-      ...restInfo
+      name,
+      description,
+      plot,
+      country,
+      subtitles,
     } = camelInput.info;
-    const { categoryId, categoryIds, streamId, added, title, ...restData } = camelInput.movieData;
+    const { categoryIds, streamId, added } = camelInput.movieData;
 
     return {
       id: streamId.toString(),
+      name,
+      description,
+      plot,
+      country,
       informationUrl: kinopoiskUrl,
       originalName: oName,
       cover: coverBig,
@@ -167,24 +161,19 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         mpaa: mpaaRating,
         age: Number(age),
       },
-      ...restData,
-      ...restInfo,
+      subtitles,
       url: camelInput.url,
     };
   },
 
-  shows: (input): Prettify<Omit<StandardXtreamShow, 'seasons'>>[] => {
+  shows: (input): Omit<StandardXtreamShow, 'seasons'>[] => {
     const camelInput = camelCaseKeys(input);
 
     return camelInput.map((show) => {
       const {
-        num,
-        streamType,
         rating,
-        rating5Based,
         seriesId,
         cover,
-        categoryId,
         categoryIds,
         backdropPath,
         releaseDate,
@@ -195,13 +184,13 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         genre,
         youtubeTrailer,
         title,
-        ...restShow
+        plot,
       } = show;
 
       return {
         id: seriesId.toString(),
-        ...restShow,
         name: title,
+        plot,
         cast: cast.split(',').map((x) => x.trim()),
         director: director.split(',').map((x) => x.trim()),
         genre: genre.split(',').map((x) => x.trim()),
@@ -224,10 +213,8 @@ export const standardizedSerializer = defineSerializers('Standardized', {
 
     const {
       rating,
-      rating5Based,
       seriesId,
       cover,
-      categoryId,
       categoryIds,
       backdropPath,
       releaseDate,
@@ -238,7 +225,7 @@ export const standardizedSerializer = defineSerializers('Standardized', {
       genre,
       youtubeTrailer,
       title,
-      ...restShowInfo
+      plot,
     } = info;
 
     if (typeof seriesId === 'undefined') {
@@ -248,18 +235,20 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     const flatEpisodes = Object.values(episodes).flat();
 
     const mappedEpisodes: StandardXtreamEpisode[] = flatEpisodes.map((episode) => {
-      const { id, season, episodeNum, added, info, ...restEpisode } = episode;
+      const { id, season, episodeNum, added, info, title, url, subtitles } = episode;
 
-      const { releaseDate, movieImage, coverBig, durationSecs, duration, tmdbId, ...restEpisodeInfo } = info;
+      const { releaseDate, movieImage, coverBig, rating, durationSecs, duration, tmdbId, plot, video, audio, bitrate } =
+        info;
       const seasonId = seasons.find((x) => x.seasonNumber === season)?.id.toString() || season.toString();
 
       return {
         id,
         number: Number(episodeNum),
-        ...restEpisode,
-        ...restEpisodeInfo,
+        plot,
+        title,
         tmdbId: tmdbId?.toString(),
         poster: movieImage,
+        voteAverage: rating,
         cover: coverBig,
         duration: durationSecs,
         durationFormatted: duration,
@@ -267,7 +256,12 @@ export const standardizedSerializer = defineSerializers('Standardized', {
         createdAt: new Date(Number(added) * 1000),
         showId: seriesId.toString(),
         seasonId: seasonId,
-      };
+        url,
+        subtitles,
+        video,
+        audio,
+        bitrate,
+      } satisfies StandardXtreamEpisode;
     });
 
     let seasonsToMap = seasons;
@@ -293,11 +287,15 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     }
 
     const mappedSeasons: StandardXtreamSeason[] = seasonsToMap.map((season) => {
-      const { id, seasonNumber, cover, coverBig, airDate, ...restSeason } = season;
+      const { id, seasonNumber, coverBig, airDate, name, episodeCount, overview, duration, voteAverage } = season;
 
       return {
         id: id.toString(),
-        ...restSeason,
+        name,
+        episodeCount,
+        overview,
+        duration,
+        voteAverage,
         releaseDate: new Date(airDate),
         number: seasonNumber,
         cover: coverBig,
@@ -308,8 +306,8 @@ export const standardizedSerializer = defineSerializers('Standardized', {
 
     return {
       id: seriesId.toString(),
-      ...restShowInfo,
       name: title,
+      plot,
       voteAverage: Number(rating),
       poster: cover,
       cover: backdropPath[0],
@@ -329,10 +327,12 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     const { epgListings } = camelCaseKeys(input, { deep: true });
 
     return epgListings.map((listing) => {
-      const { lang, startTimestamp, stopTimestamp, stop, start, end, title, description, ...restListing } = listing;
+      const { lang, start, end, title, description, id, epgId, channelId } = listing;
 
       return {
-        ...restListing,
+        id,
+        epgId,
+        channelId,
         start: new Date(start),
         end: new Date(Number(end) * 1000),
         title: atob(title),
@@ -346,21 +346,12 @@ export const standardizedSerializer = defineSerializers('Standardized', {
     const { epgListings } = camelCaseKeys(input, { deep: true });
 
     return epgListings.map((listing) => {
-      const {
-        lang,
-        startTimestamp,
-        stopTimestamp,
-        start,
-        end,
-        title,
-        description,
-        nowPlaying,
-        hasArchive,
-        ...restListing
-      } = listing;
+      const { lang, start, end, title, description, nowPlaying, hasArchive, id, epgId, channelId } = listing;
 
       return {
-        ...restListing,
+        id,
+        epgId,
+        channelId,
         start: new Date(start),
         end: new Date(end),
         title: atob(title),
@@ -465,16 +456,10 @@ export type StandardXtreamChannel = {
   epgId: string;
   /** The position/order number of the channel */
   number: number;
-  /** Custom stream identifier */
-  customSid: string;
   /** Flag indicating if TV archive is available */
   tvArchive: boolean;
-  /** The direct URL to the channel's source */
-  directSource: string;
   /** The duration of available archive in days */
   tvArchiveDuration: number;
-  /** The URL for the channel's cover image */
-  thumbnail: string;
   /** The URL for the channel's logo */
   logo: string;
   /** The date when the channel was added to the system */
@@ -505,6 +490,8 @@ export type StandardXtreamMovieListing = {
   releaseDate: Date;
   /** The runtime of the movie in seconds */
   duration: number;
+  /** Youtube ID of trailer */
+  youtubeId: string;
   /** The cast of the movie as an array */
   cast: string[];
   /** The director(s) of the movie as an array */
@@ -564,8 +551,6 @@ export type StandardXtreamMovie = {
   duration: number;
   /** The formatted duration of the movie */
   durationFormatted: string;
-  /** The bitrate of the movie */
-  bitrate: number;
   /** Array of available subtitles */
   subtitles: string[];
   /** The rating of the movie */
@@ -574,14 +559,14 @@ export type StandardXtreamMovie = {
   createdAt: Date;
   /** All category IDs the movie belongs to */
   categoryIds: string[];
-  /** The file format extension */
-  containerExtension: string;
-  /** Custom stream identifier */
-  customSid: string;
-  /** The direct URL to the movie's source */
-  directSource: string;
   /** URL to access the stream */
   url?: string;
+  /** Video stream information */
+  video?: Partial<CamelCaseKeys<XtreamVideoInfo, true>>;
+  /** Audio stream information */
+  audio?: Partial<CamelCaseKeys<XtreamAudioInfo, true>>;
+  /** Bitrate of the stream */
+  bitrate?: number;
 };
 
 /**
@@ -654,8 +639,18 @@ export type StandardXtreamEpisode = {
   seasonId?: string;
   /** The ID of the show this episode belongs to */
   showId: string;
+  /** Vote average from rating votes */
+  voteAverage: number;
   /** URL to access the stream */
   url?: string;
+  /** Array of available subtitles */
+  subtitles: string[];
+  /** Video stream information */
+  video?: Partial<CamelCaseKeys<XtreamVideoInfo, true>>;
+  /** Audio stream information */
+  audio?: Partial<CamelCaseKeys<XtreamAudioInfo, true>>;
+  /** Bitrate of the stream */
+  bitrate?: number;
 };
 
 /**

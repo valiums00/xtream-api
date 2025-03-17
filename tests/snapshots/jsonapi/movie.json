@@ -4,25 +4,15 @@
     "id": "100000",
     "attributes": {
       "name": "Movie Title",
-      "year": "2023",
-      "containerExtension": "mp4",
-      "customSid": "abc123",
-      "directSource": "https://example.com/streaming/movie.mp4",
+      "originalName": "Original Movie Title",
       "description": "A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.",
       "plot": "A more detailed description of the movie plot that explains the main storyline and characters.",
-      "country": "United States",
-      "bitrate": 3500,
-      "subtitles": [
-        "English",
-        "Spanish",
-        "French"
-      ],
       "informationUrl": "https://www.example.com/movie/123456",
-      "originalName": "Original Movie Title",
       "cover": "https://example.com/images/cover_big.jpg",
       "poster": "https://example.com/images/movie_image.jpg",
       "duration": 7200,
       "durationFormatted": "02:00:00",
+      "country": "United States",
       "voteAverage": 7.8,
       "director": [
         "Director Name"
@@ -52,6 +42,12 @@
         "mpaa": "PG-13",
         "age": null
       },
+      "subtitles": [
+        "English",
+        "Spanish",
+        "French"
+      ],
+      "bitrate": 3500,
       "releaseDate": "2023-05-15T00:00:00.000Z",
       "createdAt": "2023-05-02T04:00:00.000Z"
     },

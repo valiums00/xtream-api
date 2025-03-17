@@ -5,12 +5,7 @@
       "id": "935703",
       "attributes": {
         "name": "Summer Adventure",
-        "year": "2024",
         "plot": "Four friends embark on an unforgettable journey across the coast during their last summer together before college.",
-        "containerExtension": "mp4",
-        "customSid": "",
-        "directSource": "",
-        "url": "http://example.com/movie/test/password/935703.mp4",
         "genre": [
           "Adventure",
           "Comedy",
@@ -30,7 +25,8 @@
         "duration": 6540,
         "youtubeId": "k2qgYK1CrkQ",
         "releaseDate": "2024-06-15T00:00:00.000Z",
-        "createdAt": "2025-02-26T09:35:32.000Z"
+        "createdAt": "2025-02-26T09:35:32.000Z",
+        "url": "http://example.com/movie/test/password/935703.mp4"
       },
       "relationships": {
         "categories": {
@@ -48,12 +44,7 @@
       "id": "935704",
       "attributes": {
         "name": "The Last Stand",
-        "year": "2023",
         "plot": "A retired sheriff and his team must protect their town from a ruthless cartel leader and his gang.",
-        "containerExtension": "mp4",
-        "customSid": "",
-        "directSource": "",
-        "url": "http://example.com/movie/test/password/935704.mp4",
         "genre": [
           "Action",
           "Crime",
@@ -73,7 +64,8 @@
         "duration": 7080,
         "youtubeId": "k2qgYK1CrkQ",
         "releaseDate": "2023-08-22T00:00:00.000Z",
-        "createdAt": "2025-02-26T09:35:32.000Z"
+        "createdAt": "2025-02-26T09:35:32.000Z",
+        "url": "http://example.com/movie/test/password/935704.mp4"
       },
       "relationships": {
         "categories": {
