@@ -1,5 +1,9 @@
 {
   "id": "100000",
+  "name": "Movie Title",
+  "description": "A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.",
+  "plot": "A more detailed description of the movie plot that explains the main storyline and characters.",
+  "country": "United States",
   "informationUrl": "https://www.example.com/movie/123456",
   "originalName": "Original Movie Title",
   "cover": "https://example.com/images/cover_big.jpg",
@@ -40,15 +44,6 @@
     "mpaa": "PG-13",
     "age": null
   },
-  "name": "Movie Title",
-  "year": "2023",
-  "containerExtension": "mp4",
-  "customSid": "abc123",
-  "directSource": "https://example.com/streaming/movie.mp4",
-  "description": "A brief description of the movie plot that gives viewers an idea of what the film is about without revealing too many details.",
-  "plot": "A more detailed description of the movie plot that explains the main storyline and characters.",
-  "country": "United States",
-  "bitrate": 3500,
   "subtitles": [
     "English",
     "Spanish",

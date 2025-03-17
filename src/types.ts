@@ -138,7 +138,7 @@ export type XtreamMoviesListing = {
   /** The title of the movie */
   name: string;
   /** Year released */
-  year: string;
+  year: string | null;
   /** The title of the movie */
   title: string;
   /** The type of stream (e.g., "movie") */
@@ -207,7 +207,7 @@ export type XtreamMovieData = {
   /** The title of the movie */
   title: string;
   /** The year the movie was released */
-  year: string;
+  year: string | null;
   /** The date when the movie was added to the system */
   added: string;
   /** The primary category ID of the movie */
@@ -295,7 +295,7 @@ export type XtreamShowListing = {
   /** The title of the show */
   title: string;
   /** The year of release */
-  year: string;
+  year: string | null;
   /** The unique identifier for the series */
   series_id: number;
   /** The type of stream (e.g., "series") */
@@ -354,7 +354,7 @@ export type XtreamShowInfo = {
   /** The title of the show */
   title: string;
   /** The year of release */
-  year: string;
+  year: string | null;
   /** The unique identifier for the series, added by this library */
   series_id?: number;
   /** The URL for the show's cover image */
@@ -411,8 +411,6 @@ export type XtreamSeason = {
   season_number: number;
   /** The URL for a larger version of the season's cover */
   cover_big: string;
-  /** The average duration of episodes in the season */
-  duration?: string;
   /** The average rating vote for the season */
   vote_average: number;
 };
@@ -655,25 +653,25 @@ export type XtreamAudioInfo = {
     /** Forced flag */
     forced: number;
     /** Hearing impaired flag */
-    hearing_impaired: 0;
+    hearing_impaired: number;
     /** Visual impaired flag */
-    visual_impaired: 0;
+    visual_impaired: number;
     /** Clean effects flag */
-    clean_effects: 0;
+    clean_effects: number;
     /** Attached picture flag */
-    attached_pic: 0;
+    attached_pic: number;
     /** Timed thumbnails flag */
-    timed_thumbnails: 0;
+    timed_thumbnails: number;
     /** Captions flag */
-    captions: 0;
+    captions: number;
     /** Descriptions flag */
-    descriptions: 0;
+    descriptions: number;
     /** Metadata flag */
-    metadata: 0;
+    metadata: number;
     /** Dependent flag */
-    dependent: 0;
+    dependent: number;
     /** Still image flag */
-    still_image: 0;
+    still_image: number;
   };
   /** The metadata tags */
   tags: {

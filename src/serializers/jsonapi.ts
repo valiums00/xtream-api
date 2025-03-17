@@ -1,6 +1,6 @@
-import camelCaseKeys from 'camelcase-keys';
+import camelCaseKeys, { CamelCaseKeys } from 'camelcase-keys';
 import { defineSerializers } from '../xtream.ts';
-import type { XtreamCategory } from '../types.ts';
+import type { XtreamAudioInfo, XtreamCategory, XtreamSeason, XtreamVideoInfo } from '../types.ts';
 
 /**
  * JSON API serializers for the Xtream API
@@ -60,29 +60,21 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
     return {
       data: camelInput.map((channel) => {
-        const {
-          added,
-          num,
-          streamId,
-          streamType,
-          categoryId,
-          categoryIds,
-          streamIcon,
-          epgChannelId,
-          tvArchive,
-          ...cced
-        } = channel;
+        const { added, num, streamId, categoryIds, streamIcon, epgChannelId, tvArchive, name, tvArchiveDuration, url } =
+          channel;
 
         return {
           type: 'channel',
           id: streamId.toString(),
           attributes: {
+            name,
             number: num,
-            ...cced,
             tvArchive: tvArchive === 1,
+            tvArchiveDuration,
             logo: streamIcon,
             epgId: epgChannelId,
             createdAt: new Date(Number(added) * 1000),
+            url,
           },
           ...(categoryIds.length > 0 && {
             relationships: {
@@ -94,7 +86,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           }),
-        };
+        } satisfies JSONAPIXtreamChannel;
       }),
     };
   },
@@ -105,31 +97,28 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     return {
       data: camelInput.map((movie) => {
         const {
-          num,
-          streamType,
           streamIcon,
           streamId,
           releaseDate,
           rating,
-          rating5Based,
           added,
           categoryIds,
-          categoryId,
           episodeRunTime,
           genre,
           cast,
           director,
           youtubeTrailer,
           title,
-          ...cced
+          plot,
+          url,
         } = movie;
 
         return {
           type: 'movie',
           id: streamId.toString(),
           attributes: {
-            ...cced,
             name: title,
+            plot,
             genre: genre?.split(',').map((x) => x.trim()) ?? [],
             cast: cast?.split(',').map((x) => x.trim()) ?? [],
             director: director?.split(',').map((x) => x.trim()) ?? [],
@@ -139,6 +128,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             youtubeId: youtubeTrailer,
             releaseDate: releaseDate ? new Date(releaseDate) : null,
             createdAt: new Date(Number(added) * 1000),
+            url,
           },
           ...(categoryIds.length > 0 && {
             relationships: {
@@ -150,7 +140,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           }),
-        };
+        } satisfies JSONAPIXtreamMovieListing;
       }),
     };
   },
@@ -165,7 +155,6 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       cast,
       oName,
       releaseDate,
-      releasedate,
       mpaaRating,
       age,
       rating,
@@ -173,29 +162,33 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       durationSecs,
       coverBig,
       movieImage,
-      backdropPath,
-      ratingCountKinopoisk,
       kinopoiskUrl,
-      episodeRunTime,
       youtubeTrailer,
       tmdbId,
-      ...restInfo
+      name,
+      description,
+      plot,
+      country,
+      subtitles,
+      bitrate,
     } = camelInput.info;
-    const { categoryId, categoryIds, streamId, added, title, ...restData } = camelInput.movieData;
+    const { categoryIds, streamId, added } = camelInput.movieData;
 
     return {
       data: {
         type: 'movie',
         id: streamId.toString(),
         attributes: {
-          ...restData,
-          ...restInfo,
-          informationUrl: kinopoiskUrl,
+          name,
           originalName: oName,
+          description,
+          plot,
+          informationUrl: kinopoiskUrl,
           cover: coverBig,
           poster: movieImage,
           duration: durationSecs,
           durationFormatted: duration,
+          country,
           voteAverage: rating,
           director: director?.split(',').map((x) => x.trim()) ?? [],
           actors: actors?.split(',').map((x) => x.trim()) ?? [],
@@ -207,6 +200,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             mpaa: mpaaRating,
             age: Number(age),
           },
+          subtitles,
+          bitrate,
           releaseDate: releaseDate ? new Date(releaseDate) : null,
           createdAt: new Date(Number(added) * 1000),
         },
@@ -230,13 +225,9 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     return {
       data: camelInput.map((show) => {
         const {
-          num,
-          streamType,
           rating,
-          rating5Based,
           seriesId,
           cover,
-          categoryId,
           categoryIds,
           backdropPath,
           releaseDate,
@@ -247,15 +238,15 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           genre,
           youtubeTrailer,
           title,
-          ...restShow
+          plot,
         } = show;
 
         return {
           type: 'show',
           id: seriesId.toString(),
           attributes: {
-            ...restShow,
             name: title,
+            plot,
             cast: cast?.split(',').map((x) => x.trim()) ?? [],
             director: director?.split(',').map((x) => x.trim()) ?? [],
             genre: genre?.split(',').map((x) => x.trim()) ?? [],
@@ -277,7 +268,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           }),
-        };
+        } satisfies JSONAPIXtreamShow;
       }),
     };
   },
@@ -294,10 +285,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
     const {
       rating,
-      rating5Based,
       seriesId,
       cover,
-      categoryId,
       categoryIds,
       backdropPath,
       releaseDate,
@@ -308,7 +297,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
       genre,
       youtubeTrailer,
       title,
-      ...restShowInfo
+      plot,
     } = info;
 
     if (typeof seriesId === 'undefined') {
@@ -318,9 +307,10 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
     const flatEpisodes = Object.values(episodes).flat();
 
     const episodesAsJSONAPI: JSONAPIXtreamEpisode[] = flatEpisodes.map((episode) => {
-      const { id, season, episodeNum, added, info, ...restEpisode } = episode;
+      const { id, season, title, subtitles, url, episodeNum, added, info } = episode;
 
-      const { releaseDate, rating, movieImage, coverBig, durationSecs, duration, tmdbId, ...restEpisodeInfo } = info;
+      const { releaseDate, rating, movieImage, coverBig, durationSecs, duration, tmdbId, plot, video, audio, bitrate } =
+        info;
 
       const seasonId = seasons.find((x) => x.seasonNumber === season)?.id.toString() || season.toString();
 
@@ -329,8 +319,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         id,
         attributes: {
           number: Number(episodeNum),
-          ...restEpisode,
-          ...restEpisodeInfo,
+          title,
+          plot,
           tmdbId: tmdbId?.toString(),
           poster: movieImage,
           cover: coverBig,
@@ -339,6 +329,11 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           durationFormatted: duration,
           releaseDate: releaseDate ? new Date(releaseDate) : null,
           createdAt: new Date(Number(added) * 1000),
+          subtitles,
+          url,
+          video,
+          audio,
+          bitrate,
         },
         relationships: {
           season: {
@@ -349,7 +344,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
             data: { type: 'show', id: seriesId.toString() },
           },
         },
-      };
+      } satisfies JSONAPIXtreamEpisode;
     });
 
     let seasonsToMap = seasons;
@@ -368,8 +363,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           seasonNumber: Number(seasonNumber),
           voteAverage: Number(firstEpisode.info.rating),
           coverBig: firstEpisode.info.movieImage,
-          releaseDate: firstEpisode.info.releaseDate,
-        };
+        } satisfies CamelCaseKeys<XtreamSeason>;
       });
     }
 
@@ -398,7 +392,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               })),
           },
         },
-      };
+      } satisfies JSONAPIXtreamSeason;
     });
 
     return {
@@ -406,8 +400,8 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         type: 'show',
         id: seriesId.toString(),
         attributes: {
-          ...restShowInfo,
           name: title,
+          plot,
           voteAverage: Number(rating),
           poster: cover,
           cover: backdropPath[0],
@@ -449,25 +443,13 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
     return {
       data: epgListings.map((listing) => {
-        const {
-          id,
-          channelId,
-          lang,
-          startTimestamp,
-          stopTimestamp,
-          stop,
-          start,
-          end,
-          title,
-          description,
-          ...restListing
-        } = listing;
+        const { id, channelId, lang, start, end, title, description, epgId } = listing;
 
         return {
           type: 'epg-listing',
           id: id.toString(),
           attributes: {
-            ...restListing,
+            epgId,
             start: new Date(start),
             end: new Date(Number(end) * 1000),
             title: atob(title),
@@ -482,7 +464,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           },
-        };
+        } satisfies JSONAPIXtreamShortEPGListing;
       }),
     };
   },
@@ -492,26 +474,13 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
 
     return {
       data: epgListings.map((listing) => {
-        const {
-          id,
-          channelId,
-          startTimestamp,
-          stopTimestamp,
-          start,
-          end,
-          title,
-          description,
-          nowPlaying,
-          hasArchive,
-          lang,
-          ...restListing
-        } = listing;
+        const { id, channelId, start, end, title, description, nowPlaying, hasArchive, lang, epgId } = listing;
 
         return {
           type: 'epg-listing',
           id: id.toString(),
           attributes: {
-            ...restListing,
+            epgId,
             start: new Date(start),
             end: new Date(end),
             title: atob(title),
@@ -528,7 +497,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
               },
             },
           },
-        };
+        } satisfies JSONAPIXtreamFullEPGListing;
       }),
     };
   },
@@ -560,7 +529,7 @@ function categoryMapper(
             },
           },
         }),
-      };
+      } satisfies JSONAPIXtreamCategory;
     }),
   };
 }
@@ -672,16 +641,10 @@ export type JSONAPIXtreamChannel = {
     epgId: string;
     /** The position/order number of the channel */
     number: number;
-    /** Custom stream identifier */
-    customSid: string;
     /** Flag indicating if TV archive is available */
     tvArchive: boolean;
-    /** The direct URL to the channel's source */
-    directSource: string;
     /** The duration of available archive in days */
     tvArchiveDuration: number;
-    /** The URL for the channel's cover image */
-    thumbnail: string;
     /** The URL for the channel's logo */
     logo: string;
     /** The date when the channel was added to the system */
@@ -801,20 +764,18 @@ export type JSONAPIXtreamMovie = {
     duration: number;
     /** The formatted duration of the movie */
     durationFormatted: string;
-    /** The bitrate of the movie */
-    bitrate: number;
+    /** Video stream information */
+    video?: Partial<CamelCaseKeys<XtreamVideoInfo, true>>;
+    /** Audio stream information */
+    audio?: Partial<CamelCaseKeys<XtreamAudioInfo, true>>;
+    /** Bitrate of the stream */
+    bitrate?: number;
     /** Array of available subtitles */
     subtitles: string[];
     /** The rating of the movie */
     voteAverage: number;
     /** The date when the movie was added to the system */
     createdAt: Date;
-    /** The file format extension */
-    containerExtension: string;
-    /** Custom stream identifier */
-    customSid: string;
-    /** The direct URL to the movie's source */
-    directSource: string;
     /** URL to access the stream */
     url?: string;
   };
@@ -933,8 +894,18 @@ export type JSONAPIXtreamEpisode = {
     tmdbId: string;
     /** The date when the episode was added to the system */
     createdAt: Date;
+    /** The vote average of ratings */
+    voteAverage: number;
     /** URL to access the stream */
     url?: string;
+    /** Video stream information */
+    video?: Partial<CamelCaseKeys<XtreamVideoInfo, true>>;
+    /** Audio stream information */
+    audio?: Partial<CamelCaseKeys<XtreamAudioInfo, true>>;
+    /** Bitrate of the stream */
+    bitrate?: number;
+    /** Array of available subtitles */
+    subtitles: string[];
   };
   /** The episode relationships */
   relationships: {
@@ -988,6 +959,15 @@ export type JSONAPIXtreamSeason = {
         /** The show ID */
         id: string;
       };
+    };
+    /** The episodes relationship */
+    episodes: {
+      data: {
+        /** The episode type */
+        type: 'episode';
+        /** The episode ID */
+        id: string;
+      }[];
     };
   };
 };
