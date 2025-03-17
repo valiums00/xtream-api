@@ -1,5 +1,21 @@
 # Changelog
 
+## Release (2025-03-17)
+
+@iptv/xtream-api 1.3.0 (minor)
+
+#### :rocket: Enhancement
+* `@iptv/xtream-api`
+  * [#23](https://github.com/ektotv/xtream-api/pull/23) More standardization and ensure serialized objects match type ([@evoactivity](https://github.com/evoactivity))
+
+#### :bug: Bug Fix
+* `@iptv/xtream-api`
+  * [#22](https://github.com/ektotv/xtream-api/pull/22) Handle when Xtream sends null for certain properties ([@evoactivity](https://github.com/evoactivity))
+  * [#21](https://github.com/ektotv/xtream-api/pull/21) Fix loading ESM only camelcase-keys in CJS loader. ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2025-03-10)
 
 @iptv/xtream-api 1.2.4 (patch)
