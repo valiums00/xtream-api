@@ -21,6 +21,9 @@ importers:
       release-plan:
         specifier: ^0.13.1
         version: 0.13.1
+      replace-in-file:
+        specifier: ^8.3.0
+        version: 8.3.0
       typedoc:
         specifier: ^0.27.9
         version: 0.27.9(typescript@5.7.3)
@@ -772,6 +775,10 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
+  chalk@5.4.1:
+    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   check-error@2.1.1:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
@@ -1473,6 +1480,11 @@ packages:
 
   release-plan@0.13.1:
     resolution: {integrity: sha512-hvlQge4Q7xw3xo1amuJcxBN8TUKp0rDIb4a8aAIvN4nQDzqZxCnOG27gUotYE9Oh5ELpx8cXJnn61Lo9CzOgeA==}
+    hasBin: true
+
+  replace-in-file@8.3.0:
+    resolution: {integrity: sha512-4VhddQiMCPIuypiwHDTM+XHjZoVu9h7ngBbSCnwGRcwdHwxltjt/m//Ep3GDwqaOx1fDSrKFQ+n7uo4uVcEz9Q==}
+    engines: {node: '>=18'}
     hasBin: true
 
   require-directory@2.1.1:
@@ -2622,6 +2634,8 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  chalk@5.4.1: {}
+
   check-error@2.1.1: {}
 
   chownr@2.0.0: {}
@@ -3363,6 +3377,12 @@ snapshots:
     transitivePeerDependencies:
       - bluebird
       - supports-color
+
+  replace-in-file@8.3.0:
+    dependencies:
+      chalk: 5.4.1
+      glob: 10.4.5
+      yargs: 17.7.2
 
   require-directory@2.1.1: {}
 
