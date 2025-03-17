@@ -335,6 +335,25 @@ describe('JSON:API serializer', () => {
 
     await expect(show).toMatchFileSnapshot('snapshots/jsonapi/show-no-seasons.json');
   });
+
+  test('Handles null values for movies', async () => {
+    const xtream = new Xtream({
+      url: 'http://example.com',
+      username: 'gonull',
+      password: 'password',
+      serializer: JSONAPISerializer,
+    });
+
+    const movies = await xtream.getMovies();
+
+    expect(movies.data[0].attributes.plot).toBeNull();
+    expect(movies.data[0].attributes.director).toEqual([]);
+    expect(movies.data[0].attributes.cast).toEqual([]);
+    expect(movies.data[0].attributes.genre).toEqual([]);
+    expect(movies.data[0].attributes.releaseDate).toBeNull();
+    expect(movies.data[0].attributes.youtubeId).toBeNull();
+    expect(movies.data[0].attributes.duration).toBe(0);
+  });
 });
 
 describe('Camel case serializer', () => {
@@ -400,6 +419,25 @@ describe('Camel case serializer', () => {
     const show = await camelCaseSerializerXtream.getShow({ showId: '1' });
 
     await expect(show).toMatchFileSnapshot('snapshots/camelcase/show.json');
+  });
+
+  test('Handles null values for movies', async () => {
+    const xtream = new Xtream({
+      url: 'http://example.com',
+      username: 'gonull',
+      password: 'password',
+      serializer: camelCaseSerializer,
+    });
+
+    const movies = await xtream.getMovies();
+
+    expect(movies[0].plot).toBeNull();
+    expect(movies[0].director).toBeNull();
+    expect(movies[0].cast).toBeNull();
+    expect(movies[0].genre).toBeNull();
+    expect(movies[0].releaseDate).toBeNull();
+    expect(movies[0].youtubeTrailer).toBeNull();
+    expect(movies[0].episodeRunTime).toBeNull();
   });
 });
 
@@ -472,6 +510,25 @@ describe('Standardized serializer', () => {
     const show = await standardizedSerializerXtream.getShow({ showId: '3000' });
 
     await expect(show).toMatchFileSnapshot('snapshots/standardized/show-no-seasons.json');
+  });
+
+  test('Handles null values for movies', async () => {
+    const xtream = new Xtream({
+      url: 'http://example.com',
+      username: 'gonull',
+      password: 'password',
+      serializer: standardizedSerializer,
+    });
+
+    const movies = await xtream.getMovies();
+
+    expect(movies[0].plot).toBeNull();
+    expect(movies[0].cast).toEqual([]);
+    expect(movies[0].director).toEqual([]);
+    expect(movies[0].genre).toEqual([]);
+    expect(movies[0].releaseDate).toBeNull();
+    expect(movies[0].youtubeId).toBeNull();
+    expect(movies[0].duration).toBe(0);
   });
 });
 

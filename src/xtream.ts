@@ -118,7 +118,7 @@ export type StreamURLRequest = {
  */
 export class Xtream<T extends CustomSerializers = CustomSerializers> {
   // The base URL of the Xtream server (without trailing slash)
-  #baseUrl: string;
+  baseUrl: string;
 
   // The URL of the Xtream API with authentication parameters
   #apiUrl: string;
@@ -194,8 +194,8 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
 
     this.#username = username.trim();
     this.#password = password.trim();
-    this.#baseUrl = url.replace(/\/$/, '');
-    this.#apiUrl = this.#baseUrl + `/player_api.php?username=${this.#username}&password=${this.#password}&action=`;
+    this.baseUrl = url.replace(/\/$/, '');
+    this.#apiUrl = this.baseUrl + `/player_api.php?username=${this.#username}&password=${this.#password}&action=`;
 
     if (preferredFormat) this.#format = preferredFormat;
 
@@ -256,13 +256,13 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
       let format = this.#format;
 
       if (format === 'rtmp') {
-        return `${this.#baseUrl}/live/${this.#username}/${this.#password}/${stream.streamId}.ts`;
+        return `${this.baseUrl}/live/${this.#username}/${this.#password}/${stream.streamId}.ts`;
       }
 
       if (stream.timeshift) {
         const { start, duration } = stream.timeshift;
         const startDate = start.toISOString().replace(/:/g, '-').replace('T', ':').slice(0, -8);
-        return `${this.#baseUrl}/timeshift/${this.#username}/${this.#password}/${duration}/${startDate}/${
+        return `${this.baseUrl}/timeshift/${this.#username}/${this.#password}/${duration}/${startDate}/${
           stream.streamId
         }.ts`;
       }
@@ -273,15 +273,15 @@ export class Xtream<T extends CustomSerializers = CustomSerializers> {
         format = this.userProfile!.allowed_output_formats[0];
       }
 
-      return `${this.#baseUrl}/live/${this.#username}/${this.#password}/${stream.streamId}.${format}`;
+      return `${this.baseUrl}/live/${this.#username}/${this.#password}/${stream.streamId}.${format}`;
     }
 
     if (stream.type === 'episode') {
-      return `${this.#baseUrl}/series/${this.#username}/${this.#password}/${stream.streamId}.${stream.extension}`;
+      return `${this.baseUrl}/series/${this.#username}/${this.#password}/${stream.streamId}.${stream.extension}`;
     }
 
     if (stream.type === 'movie') {
-      return `${this.#baseUrl}/movie/${this.#username}/${this.#password}/${stream.streamId}.${stream.extension}`;
+      return `${this.baseUrl}/movie/${this.#username}/${this.#password}/${stream.streamId}.${stream.extension}`;
     }
 
     return undefined;

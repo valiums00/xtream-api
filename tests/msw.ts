@@ -544,13 +544,29 @@ export const restHandlers = [
         });
         return HttpResponse.json(filteredChannels);
       case 'get_vod_streams':
-        const filteredMovies = movies.filter((movie) => {
+        let filteredMovies = movies.filter((movie) => {
           if (!categoryId) {
             return true;
           }
 
           return movie.category_ids.some((id) => id === Number(categoryId));
         });
+
+        if (username === 'gonull') {
+          filteredMovies = filteredMovies.map((movie) => {
+            return {
+              ...movie,
+              plot: null,
+              cast: null,
+              director: null,
+              genre: null,
+              release_date: null,
+              youtube_trailer: null,
+              episode_run_time: null,
+            };
+          });
+        }
+
         return HttpResponse.json(filteredMovies);
       case 'get_vod_info':
         if (vodId === '1000') {
