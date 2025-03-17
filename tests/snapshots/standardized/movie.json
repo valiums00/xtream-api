@@ -6,7 +6,7 @@
   "country": "United States",
   "informationUrl": "https://www.example.com/movie/123456",
   "originalName": "Original Movie Title",
-  "cover": "https://example.com/images/cover_big.jpg",
+  "cover": "https://example.com/images/backdrop1.jpg",
   "poster": "https://example.com/images/movie_image.jpg",
   "duration": 7200,
   "durationFormatted": "02:00:00",
