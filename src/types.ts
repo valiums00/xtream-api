@@ -152,11 +152,11 @@ export type XtreamMoviesListing = {
   /** The movie's rating on a 5-point scale */
   rating_5based: number;
   /** The genres of the movie */
-  genre: string;
+  genre: string | null;
   /** The date when the movie was added to the system */
   added: string;
   /** The runtime of the movie in minutes */
-  episode_run_time: number;
+  episode_run_time: number | null;
   /** The primary category ID of the movie */
   category_id: string;
   /** All category IDs the movie belongs to */
@@ -168,15 +168,15 @@ export type XtreamMoviesListing = {
   /** The direct URL to the movie's source */
   direct_source: string;
   /** The release date of the movie */
-  release_date: string;
+  release_date: string | null;
   /** The cast of the movie */
-  cast: string;
+  cast: string | null;
   /** The director(s) of the movie */
-  director: string;
+  director: string | null;
   /** The synopsis/description of the movie */
-  plot: string;
+  plot: string | null;
   /** Youtube ID of the trailer */
-  youtube_trailer: string;
+  youtube_trailer: string | null;
   /** The URL to access the movie */
   url?: string;
 };
@@ -241,21 +241,21 @@ export type XtreamMovieInfo = {
   /** The URL for the movie's image */
   movie_image: string;
   /** The release date of the movie */
-  release_date: string;
+  release_date: string | null;
   /** The runtime of the movie in minutes */
-  episode_run_time: number;
+  episode_run_time: number | null;
   /** The YouTube ID or URL for the trailer */
-  youtube_trailer: string;
+  youtube_trailer: string | null;
   /** The director(s) of the movie */
-  director: string;
+  director: string | null;
   /** The actors in the movie */
-  actors: string;
+  actors: string | null;
   /** The cast of the movie */
-  cast: string;
+  cast: string | null;
   /** The synopsis/description of the movie */
-  description: string;
+  description: string | null;
   /** The plot of the movie */
-  plot: string;
+  plot: string | null;
   /** The age rating of the movie */
   age: string;
   /** The MPAA rating of the movie */
@@ -265,7 +265,7 @@ export type XtreamMovieInfo = {
   /** The country of origin for the movie */
   country: string;
   /** The genre(s) of the movie */
-  genre: string;
+  genre: string | null;
   /** Array of backdrop image URLs */
   backdrop_path: string[];
   /** The duration of the movie in seconds */
@@ -275,7 +275,7 @@ export type XtreamMovieInfo = {
   /** The bitrate of the movie */
   bitrate: number;
   /** The release date of the movie */
-  releasedate: string;
+  releasedate: string | null;
   /** Array of available subtitles */
   subtitles: string[];
   /** The rating of the movie */
@@ -303,17 +303,17 @@ export type XtreamShowListing = {
   /** The URL for the show's cover image */
   cover: string;
   /** The synopsis/description of the show */
-  plot: string;
+  plot: string | null;
   /** The cast members of the show */
-  cast: string;
+  cast: string | null;
   /** The director(s) of the show */
-  director: string;
+  director: string | null;
   /** The genre(s) of the show */
-  genre: string;
+  genre: string | null;
   /** The release date of the show (alternate format) */
-  releaseDate: string;
+  releaseDate: string | null;
   /** The release date of the show */
-  release_date: string;
+  release_date: string | null;
   /** The date when the show was last updated */
   last_modified: string;
   /** The show's rating as a string */
@@ -323,9 +323,9 @@ export type XtreamShowListing = {
   /** Array of backdrop image URLs */
   backdrop_path: string[];
   /** The YouTube ID or URL for the trailer */
-  youtube_trailer: string;
+  youtube_trailer: string | null;
   /** The average runtime of episodes as a string */
-  episode_run_time: string;
+  episode_run_time: string | null;
   /** The primary category ID of the show */
   category_id: string;
   /** All category IDs the show belongs to */
@@ -360,17 +360,17 @@ export type XtreamShowInfo = {
   /** The URL for the show's cover image */
   cover: string;
   /** The synopsis/description of the show */
-  plot: string;
+  plot: string | null;
   /** The cast members of the show */
-  cast: string;
+  cast: string | null;
   /** The director(s) of the show */
-  director: string;
+  director: string | null;
   /** The genre(s) of the show */
-  genre: string;
+  genre: string | null;
   /** The release date of the show (alternate format) */
-  releaseDate: string;
+  releaseDate: string | null;
   /** The release date of the show */
-  release_date: string;
+  release_date: string | null;
   /** The date when the show was last updated */
   last_modified: string;
   /** The show's rating as a string */
@@ -380,9 +380,9 @@ export type XtreamShowInfo = {
   /** Array of backdrop image URLs */
   backdrop_path: string[];
   /** The YouTube ID or URL for the trailer */
-  youtube_trailer: string;
+  youtube_trailer: string | null;
   /** The average runtime of episodes as a string */
-  episode_run_time: string;
+  episode_run_time: string | null;
   /** The primary category ID of the show */
   category_id: string;
   /** All category IDs the show belongs to */
@@ -404,7 +404,7 @@ export type XtreamSeason = {
   /** The synopsis/description of the season */
   overview: string;
   /** The date when the season first aired */
-  air_date: string;
+  air_date: string | null;
   /** The URL for the season's cover image */
   cover: string;
   /** The season number */
@@ -456,9 +456,9 @@ export type XtreamEpisodeInfo = {
   /** The air date of the episode */
   air_date?: string;
   /** The release date of the episode */
-  release_date: string;
+  release_date: string | null;
   /** The plot of the episdoe */
-  plot: string;
+  plot: string | null;
   /** The rating of the episode */
   rating: number;
   /** The image of the episode */

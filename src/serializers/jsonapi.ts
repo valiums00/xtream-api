@@ -130,14 +130,14 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           attributes: {
             ...cced,
             name: title,
-            genre: genre.split(',').map((x) => x.trim()),
-            cast: cast.split(',').map((x) => x.trim()),
-            director: director.split(',').map((x) => x.trim()),
+            genre: genre?.split(',').map((x) => x.trim()) ?? [],
+            cast: cast?.split(',').map((x) => x.trim()) ?? [],
+            director: director?.split(',').map((x) => x.trim()) ?? [],
             poster: streamIcon,
             voteAverage: Number(rating),
             duration: Number(episodeRunTime) * 60,
             youtubeId: youtubeTrailer,
-            releaseDate: new Date(releaseDate),
+            releaseDate: releaseDate ? new Date(releaseDate) : null,
             createdAt: new Date(Number(added) * 1000),
           },
           ...(categoryIds.length > 0 && {
@@ -197,17 +197,17 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           duration: durationSecs,
           durationFormatted: duration,
           voteAverage: rating,
-          director: director.split(',').map((x) => x.trim()),
-          actors: actors.split(',').map((x) => x.trim()),
-          cast: cast.split(',').map((x) => x.trim()),
-          genre: genre.split(',').map((x) => x.trim()),
+          director: director?.split(',').map((x) => x.trim()) ?? [],
+          actors: actors?.split(',').map((x) => x.trim()) ?? [],
+          cast: cast?.split(',').map((x) => x.trim()) ?? [],
+          genre: genre?.split(',').map((x) => x.trim()) ?? [],
           youtubeId: youtubeTrailer,
           tmdbId: tmdbId?.toString(),
           rating: {
             mpaa: mpaaRating,
             age: Number(age),
           },
-          releaseDate: new Date(releaseDate),
+          releaseDate: releaseDate ? new Date(releaseDate) : null,
           createdAt: new Date(Number(added) * 1000),
         },
         ...(categoryIds.length > 0 && {
@@ -256,15 +256,15 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           attributes: {
             ...restShow,
             name: title,
-            cast: cast.split(',').map((x) => x.trim()),
-            director: director.split(',').map((x) => x.trim()),
-            genre: genre.split(',').map((x) => x.trim()),
+            cast: cast?.split(',').map((x) => x.trim()) ?? [],
+            director: director?.split(',').map((x) => x.trim()) ?? [],
+            genre: genre?.split(',').map((x) => x.trim()) ?? [],
             voteAverage: Number(rating),
             poster: cover,
             cover: backdropPath[0],
             duration: Number(episodeRunTime) * 60,
             youtubeId: youtubeTrailer,
-            releaseDate: new Date(releaseDate),
+            releaseDate: releaseDate ? new Date(releaseDate) : null,
             updatedAt: new Date(Number(lastModified) * 1000),
           },
           ...(categoryIds.length > 0 && {
@@ -337,7 +337,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           voteAverage: Number(rating),
           duration: durationSecs,
           durationFormatted: duration,
-          releaseDate: new Date(releaseDate),
+          releaseDate: releaseDate ? new Date(releaseDate) : null,
           createdAt: new Date(Number(added) * 1000),
         },
         relationships: {
@@ -381,7 +381,7 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
         id: id.toString(),
         attributes: {
           ...restSeason,
-          releaseDate: new Date(airDate),
+          releaseDate: airDate ? new Date(airDate) : null,
           number: seasonNumber,
           cover: coverBig,
         },
@@ -412,11 +412,11 @@ export const JSONAPISerializer = defineSerializers('JSON:API', {
           poster: cover,
           cover: backdropPath[0],
           duration: Number(episodeRunTime) * 60,
-          cast: cast.split(',').map((x) => x.trim()),
-          director: director.split(',').map((x) => x.trim()),
-          genre: genre.split(',').map((x) => x.trim()),
+          cast: cast?.split(',').map((x) => x.trim()) ?? [],
+          director: director?.split(',').map((x) => x.trim()) ?? [],
+          genre: genre?.split(',').map((x) => x.trim()) ?? [],
           youtubeId: youtubeTrailer,
-          releaseDate: new Date(releaseDate),
+          releaseDate: releaseDate ? new Date(releaseDate) : null,
           updatedAt: new Date(Number(lastModified) * 1000),
         },
         relationships: {
@@ -718,23 +718,23 @@ export type JSONAPIXtreamMovieListing = {
     /** The title of the movie */
     name: string;
     /** The synopsis/description of the movie */
-    plot: string;
+    plot: string | null;
     /** The movie's rating */
     voteAverage: number;
     /** The URL for the movie's poster */
     poster: string;
     /** The release date of the movie */
-    releaseDate: Date;
+    releaseDate: Date | null;
     /** The runtime of the movie in seconds */
     duration: number;
     /** The cast of the movie as an array */
-    cast: string[];
+    cast: string[] | [];
     /** The director(s) of the movie as an array */
-    director: string[];
+    director: string[] | [];
     /** The youtube id of the trailer */
-    youtubeId: string;
+    youtubeId: string | null;
     /** The genres of the movie as an array */
-    genre: string[];
+    genre: string[] | [];
     /** The date when the movie was added to the system */
     createdAt: Date;
     /** URL to access the stream */
@@ -775,9 +775,9 @@ export type JSONAPIXtreamMovie = {
     /** The URL for the movie's image */
     poster: string;
     /** The release date of the movie */
-    releaseDate: Date;
+    releaseDate: Date | null;
     /** The YouTube ID or URL for the trailer */
-    youtubeId: string;
+    youtubeId: string | null;
     /** The director(s) of the movie */
     director: string[];
     /** The actors in the movie */
@@ -785,9 +785,9 @@ export type JSONAPIXtreamMovie = {
     /** The cast of the movie */
     cast: string[];
     /** The synopsis/description of the movie */
-    description: string;
+    description: string | null;
     /** The plot of the movie */
-    plot: string;
+    plot: string | null;
     /** The age abd MPAA rating of the movie */
     rating: {
       age: number;
@@ -847,7 +847,7 @@ export type JSONAPIXtreamShow = {
     /** The title of the show */
     name: string;
     /** The synopsis/description of the show */
-    plot: string;
+    plot: string | null;
     /** The show's rating */
     voteAverage: number;
     /** The URL for the show's poster image */
@@ -855,7 +855,7 @@ export type JSONAPIXtreamShow = {
     /** The URL for the show's cover image */
     cover: string;
     /** The release date of the show */
-    releaseDate: Date;
+    releaseDate: Date | null;
     /** The average runtime of episodes in seconds */
     duration: number;
     /** The cast members of the show as an array */
@@ -865,7 +865,7 @@ export type JSONAPIXtreamShow = {
     /** The genre(s) of the show as an array */
     genre: string[];
     /** Youtube ID of trailer */
-    youtubeId: string;
+    youtubeId: string | null;
     /** The date when the show was last updated */
     updatedAt: Date;
   };
@@ -918,9 +918,9 @@ export type JSONAPIXtreamEpisode = {
     /** The title of the episode */
     title: string;
     /** The synopsis/description of the episode */
-    plot: string;
+    plot: string | null;
     /** The release date of the episode */
-    releaseDate: Date;
+    releaseDate: Date | null;
     /** The duration of the episode in seconds */
     duration: number;
     /** The formatted duration of the episode */
@@ -976,7 +976,7 @@ export type JSONAPIXtreamSeason = {
     /** The URL for the season's cover image */
     cover: string;
     /** The date when the season first aired */
-    releaseDate: Date;
+    releaseDate: Date | null;
   };
   /** The season relationships */
   relationships: {
