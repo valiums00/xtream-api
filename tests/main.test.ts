@@ -4,6 +4,7 @@ import { camelCaseSerializer } from '../src/serializers/camelcase.ts';
 import { JSONAPISerializer } from '../src/serializers/jsonapi.ts';
 import { standardizedSerializer } from '../src/serializers/standardized.ts';
 import { server } from './msw.ts';
+import { PreferredFormat } from 'src/xtream.ts';
 
 // Setup MSW
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
@@ -219,7 +220,7 @@ describe('Xtream API', () => {
       url: 'http://example.com',
       username: 'test',
       password: 'password',
-      preferredFormat: 'nono',
+      preferredFormat: 'nono' as PreferredFormat,
     });
 
     const stream = await formatXtream.getChannels({ page: 1, limit: 1 });
