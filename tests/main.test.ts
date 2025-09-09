@@ -219,6 +219,7 @@ describe('Xtream API', () => {
       url: 'http://example.com',
       username: 'test',
       password: 'password',
+      // @ts-expect-error: this should fail due to type checking
       preferredFormat: 'nono',
     });
 

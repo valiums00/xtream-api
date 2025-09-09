@@ -49,7 +49,7 @@ type Options = {
   url: string;
   username: string;
   password: string;
-  preferredFormat?: string;
+  preferredFormat?: 'ts' | 'm3u8' | 'rtmp';
 };
 
 /**
