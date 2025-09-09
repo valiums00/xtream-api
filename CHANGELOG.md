@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-09-09)
+
+@iptv/xtream-api 1.4.0 (minor)
+
+#### :rocket: Enhancement
+* `@iptv/xtream-api`
+  * [#27](https://github.com/ektotv/xtream-api/pull/27) Enhancement: change preferredFormat to a union instead of string ([@salim-m](https://github.com/salim-m))
+
+#### Committers: 1
+- Salim Majzoub ([@salim-m](https://github.com/salim-m))
+
 ## Release (2025-03-17)
 
 @iptv/xtream-api 1.3.1 (patch)
