@@ -38,8 +38,6 @@ type Serializers = {
  */
 type CustomSerializers = Partial<Serializers>;
 
-export type PreferredFormat = 'ts' | 'm3u8' | 'rtmp';
-
 /**
  * Configuration options for initializing the Xtream API client.
  * @property url - Base URL of the Xtream API server
@@ -51,7 +49,7 @@ type Options = {
   url: string;
   username: string;
   password: string;
-  preferredFormat?: PreferredFormat;
+  preferredFormat?: 'ts' | 'm3u8' | 'rtmp';
 };
 
 /**
